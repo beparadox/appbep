@@ -110,7 +110,14 @@ Cost: SES is $0.10 per 1,000 emails; Turnstile is free.
 ### Infrastructure & deploys
 
 - **AWS CDK (TypeScript)** in `infra/`: S3, CloudFront, ACM (us-east-1), Route 53 records, API Gateway, Lambda, DynamoDB.
-- **GitHub Actions:** on push to `main`, run lint, test, and build, then `cdk deploy`. The workflow authenticates through an OIDC role, so no AWS keys are stored in GitHub.
+- **CI/CD (GitHub Actions)**, live since 2026-11-06:
+  - `ci.yml` runs on every push and pull request: gitleaks secret scan (full history), format, lint, typecheck, tests, build, `cdk synth`.
+  - `deploy.yml` runs after CI **passes for a push to `main` in this repo** (pull requests, including forks, never deploy), or by hand via "Run workflow". It builds and runs `cdk deploy`.
+  - AWS login is OIDC, so there are no stored keys. GitHub issues a short-lived token; the IAM role `appbep-github-deploy` trusts only
+    `repo:beparadox@872477/appbep@1447725704:ref:refs/heads/main`. That is GitHub's _immutable_ subject format (owner and repo IDs, not just names), enabled on this repo. The role can do nothing except assume CDK's bootstrap roles (deploy, file-publishing, lookup).
+  - Repo **variables** (not secrets): `AWS_DEPLOY_ROLE_ARN`, `APPBEP_HOSTED_ZONE_ID`.
+  - Every third-party action is pinned to a full commit SHA (`# vX.Y.Z` comment for humans), and the gitleaks image to a digest. Dependabot opens a weekly PR for action updates. The gitleaks image is updated by hand (Dependabot doesn't see `docker run` lines); keep `ci.yml` and `scripts/scan-secrets.sh` in sync.
+- Manual deploy from a laptop still works: `npm run deploy` (reads the gitignored `.env.local`; log in first with `aws sso login --profile admin`).
 - Separate `dev` stage optional later. Local dev uses Vite plus a local Lambda handler against DynamoDB Local in Podman.
 
 ### Estimated monthly cost

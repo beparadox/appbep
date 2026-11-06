@@ -12,21 +12,28 @@ jobs:
   secrets:
     name: Secret scan
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0 # scan full history
+          persist-credentials: false
       - name: gitleaks
+        # Image pinned by digest (the tag is for humans). Keep in sync with scripts/scan-secrets.sh.
         run: |
-          docker run --rm -v "$PWD:/repo" -w /repo docker.io/zricethezav/gitleaks:v8.24.3 \
+          docker run --rm -v "$PWD:/repo" -w /repo \
+            docker.io/zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f \
             detect --config .gitleaks.toml --redact -v --source /repo
 
   build:
     name: Lint, test, build, synth
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: npm

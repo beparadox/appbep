@@ -1,0 +1,15 @@
+# Dependabot: opens pull requests when dependencies have new releases.
+# CI runs on each PR; nothing deploys until you merge to main.
+version: 2
+updates:
+  # GitHub Actions used in .github/workflows/*.yml. Understands SHA pins with a
+  # "# vX.Y.Z" comment and updates both. All action bumps arrive as one weekly PR.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci

@@ -4,7 +4,7 @@
 #   scripts/scan-secrets.sh --staged   scan only staged changes (used by the pre-commit hook)
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
-IMG=docker.io/zricethezav/gitleaks:v8.24.3
+IMG=docker.io/zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f  # keep in sync with .github/workflows/ci.yml
 CFG="$PWD/.gitleaks.toml"
 
 if [ "${1:-}" = "--staged" ]; then

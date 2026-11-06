@@ -1,0 +1,128 @@
+:root {
+  --bg: #fafaf8;
+  --fg: #1b1b1b;
+  --muted: #666;
+  --accent: #2a5d4f;
+  --face-bg: rgba(255, 255, 255, 0.92);
+  --face-edge: rgba(0, 0, 0, 0.18);
+  --spin-bg: rgba(42, 93, 79, 0.08);
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #ececec;
+    --muted: #9a9a9a;
+    --accent: #7fc4b0;
+    --face-bg: rgba(28, 28, 28, 0.94);
+    --face-edge: rgba(255, 255, 255, 0.2);
+    --spin-bg: rgba(127, 196, 176, 0.08);
+  }
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  overscroll-behavior: none; /* no rubber-band bounce */
+}
+body {
+  margin: 0;
+  background: var(--bg);
+}
+.home {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  line-height: 1.6;
+}
+.home h1 {
+  margin-bottom: 0.25rem;
+}
+.tagline {
+  color: var(--muted);
+  margin-top: 0;
+}
+.home a {
+  color: var(--accent);
+}
+.links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.funhouse-door {
+  display: inline-block;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Front page: cube layout ---------- */
+.cube-home {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+.cube-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vw, 7rem);
+}
+/* Phones: small cubes above and below the big one */
+@media (max-width: 720px) {
+  .cube-home {
+    padding: 0.75rem 1rem;
+  }
+  .cube-row {
+    flex-direction: column;
+    gap: clamp(0.75rem, 3svh, 2rem);
+  }
+  /* Fit everything on one phone screen so there is nothing to scroll. */
+  .info-cube {
+    --s: min(300px, 78vw, 46svh);
+    gap: 1rem;
+  }
+  .spin-stage {
+    --s: min(96px, 12svh);
+  }
+}
+.cube-home a {
+  color: var(--accent);
+}
+.face .tagline {
+  margin: 0;
+}
+.face ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.9;
+}
+.face-funhouse {
+  background: #000 repeating-linear-gradient(45deg, #000 0 14px, #1a0033 14px 28px);
+  color: #0f0;
+  font-family: 'Comic Sans MS', 'Comic Neue', cursive;
+}
+.cube-home .face-funhouse a {
+  color: #ff0;
+}
+.photo-placeholder {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  border: 1px dashed var(--muted);
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+}

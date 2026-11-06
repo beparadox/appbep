@@ -1,0 +1,19 @@
+{
+  "name": "@appbep/api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Lambda API for scores and quiz votes",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.149",
+    "@types/node": "^22.15.0",
+    "typescript": "~5.8.3",
+    "vitest": "^3.1.4"
+  }
+}

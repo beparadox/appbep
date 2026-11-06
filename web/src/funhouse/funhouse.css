@@ -1,0 +1,24 @@
+.funhouse {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #000 repeating-linear-gradient(45deg, #000 0 20px, #1a0033 20px 40px);
+  color: #0f0;
+  font-family: 'Comic Sans MS', 'Comic Neue', cursive;
+  text-align: center;
+}
+.funhouse a {
+  color: #ff0;
+}
+.blink {
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blink {
+    animation: none;
+  }
+}

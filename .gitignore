@@ -1,0 +1,44 @@
+# ---- Secrets: never commit ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials
+credentials.*
+**/stank.php
+**/connect_info.php
+**/recaptcha.txt
+**/db.txt
+**/hosting.txt
+
+# ---- Legacy sources (local reference only; contain old credentials) ----
+appbep-legacy/
+legacy/
+
+# ---- Build / tooling ----
+node_modules/
+dist/
+build/
+coverage/
+cdk.out/
+# CDK lookup cache holds account/zone IDs; keep it local
+cdk.context.json
+*.tsbuildinfo
+.vite/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.obsidian/
+.vscode/*
+!.vscode/extensions.json
+
+# ---- Personal notes (local only) ----
+appbep.md

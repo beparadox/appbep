@@ -1,0 +1,31 @@
+{
+  "name": "appbep",
+  "private": true,
+  "description": "appbep.com: personal site + the funhouse",
+  "workspaces": [
+    "web",
+    "api",
+    "infra"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web && npm run build -w api",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "synth": "npm run synth -w infra",
+    "secrets:scan": "bash scripts/scan-secrets.sh",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run synth && npm run secrets:scan",
+    "prepare": "git config core.hooksPath scripts/hooks || true",
+    "dev:lan": "npm run dev -w web -- --host"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  },
+  "license": "MIT"
+}

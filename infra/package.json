@@ -1,0 +1,25 @@
+{
+  "name": "@appbep/infra",
+  "private": true,
+  "version": "0.0.0",
+  "description": "AWS CDK app for appbep.com",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "synth": "cdk synth --quiet",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.250.0",
+    "constructs": "^10.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "aws-cdk": "^2.1140.0",
+    "esbuild": "^0.25.4",
+    "tsx": "^4.19.4",
+    "typescript": "~5.8.3",
+    "vitest": "^3.1.4"
+  }
+}

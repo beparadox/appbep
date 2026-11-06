@@ -1,0 +1,24 @@
+# gitleaks config: default rules + a few extras for this repo's history of legacy code.
+title = "appbep gitleaks"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "hardcoded-password-assignment"
+description = "Password-like assignment in source"
+regex = '''(?i)(pass(word)?|pswd|pwd|secret|api[_-]?key)\s*[:=]\s*['"][^'"\s]{6,}['"]'''
+keywords = ["pass", "pswd", "pwd", "secret", "key"]
+
+[[rules]]
+id = "recaptcha-v1-private-key"
+description = "Legacy reCAPTCHA key"
+regex = '''6L[0-9A-Za-z_-]{38}'''
+
+[[rules]]
+id = "mailgun-key"
+description = "Mailgun API key"
+regex = '''key-[0-9a-f]{32}'''
+
+[allowlist]
+paths = ['''package-lock\.json''']

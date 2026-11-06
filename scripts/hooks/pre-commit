@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Block commits that contain secrets. Bypass only if you are SURE: git commit --no-verify
+set -uo pipefail
+root="$(git rev-parse --show-toplevel)"
+# Fast built-in check for obvious offenders (works even without gitleaks)
+if git diff --cached --name-only | grep -Eq '(^|/)(\.env(\..*)?|stank\.php|connect_info\.php|recaptcha\.txt|db\.txt|hosting\.txt|.*\.pem)$'; then
+  if ! git diff --cached --name-only | grep -q '\.env\.example$'; then
+    echo "pre-commit: refusing to commit a known secrets file:"; git diff --cached --name-only | grep -E '(\.env|stank\.php|connect_info\.php|recaptcha\.txt|db\.txt|hosting\.txt|\.pem)'; exit 1
+  fi
+fi
+"$root/scripts/scan-secrets.sh" --staged
+rc=$?
+if [ $rc -eq 2 ]; then echo "pre-commit: WARNING gitleaks unavailable; only the basic check ran."; exit 0; fi
+exit $rc

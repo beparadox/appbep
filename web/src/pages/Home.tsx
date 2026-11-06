@@ -3,6 +3,7 @@ import { site } from '../site';
 import { InfoCube, SpinCube, type CubeFace } from '../cube/InfoCube';
 import apfHead from '../assets/cubes/apf-head-space.png';
 import uwCrest from '../assets/cubes/uw-crest.png';
+import meHead from '../assets/me-head.png';
 
 const faces: CubeFace[] = [
   {
@@ -10,7 +11,7 @@ const faces: CubeFace[] = [
     label: 'Hello',
     content: (
       <>
-        <div className="photo-placeholder">photo</div>
+        <img className="avatar" src={meHead} alt={`Photo of ${site.name}`} draggable={false} />
         <h1>{site.name}</h1>
         <p className="tagline">{site.tagline}</p>
       </>

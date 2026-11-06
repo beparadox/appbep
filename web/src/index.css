@@ -115,14 +115,16 @@ body {
 .cube-home .face-funhouse a {
   color: #ff0;
 }
-.photo-placeholder {
-  width: 96px;
-  height: 96px;
+.avatar {
+  display: block;
+  width: 116px;
+  height: 116px;
   margin: 0 auto 1rem;
+  padding: 6px 6px 0;
   border-radius: 50%;
-  border: 1px dashed var(--muted);
-  display: grid;
-  place-items: center;
-  font-size: 0.7rem;
-  color: var(--muted);
+  background: var(--spin-bg);
+  border: 1px solid var(--face-edge);
+  object-fit: contain;
+  object-position: bottom;
+  -webkit-user-drag: none;
 }

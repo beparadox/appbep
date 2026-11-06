@@ -22,7 +22,9 @@
     "secrets:scan": "bash scripts/scan-secrets.sh",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run synth && npm run secrets:scan",
     "prepare": "git config core.hooksPath scripts/hooks || true",
-    "dev:lan": "npm run dev -w web -- --host"
+    "dev:lan": "npm run dev -w web -- --host",
+    "deploy": "bash scripts/deploy.sh deploy",
+    "diff": "bash scripts/deploy.sh diff"
   },
   "devDependencies": {
     "prettier": "^3.5.3"

@@ -66,7 +66,11 @@ const faces: CubeFace[] = [
       <>
         <h2>Resume &amp; contact</h2>
         <p>
-          <a href={site.resumeUrl}>Resume (PDF)</a>
+          {site.resumeUrl.startsWith('TODO') ? (
+            <span className="tagline">Resume coming soon</span>
+          ) : (
+            <a href={site.resumeUrl}>Resume (PDF)</a>
+          )}
         </p>
         {/* No plain email address (spam). Contact form planned: see docs/PLAN.md. */}
       </>

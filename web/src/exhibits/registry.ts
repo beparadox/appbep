@@ -61,10 +61,11 @@ export const EXHIBITS: Exhibit[] = [
     kind: 'app',
     year: 'c. 2015',
     tech: ['JavaScript', 'Backbone.js'],
-    blurb: 'A personal vocabulary list: add words you want to learn, then quiz yourself on them.',
+    blurb:
+      'A personal vocabulary list: add the words you want to learn, flip through them, edit them.',
     lesson:
       'Backbone.js was one of the first popular ways to organize a browser app: "models" hold the data, "views" draw it, and when a model changes, its views redraw themselves. React later made that redraw automatic.',
-    legacy: { port: 8084, path: '/vocabulator/local' },
+    live: true,
   },
   {
     id: 'bam-cube',

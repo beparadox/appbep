@@ -7,9 +7,15 @@
  *    (see index.html). resize() sized the game from the window's height, so on a phone held
  *    upright it was wider than the screen. resize() is left below, unused, for the record.
  *  - Removed two console.log calls.
- * Everything else is as written in 2014, quirks included: the splash-screen loop keeps
- * running after the game starts, so everything moves at double speed. That's the speed
- * the game was tuned at, so it stays.
+ *  - Added (2026): a 60-second round with the time left on screen, an end screen with the
+ *    final stats, your best score (saved in this browser), and play again. Pause by tapping
+ *    the sun or pressing P / Esc; the game also pauses when you switch tabs.
+ *  - One animation loop instead of two. The 2014 splash-screen loop never stopped, so it
+ *    and the game loop each moved everything once per frame: double speed. The single loop
+ *    now moves the fish and bubbles twice per step on purpose, so the game feels the same,
+ *    and it steps 60 times a second whatever the screen's refresh rate (on a 120 Hz phone
+ *    the old code ran twice as fast again).
+ * Everything else is as written in 2014, quirks included.
  */
 /*
 ==============================================================================
@@ -82,6 +88,19 @@ by Eoin McGrath. Thanks Eoin!
 
         playing: false,
 
+        // Added 2026: 'splash' | 'playing' | 'paused' | 'over'
+        mode: 'splash',
+
+        ROUND_MS: 60 * 1000,
+
+        STEP_MS: 1000 / 60,
+
+        timeLeft: 0,
+
+        endedAt: 0,
+
+        best: 0,
+
         styles: {
             bubblecolor: "#FFF",
 
@@ -128,12 +147,40 @@ by Eoin McGrath. Thanks Eoin!
             // One pointer event covers mouse, touch and pen, and fires once per tap.
             POP.canvas.addEventListener('pointerdown', function(e) {
                 e.preventDefault();
+
+                if (POP.mode === 'paused') {
+                    POP.resume();
+                    return;
+                }
+                if (POP.mode === 'over') {
+                    // A second's grace, so a last frantic tap doesn't skip the end screen.
+                    if (Date.now() - POP.endedAt > 1000) POP.restart();
+                    return;
+                }
+                if (POP.mode === 'playing' && POP.tappedSun(e)) {
+                    POP.pause();
+                    return;
+                }
+
                 POP.Input.set(e);
 
                 if ( !POP.playing ) {
                     POP.start();    
                 }
             }, false);
+
+            window.addEventListener('keydown', function (e) {
+                if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
+                    if (POP.mode === 'playing') POP.pause();
+                    else if (POP.mode === 'paused') POP.resume();
+                }
+            });
+
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden && POP.mode === 'playing') POP.pause();
+            });
+
+            try { POP.best = Number(localStorage.getItem('appbep-popfishies-best')) || 0; } catch (err) {}
 
             // POP.loop();
             POP.splashScreen();
@@ -142,13 +189,54 @@ by Eoin McGrath. Thanks Eoin!
         start: function () {
            var ent = POP.entities.pop();
             POP.splash = false; 
-            POP.loop();
+            POP.timeLeft = POP.ROUND_MS;
+            POP.mode = 'playing';
             POP.playing = true;
         },
 
         stop: function () {
-            cancelAnimationFrame();
-            POP.playing = false;
+            POP.mode = 'over';
+            POP.endedAt = Date.now();
+            POP.Input.tapped = false;
+            if (POP.score.totalpoints > POP.best) {
+                POP.best = POP.score.totalpoints;
+                POP.newBest = true;
+                try { localStorage.setItem('appbep-popfishies-best', String(POP.best)); } catch (err) {}
+            }
+        },
+
+        pause: function () {
+            POP.mode = 'paused';
+        },
+
+        resume: function () {
+            POP.mode = 'playing';
+            POP.lastTime = 0; // don't count the paused time as game time
+        },
+
+        restart: function () {
+            POP.entities = [];
+            POP.nextBubble = 100;
+            POP.nextFish = 200;
+            POP.newBest = false;
+            POP.score.taps = 0;
+            POP.score.fish = { hits: 0, escaped: 0, points: 0 };
+            POP.score.bubbles = { hits: 0, escaped: 0, points: 0 };
+            POP.score.totalaccuracy = 0;
+            POP.score.totalentities = 0;
+            POP.score.totalpoints = 0;
+            POP.timeLeft = POP.ROUND_MS;
+            POP.mode = 'playing';
+        },
+
+        /** Did this tap land on the sun (the pause button)? */
+        tappedSun: function (e) {
+            var rect = POP.canvas.getBoundingClientRect(),
+                x = (e.clientX - rect.left) * (POP.WIDTH / rect.width),
+                y = (e.clientY - rect.top) * (POP.HEIGHT / rect.height),
+                dx = x - 275,
+                dy = y - 25;
+            return dx * dx + dy * dy < 36 * 36;
         },
 
         splashScreen: function () {
@@ -170,6 +258,7 @@ by Eoin McGrath. Thanks Eoin!
                 POP.Draw.text("Welcome to POPFishies!", 30, POP.HEIGHT / 2, 20, "white");
 
                 POP.Draw.text("Click to start", 100, POP.HEIGHT / 2 + 16, 13, "white");
+                POP.Draw.text("60 seconds. Tap the sun to pause.", 32, POP.HEIGHT / 2 + 40, 12, "white");
 
                 for (i = 0; i < POP.wave.total; i += 1) {
                     POP.Draw.circle(
@@ -188,14 +277,12 @@ by Eoin McGrath. Thanks Eoin!
                 POP.Draw.sun();
             }
 
-            function loop() {
-                requestAnimationFrame(loop);
-                update();
-                draw();
-            }
+            // (The 2014 splash loop that ran forever is now part of POP.loop.)
+            POP.splashUpdate = update;
+            POP.splashDraw = draw;
             POP.splash = true; 
             POP.entities.push(new POP.Fish('red', true));
-            loop();
+            POP.loop();
 
         },
 
@@ -240,6 +327,7 @@ by Eoin McGrath. Thanks Eoin!
                     var fish = function() {
                         counter += 1;
                         if (counter === 7) return;
+                        if (POP.mode !== 'playing') return;
 
                         POP.entities.push(new POP.Fish(POP.fishcolors[Math.round(Math.random() * 7)] || 'red'));
                         
@@ -270,6 +358,11 @@ by Eoin McGrath. Thanks Eoin!
 
             POP.wave.time = new Date().getTime() * 0.002;
             POP.wave.offset = Math.sin(POP.wave.time * 0.8) * 5;
+
+            // The extra pass the old splash loop used to make: the 2014 speed (see top).
+            for (i = 0; i < POP.entities.length; i += 1) {
+                POP.entities[i].update();
+            }
 
             // l = POP.entities.length;
             // console.log("l = " + l);
@@ -363,14 +456,74 @@ by Eoin McGrath. Thanks Eoin!
             POP.Draw.text('Total Points: ' + POP.score.totalpoints, left1, top1 + 3*dis, size, POP.styles.textcolor); 
 
             POP.Draw.text('Total Accuracy: ' + POP.score.totalaccuracy + '%', left1, top1 + 4*dis, size, POP.styles.textcolor); 
+
+            var secondsLeft = Math.ceil(POP.timeLeft / 1000);
+            POP.Draw.text('Time: ' + secondsLeft, left1, top1 + 5*dis, size,
+                secondsLeft <= 10 ? 'yellow' : POP.styles.textcolor);
              
             POP.Draw.sun();
+            POP.Draw.text('pause', 258, 62, 10, POP.styles.textcolor);
         },
 
-        loop: function () {
+        /** A dark panel with lines of text, for the pause and end screens. */
+        panel: function (lines) {
+            var top = POP.HEIGHT / 2 - 20 - lines.length * 11;
+            POP.Draw.rect(30, top, POP.WIDTH - 60, lines.length * 22 + 30, 'rgba(0, 0, 40, 0.85)');
+            for (var i = 0; i < lines.length; i += 1) {
+                var line = lines[i];
+                POP.context.textAlign = 'center';
+                POP.Draw.text(line[0], POP.WIDTH / 2, top + 28 + i * 22, line[1] || 13, line[2] || 'white');
+                POP.context.textAlign = 'start';
+            }
+        },
+
+        drawPaused: function () {
+            POP.panel([['Paused', 20], [''], ['Tap to keep playing']]);
+        },
+
+        drawOver: function () {
+            var s = POP.score;
+            POP.panel([
+                ["Time's up!", 20],
+                [''],
+                ['Bubbles popped: ' + s.bubbles.hits],
+                ['Fish flipped: ' + s.fish.hits],
+                ['Points: ' + s.totalpoints],
+                ['Accuracy: ' + s.totalaccuracy + '%'],
+                [POP.newBest ? 'New best!' : 'Your best: ' + POP.best, 13, 'yellow'],
+                [''],
+                [Date.now() - POP.endedAt > 1000 ? 'Tap to play again' : '']
+            ]);
+        },
+
+        // One loop for every screen (added 2026; see the top of the file). Game time moves in
+        // fixed steps of STEP_MS, so the speed doesn't depend on the screen's refresh rate.
+        loop: function (now) {
             requestAnimationFrame( POP.loop );
-            POP.update();
+            now = now || 0;
+            if (!POP.lastTime || now - POP.lastTime > 250) POP.lastTime = now - POP.STEP_MS;
+            var steps = 0;
+            while (now - POP.lastTime >= POP.STEP_MS && steps < 5) {
+                POP.lastTime += POP.STEP_MS;
+                steps += 1;
+                if (POP.mode === 'splash') {
+                    POP.splashUpdate();
+                } else if (POP.mode === 'playing') {
+                    POP.update();
+                    POP.timeLeft -= POP.STEP_MS;
+                    if (POP.timeLeft <= 0) {
+                        POP.timeLeft = 0;
+                        POP.stop();
+                    }
+                }
+            }
+            if (POP.mode === 'splash') {
+                POP.splashDraw();
+                return;
+            }
             POP.draw();
+            if (POP.mode === 'paused') POP.drawPaused();
+            if (POP.mode === 'over') POP.drawOver();
         },
 
  

@@ -1,0 +1,166 @@
+<!doctype html>
+<!--
+  Vocabulator (c. 2015), restored. This is the original "local" page, which saves your words
+  in this browser only. Changes to the page:
+  - the add-word form is written out here (Flask used to render it, with a CSRF token)
+  - no Google Analytics or Modernizr; libraries served locally
+  - templates escape what they print (<%- instead of <%=)
+  - "Home" link now goes back to the funhouse
+  The script's changes are listed at the top of js/vocabulator.js.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Vocabulator (2015)</title>
+    <link rel="stylesheet" href="css/vocabulator.css" />
+    <style>
+      /* Added 2026 */
+      body {
+        margin: 0 16px;
+        font-family: Georgia, serif;
+      }
+      .local-note {
+        font-size: 0.9em;
+        font-style: italic;
+      }
+      #list_of_words {
+        padding-left: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vocabulator">
+      <div data-role="page" id="display_word_info">
+        <div class="header center-page">
+          <h1>Vocabulator</h1>
+          <p class="text-center">Create a personal list of vocabulary words</p>
+
+          <div id="main_view_footer" class="text-center">
+            <button class="btn" value="prev" aria-label="Previous word">&lt;&lt;</button>
+            <button class="btn" name="add_word_button" value="add">Add Word</button>
+            <button class="btn" value="next" aria-label="Next word">&gt;&gt;</button>
+          </div>
+        </div>
+        <div class="center-page" id="display_word" data-role="content"></div>
+
+        <div class="center-page" id="add_word_form_wrapper"></div>
+
+        <hr class="center-page" />
+
+        <div class="center-page">
+          <h1 class="text-center">Your Words:</h1>
+          <p class="text-center local-note">Saved in this browser only.</p>
+          <ul id="list_of_words"></ul>
+        </div>
+      </div>
+
+      <div id="opaque_background"></div>
+
+      <div id="overlay">
+        <div id="delete_dialogue">
+          <div class="dialogue-header">Delete Word</div>
+          <div class="dialogue-content">
+            <p id="delete-confirm"></p>
+            <p id="delete_dialogue_ajax_loading"></p>
+            <span id="delete_dialogue_notifications"></span>
+            <br />
+            <button class="btn" name="delete-word-button">Yes</button>
+            <button class="btn" name="cancel-dialogue">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of vocabulator -->
+
+    <p class="center-page" style="text-align: center">
+      <a href="/funhouse" target="_top">back to the funhouse</a>
+    </p>
+
+    <script type="text/template" id="display-dialogue-template">
+      <h1>Do you want to delete the word '<%- word %>'?</h1>
+    </script>
+
+    <script type="text/template" id="display-word-template">
+      <div class="display_word_wrapper">
+
+        <div class='display-word-info'>
+
+          <div id="display_word_header">
+               <span class="" id="display_word"><em><%- word %></em></span>
+
+               <span class="" id="display_word_type"><%- word_type %></span>
+          </div>
+
+          <ol>
+              <% for (var i = 0, l = definitions.length; i < l; i += 1) { %>
+
+                  <li class="definitions"><%- definitions[i] %></li>
+              <% } %>
+          </ol>
+               <button class="btn" value="edit">Edit Word</button>
+
+               <button  class="btn" name="delete" value="delete">Delete Word</button>
+
+        </div><!-- end of class display-word-info-->
+
+        <div id="edit_display_word_header" class="editing">
+            <h3>Edit</h3>
+
+           <input id="edit_word" name="edit_word" class="edit word" type="text" value="<%- word %>" aria-label="Word">
+          <input id="edit_word_type" class="edit word_type" type="text" value="<%- word_type %>" aria-label="Word type">
+
+             <p id="edit_definitions_notify">Separate definitions using semicolons &#40;&#59;&#41;</p>
+      <textarea id="edit_definitions" class="edit" type="text" name="edit_definitions" aria-label="Definitions"><% var def = definitions.join(';') %><%- def %></textarea>
+
+            <span class="warning" id="edit_save_warning"></span>
+             <br>
+
+             <button class="btn" name="save-edit">Save</button>
+
+             <button class="btn" name="cancel-edit">Cancel</button>
+
+         </div><!-- end of class editing -->
+
+      </div><!-- end of template -->
+    </script>
+
+    <script type="text/template" id="word-list-template">
+      <span class='word-list'><%- word %></span>
+    </script>
+
+    <script type="text/template" id="add-word-template">
+      <div class="add_word">
+        <h1>Add a word</h1>
+        <form id="add_word_form">
+          <div>
+            <label for="add_word"><span id="wordWarning" class="has-error text-danger"></span></label>
+            <input class="form-control addword-input baminput" id="add_word" name="word" placeholder="word" type="text" value="" aria-label="Word">
+          </div>
+          <div>
+            <label for="add_word_type"><span id="word_typeWarning" class="has-error text-danger"></span></label>
+            <input class="form-control addword-input baminput" id="add_word_type" name="word_type" placeholder="word type (adj, pron, noun, verb, adv)" type="text" value="" aria-label="Word type">
+          </div>
+          <div>
+            <label for="add_definitions"><span id="definitionsWarning" class="has-error text-danger"></span></label>
+            <textarea class="form-control addword-input baminput" id="add_definitions" name="definitions" placeholder="Add a definition" aria-label="Definitions"></textarea>
+          </div>
+
+          <span id="addWordWarning" class="warning"></span>
+          <br>
+
+          <button class="btn" value="save">Save</button>
+          <button class="btn" name="cancel-add">Cancel</button>
+          <button class="btn" value="clear">Clear</button>
+        </form>
+      </div>
+    </script>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+    <script src="js/vendor/backbone.js"></script>
+    <script src="js/vendor/backbone.localStorage.js"></script>
+    <script src="js/vocabulator.js"></script>
+  </body>
+</html>

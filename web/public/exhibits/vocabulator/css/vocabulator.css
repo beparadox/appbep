@@ -1,0 +1,204 @@
+/*------------------ Centering divs ----------------*/
+.center-page {
+  max-width: 500px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*------------------- .btn --------------------------*/
+.btn {
+  background-color: #202020;
+  color: #FFFFFF;
+  width: 8em;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #999999;
+  margin-bottom: 10px; }
+
+.btn:hover {
+  background-color: #F0F0F0;
+  color: #000000; }
+
+/*-------------------------------------------------*/
+.header {
+  background-color: #000000;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #FFFFFF;
+  text-align: center; }
+
+#display_word_header {
+  background-color: #E6E6E6;
+  border-bottom: 1px solid #000000;
+  overflow: wrap; }
+
+#opaque_background {
+  position: absolute;
+  visibility: hidden;
+  background-color: #000000;
+  opacity: 0.7;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1000; }
+
+#overlay {
+  position: absolute;
+  visibility: hidden;
+  text-align: center;
+  background-color: transparent;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1000; }
+
+#delete_dialogue {
+  position: relative;
+  top: 20%;
+  width: 80%;
+  max-width: 400px;
+  font-size: 0.68em;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1100; }
+
+.dialogue-header {
+  padding: 5px;
+  position: relative;
+  width: 100%;
+  height: 2em;
+  font-size: 2em;
+  line-height: 310%;
+  background-color: #303030;
+  color: #FFFFFF;
+  border: 1px solid white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; }
+
+.dialogue-content {
+  position: relative;
+  width: 100%;
+  padding: 5px;
+  background-color: #606060;
+  color: #FFFFFF;
+  text-align: center;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; }
+
+/*.dialogue-content, dialogue-header{
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0;
+    -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 ;
+    -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 ;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 ;
+    -box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 ;
+}*/
+#delete_dialogue_ajax_loading {
+  display: none;
+  width: 50px;
+  height: 50px; }
+
+#delete_dialogue_notifications {
+  font-size: 1em; }
+
+input[type="text"] {
+  line-height: 1.53em; }
+
+input[type="text"], textarea {
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  -box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  width: 80%;
+  border: 1px solid #999999;
+  font-family: inherit;
+  font-size: 1.19em;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 6px; }
+
+input[id="edit_word"] {
+  width: 60%; }
+
+input[id="edit_word_type"] {
+  width: 25%; }
+
+textarea {
+  height: 150px;
+  font-size: 0.85em;
+  width: 90%; }
+
+#display_word_wrapper input {
+  font-size: 1.2em; }
+
+#display_word {
+  font-size: 1.36em; }
+
+#display_word_type {
+  float: right;
+  font-size: 1.36em; }
+
+#edit_display_word_header {
+  font-size: 1.36em;
+  font-weight: bold; }
+
+#edit_save_warning {
+  font-size: 0.7em; }
+
+#edit_definitions_notify {
+  font-size: 0.34em; }
+
+.definitions {
+  font-size: 1.2em; }
+
+#edit_display_word_header h3 {
+  margin-top: 3px;
+  margin-bottom: 3px; }
+
+.ajax-loading-icon {
+  display: none; }
+
+.word-list {
+  cursor: pointer;
+  font-size: 1.02em; }
+
+.editing {
+  display: none; }
+
+.edit-definitions {
+  display: none;
+  font-size: 1.19em; }
+
+.list-word {
+  font-size: 2.4em; }
+
+.text-center {
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.warning {
+  color: red;
+  font-size: 1em; }
+
+.success {
+  color: green;
+  font-size: 1em; }
+
+#add_word_form_wrapper {
+  display: none; }
+
+/*----------------- latest greatest module ------------*/
+.latest-greatest {
+  display: inline; }
+

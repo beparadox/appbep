@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, noimageindex" />
+    <title>Patricia Ann Peterson</title>
+    <style>
+      :root {
+        --bg: #1b1b1d;
+        --panel: #2a2a2d;
+        --ink: #ece9e4;
+        --muted: #a9a49c;
+        --accent: #c9b48a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Georgia, 'Times New Roman', serif;
+        line-height: 1.5;
+      }
+      main {
+        max-width: 52rem;
+        margin: 0 auto;
+        padding: 2rem 1rem 3rem;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-weight: normal;
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        letter-spacing: 0.04em;
+      }
+      .years {
+        margin: 0.25rem 0 0;
+        color: var(--accent);
+        font-size: 1.2rem;
+        letter-spacing: 0.15em;
+      }
+      .welcome {
+        margin: 1.5rem 0;
+        color: var(--muted);
+      }
+      .carousel {
+        position: relative;
+        background: var(--panel);
+        border: 1px solid #444;
+        border-radius: 6px;
+        padding: 1rem;
+      }
+      .frame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: min(612px, 62vh);
+      }
+      .frame img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border: 1px solid #555;
+        transition: opacity 0.4s;
+      }
+      .frame img.fading {
+        opacity: 0;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .controls button {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid #666;
+        border-radius: 999px;
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+      .controls button:hover,
+      .controls button:focus-visible {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .dots {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .dots button {
+        width: 0.8rem;
+        height: 0.8rem;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid var(--muted);
+        background: transparent;
+        cursor: pointer;
+      }
+      .dots button[aria-current='true'] {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .count {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      @media (max-width: 30rem) {
+        main {
+          padding-top: 1.25rem;
+        }
+        .welcome {
+          margin: 1rem 0;
+        }
+        .carousel {
+          padding: 0.5rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .frame img {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Patricia Ann Peterson</h1>
+      <p class="years">1944 &ndash; 2012</p>
+      <p class="welcome">Welcome to the memorial page for Patricia Ann Peterson.</p>
+
+      <section class="carousel" aria-roledescription="carousel" aria-label="Photos">
+        <div class="frame">
+          <img id="photo" src="img/photo-01.jpg" alt="" />
+        </div>
+        <div class="controls">
+          <button type="button" id="prev" aria-label="Previous photo">&lsaquo;</button>
+          <div class="dots" id="dots"></div>
+          <button type="button" id="next" aria-label="Next photo">&rsaquo;</button>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+      </section>
+
+    </main>
+
+    <script>
+      // No captions on purpose: the photos speak for themselves. Alt text describes
+      // what's in each picture without naming anyone.
+      const PHOTOS = [
+        ['photo-01.jpg', 'Patricia smiling on a couch, one hand resting on a sleeping brown dog'],
+        ['photo-02.jpg', 'Black-and-white school portrait of Patricia as a girl'],
+        ['photo-03.jpg', 'Patricia on a couch holding a newborn, with a toddler beside her'],
+        ['photo-04.jpg', 'Patricia in a helmet, riding a motorcycle down a tree-lined drive'],
+        ['photo-05.jpg', 'Patricia holding a smiling baby at a holiday event'],
+        ['photo-06.jpg', 'Black-and-white photo of young Patricia and two other children in a store'],
+        ['photo-07.jpg', 'Black-and-white photo of a woman and little Patricia sitting on a stone step'],
+        ['photo-08.jpg', 'Patricia standing behind a large ring of hostas on a sunny day'],
+        ['photo-09.jpg', 'Black-and-white beach photo of a man with young Patricia and a boy'],
+        ['photo-10.jpg', 'Black-and-white photo of a wooded campsite with a picnic table'],
+        ['photo-11.jpg', 'Black-and-white family portrait from the 1960s'],
+      ];
+
+      const img = document.getElementById('photo');
+      const dots = document.getElementById('dots');
+      const count = document.getElementById('count');
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let index = 0;
+
+      PHOTOS.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Photo ${i + 1}`);
+        dot.addEventListener('click', () => show(i));
+        dots.appendChild(dot);
+      });
+
+      function show(i) {
+        index = (i + PHOTOS.length) % PHOTOS.length;
+        const [file, alt] = PHOTOS[index];
+        const swap = () => {
+          img.src = `img/${file}`;
+          img.alt = alt;
+          img.classList.remove('fading');
+        };
+        if (reduceMotion || !img.getAttribute('alt')) swap();
+        else {
+          img.classList.add('fading');
+          setTimeout(swap, 250);
+        }
+        [...dots.children].forEach((d, j) => d.setAttribute('aria-current', String(j === index)));
+        count.textContent = `${index + 1} of ${PHOTOS.length}`;
+      }
+
+      document.getElementById('prev').addEventListener('click', () => show(index - 1));
+      document.getElementById('next').addEventListener('click', () => show(index + 1));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') show(index - 1);
+        if (e.key === 'ArrowRight') show(index + 1);
+      });
+
+      // Swipe on phones.
+      let startX = null;
+      img.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+      img.addEventListener('touchend', (e) => {
+        if (startX === null) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+        startX = null;
+      });
+
+      // Preload the rest so paging is instant.
+      PHOTOS.slice(1).forEach(([file]) => (new Image().src = `img/${file}`));
+      show(0);
+    </script>
+  </body>
+</html>

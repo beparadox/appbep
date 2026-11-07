@@ -7,8 +7,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "synth": "cdk synth --quiet",
-    "diff": "cdk diff",
-    "deploy": "cdk deploy"
+    "diff": "bash ../scripts/deploy.sh diff",
+    "deploy": "bash ../scripts/deploy.sh deploy"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.250.0",

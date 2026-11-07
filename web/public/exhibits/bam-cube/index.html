@@ -1,0 +1,64 @@
+<!doctype html>
+<!--
+  The original appbep.com homepage cube (c. 2016-17), restored.
+  Kept close to how it was written: the same faces, the same 2-second linear
+  tumble, and the same rotateX-then-rotateY math (which is why it sometimes
+  spins the "wrong" way: rotating around X first tips the Y axis over with it).
+  Changes from the original: jQuery and the Bootstrap/Font Awesome icons
+  replaced with plain JS and arrow characters, unprefixed CSS added so it works
+  in Firefox, the YouTube face uses youtube-nocookie.com, and the
+  Illinois map is now an outline drawn from public-domain US Census boundaries.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>bam_cube (2017)</title>
+    <link rel="stylesheet" href="cube.css" />
+  </head>
+  <body>
+    <div id="bam_cube">
+      <div id="cube">
+        <div class="face one">
+          <h3>&quot;Practice does not transcend thought, thought does not transcend words&quot;</h3>
+          <h4>Fa-yen</h4>
+        </div>
+        <div class="face two">
+          <h3>Me</h3>
+          <img src="img/me_bean.png" width="151" height="200" alt="Me at the Bean, Chicago" />
+        </div>
+        <div class="face three">
+          <h3>On Wisconsin!</h3>
+          <a href="https://www.wisc.edu"
+            ><img src="img/UWCrest_web.png" width="126" height="200" alt="University of Wisconsin crest"
+          /></a>
+        </div>
+        <div class="face four">
+          <h3>My Home State</h3>
+          <img src="img/illinois.svg" width="149" height="200" alt="Outline of the state of Illinois" />
+        </div>
+        <div class="face five">
+          <blockquote>
+            <p>Do not fear to be eccentric in opinion, for every opinion now accepted was once eccentric.</p>
+            <footer>Bertrand Russell</footer>
+          </blockquote>
+        </div>
+        <div id="cube_video" class="face six">
+          <h4>Lookin&apos; for the good stuff?</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="bam_cube_up" type="button" class="cube_buttons" aria-label="Rotate up">&#9650;</button><br />
+      <button id="bam_cube_left" type="button" class="cube_buttons" aria-label="Rotate left">&#9664;</button>
+      <button id="bam_cube_right" type="button" class="cube_buttons" aria-label="Rotate right">&#9654;</button><br />
+      <button id="bam_cube_down" type="button" class="cube_buttons" aria-label="Rotate down">&#9660;</button>
+    </div>
+
+    <p class="footer">&copy; appbep 2017 &middot; <a href="/funhouse" target="_top" class="escape">back to the funhouse</a></p>
+
+    <script src="cube.js"></script>
+  </body>
+</html>

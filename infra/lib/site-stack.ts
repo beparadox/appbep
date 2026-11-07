@@ -15,6 +15,7 @@ import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
+import { VIEWER_REQUEST_CODE } from './viewer-request';
 
 export interface SiteStackProps extends StackProps {
   /** When omitted, the site is served from the default *.cloudfront.net domain. */
@@ -68,18 +69,10 @@ export class SiteStack extends Stack {
       removalPolicy: RemovalPolicy.RETAIN,
     });
 
-    // SPA fallback: extension-less paths (e.g. /funhouse/attic) serve index.html.
-    // Exhibits are real files under /exhibits/ and pass through untouched.
+    // SPA fallback for app routes + folder index for /exhibits/ (see viewer-request.ts).
     const spaRewrite = new cloudfront.Function(this, 'SpaRewrite', {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
-      code: cloudfront.FunctionCode.fromInline(`
-function handler(event) {
-  var r = event.request;
-  if (r.uri.indexOf('/exhibits/') !== 0 && r.uri.split('/').pop().indexOf('.') === -1) {
-    r.uri = '/index.html';
-  }
-  return r;
-}`),
+      code: cloudfront.FunctionCode.fromInline(VIEWER_REQUEST_CODE),
     });
 
     let certificate: acm.ICertificate | undefined;

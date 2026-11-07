@@ -118,6 +118,9 @@ Cost: SES is $0.10 per 1,000 emails; Turnstile is free.
   - Repo **variables** (not secrets): `AWS_DEPLOY_ROLE_ARN`, `APPBEP_HOSTED_ZONE_ID`.
   - Every third-party action is pinned to a full commit SHA (`# vX.Y.Z` comment for humans), and the gitleaks image to a digest. Dependabot opens a weekly PR for action updates. The gitleaks image is updated by hand (Dependabot doesn't see `docker run` lines); keep `ci.yml` and `scripts/scan-secrets.sh` in sync.
 - Manual deploy from a laptop still works: `npm run deploy` (reads the gitignored `.env.local`; log in first with `aws sso login --profile admin`).
+- **Moving to its own AWS account (Nov 2026):** Appbep is leaving the Organization's management account for a
+  dedicated member account. Step-by-step runbook: [docs/tutorials/move-to-own-account.md](tutorials/move-to-own-account.md).
+  `npm run deploy` now requires `APPBEP_ACCOUNT_ID` in `.env.local` and refuses any other account.
 - Separate `dev` stage optional later. Local dev uses Vite plus a local Lambda handler against DynamoDB Local in Podman.
 
 ### Estimated monthly cost
@@ -149,18 +152,27 @@ Legacy sources stay in `~/dev/appbep-legacy` (local only, never committed).
 
 ## 5. Phases
 
-| #   | Phase               | Outcome                                                                                        |
-| --- | ------------------- | ---------------------------------------------------------------------------------------------- |
-| 0   | **Scaffold**        | git repo, Vite/React/TS, lint/format, CDK skeleton, `.gitignore` guarding secrets              |
-| 1   | **Front page**      | Layout + placeholders; you drop in bio/resume/photo; deploy to appbep.com (S3+CloudFront+cert) |
-| 2   | **Funhouse shell**  | Entrance, 2–3 rooms, Winchester navigation, sound/FX toolkit                                   |
-| 3   | **Static exhibits** | Towers of Hanoi, Sorting Animations, Pop Fishies, Puzzle Timer                                 |
-| 4   | **API + scores**    | Lambda/DynamoDB; contact form; WTF Blaster + N-Puzzizzle with leaderboards                     |
-| 5   | **Quizzes**         | Shared quiz component; Schportz (recovered Qs) + APF (5 + new)                                 |
-| 6   | **APF museum**      | Static rebuild of the APF site + character art in the funhouse                                 |
-| 7   | **Polish**          | More rooms, more weird, analytics (privacy-friendly), maybe guestbook                          |
+| #   | Phase               | Outcome                                                                                                 |
+| --- | ------------------- | ------------------------------------------------------------------------------------------------------- |
+| 0   | **Scaffold**        | git repo, Vite/React/TS, lint/format, CDK skeleton, `.gitignore` guarding secrets                       |
+| 1   | **Front page**      | Layout + placeholders; you drop in bio/resume/photo; deploy to appbep.com (S3+CloudFront+cert)          |
+| 2   | **Funhouse shell**  | Entrance, 2–3 rooms, Winchester navigation, sound/FX toolkit                                            |
+| 3   | **Static exhibits** | Towers of Hanoi, Sorting Animations, Pop Fishies, Puzzle Timer                                          |
+| 4   | **API + scores**    | Lambda/DynamoDB; contact form; WTF Blaster + N-Puzzizzle with leaderboards                              |
+| 5   | **Quizzes**         | Shared quiz component; Schportz (recovered Qs) + APF (5 + new)                                          |
+| 6   | **APF museum**      | Static rebuild of the APF site + character art in the funhouse                                          |
+| 7   | **Polish**          | More rooms, more weird, analytics (privacy-friendly), maybe guestbook                                   |
+| ✍️  | **ELIZA chat room** | Bambridge builds it: [docs/tutorials/eliza-chatroom.md](tutorials/eliza-chatroom.md) (any time after 2) |
 
 Phase 1 can go live on its own, and everything after it ships one piece at a time.
+
+**Phase 2 status (Nov 2026):** done locally. Entrance + 9 rooms (`web/src/funhouse/rooms.ts`), floor plan,
+synthesized sounds, jump-outs, brass plaques. One exhibit list (`web/src/exhibits/registry.ts`) feeds both
+the funhouse and the unlisted `/projects` page. Early exhibits already live: the original 2016 cube
+(`/exhibits/bam-cube/`) and Duncan's Auto as redacted screenshots (`/exhibits/duncans/`).
+The Patricia Peterson memorial (`/exhibits/memorial/`) is on `/projects` only, never in the funhouse:
+the photo carousel alone, with no captions, neutral file names and stripped metadata. The F & F page and
+guestbook are dropped; the Bio is left out for now (a trimmed draft is kept locally in appbep-legacy).
 
 ## 6. Open questions
 

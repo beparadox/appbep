@@ -1,6 +1,9 @@
+/* ---------- Shared funhouse frame ---------- */
 .funhouse {
-  min-height: 100vh;
-  padding: 2rem;
+  position: relative;
+  min-height: 100svh;
+  padding: 4.5rem 1rem 3rem;
+  overflow-x: hidden;
   background: #000 repeating-linear-gradient(45deg, #000 0 20px, #1a0033 20px 40px);
   color: #0f0;
   font-family: 'Comic Sans MS', 'Comic Neue', cursive;
@@ -8,6 +11,19 @@
 }
 .funhouse a {
   color: #ff0;
+}
+.funhouse h1 {
+  margin-top: 0;
+}
+/* CRT scanlines over everything */
+.funhouse::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+  z-index: 50;
 }
 .blink {
   animation: blink 1s steps(2, start) infinite;
@@ -17,8 +33,489 @@
     visibility: hidden;
   }
 }
+
+/* ---------- Entrance ---------- */
+.entrance ul {
+  display: inline-block;
+  text-align: left;
+}
+.entrance-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.funhouse button {
+  font: inherit;
+  cursor: pointer;
+}
+.entrance-buttons button {
+  padding: 0.7rem 1.4rem;
+  font-size: 1.15rem;
+  color: #000;
+  background: #ff0;
+  border: 3px outset #ffef80;
+}
+.entrance-buttons button:active {
+  border-style: inset;
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.75);
+}
+.funhouse .hud button,
+.funhouse .hud a {
+  padding: 0.25rem 0.6rem;
+  color: #ddd;
+  background: #222;
+  border: 1px solid #555;
+  border-radius: 3px;
+  text-decoration: none;
+  font: inherit;
+}
+
+/* ---------- Room content ---------- */
+.room-name {
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  letter-spacing: 0.02em;
+}
+.room-intro,
+.room-note,
+.wall-msg {
+  max-width: 34rem;
+  margin: 0.8rem auto;
+  line-height: 1.5;
+}
+.room-note {
+  font-style: italic;
+  opacity: 0.85;
+}
+.wall-msg {
+  min-height: 1.5em;
+  font-weight: bold;
+}
+.room-exhibits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* ---------- Doors ---------- */
+.doors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.door {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 7.5rem;
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: none;
+}
+.door-panel {
+  position: relative;
+  width: 4.5rem;
+  height: 7rem;
+  border-radius: 2.2rem 2.2rem 2px 2px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0 6%, transparent 6% 94%, rgba(0, 0, 0, 0.25) 94%),
+    linear-gradient(#6b3d1f, #3d2010);
+  box-shadow:
+    inset 0 0 0 4px #2a1508,
+    0 4px 10px rgba(0, 0, 0, 0.6);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+}
+.door-panel::after {
+  content: '';
+  position: absolute;
+  right: 0.55rem;
+  top: 55%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #e8c35a;
+}
+.door:hover .door-panel,
+.door:focus-visible .door-panel {
+  transform: perspective(300px) rotateY(-28deg);
+}
+.door-label {
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+.door:focus-visible {
+  outline: 2px dashed currentColor;
+  outline-offset: 4px;
+}
+
+/* ---------- Jump-out ---------- */
+.jump-out {
+  position: fixed;
+  z-index: 60;
+  width: min(45vw, 260px);
+  pointer-events: none;
+}
+.jump-left {
+  left: 0;
+  top: 35%;
+  animation: jump-left 1.3s ease-out forwards;
+}
+.jump-right {
+  right: 0;
+  top: 30%;
+  animation: jump-right 1.3s ease-out forwards;
+}
+.jump-bottom {
+  left: 50%;
+  bottom: 0;
+  animation: jump-bottom 1.3s ease-out forwards;
+}
+@keyframes jump-left {
+  0% {
+    transform: translateX(-110%) rotate(-30deg);
+  }
+  15%,
+  70% {
+    transform: translateX(-10%) rotate(12deg);
+  }
+  100% {
+    transform: translateX(-110%) rotate(-30deg);
+  }
+}
+@keyframes jump-right {
+  0% {
+    transform: translateX(110%) rotate(30deg) scaleX(-1);
+  }
+  15%,
+  70% {
+    transform: translateX(10%) rotate(-12deg) scaleX(-1);
+  }
+  100% {
+    transform: translateX(110%) rotate(30deg) scaleX(-1);
+  }
+}
+@keyframes jump-bottom {
+  0% {
+    transform: translate(-50%, 110%);
+  }
+  15%,
+  70% {
+    transform: translate(-50%, 15%) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, 110%);
+  }
+}
+
+/* Bumping into a wall */
+.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  20% {
+    transform: translate(-6px, 2px) rotate(-0.5deg);
+  }
+  40% {
+    transform: translate(5px, -3px) rotate(0.4deg);
+  }
+  60% {
+    transform: translate(-4px, 1px);
+  }
+  80% {
+    transform: translate(3px, -1px);
+  }
+}
+
+/* ---------- Floor plan ---------- */
+.floor-plan {
+  position: fixed;
+  top: 3.2rem;
+  left: 50%;
+  z-index: 45;
+  width: min(92vw, 26rem);
+  transform: translateX(-50%);
+  padding: 1rem;
+  font-family: ui-monospace, monospace;
+  color: #1d2a44;
+  background:
+    #e9eef7 repeating-linear-gradient(0deg, transparent 0 19px, #c7d3ea 19px 20px),
+    repeating-linear-gradient(90deg, transparent 0 19px, #c7d3ea 19px 20px);
+  border: 2px solid #1d2a44;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+.plan-grid {
+  display: grid;
+  gap: 4px;
+}
+.plan-cell {
+  min-height: 3.5rem;
+  padding: 0.3rem;
+  font-size: 0.75rem;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid #1d2a44;
+}
+.plan-unknown {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  opacity: 0.6;
+}
+.plan-empty {
+  border: none;
+  background: none;
+}
+.plan-here {
+  background: #ffe066;
+  font-weight: bold;
+}
+
+/* ---------- Room themes ---------- */
+.room-foyer {
+  color: #f4e4c1;
+  background:
+    radial-gradient(ellipse at top, rgba(255, 210, 120, 0.25), transparent 60%),
+    radial-gradient(circle at 25% 25%, #5a0f1a 2px, transparent 3px) 0 0 / 28px 28px,
+    #3a0812;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.room-foyer a,
+.room-parlor a {
+  color: #ffd27a;
+}
+
+.room-parlor {
+  color: #efe2c8;
+  background: repeating-linear-gradient(90deg, #2c1a10 0 40px, #33200f 40px 80px);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.room-closet {
+  color: #bbb;
+  background: radial-gradient(circle at 50% 30%, #2a2a2a, #050505 70%);
+}
+
+.room-hallway {
+  color: #e8e0ff;
+  background: linear-gradient(#120a24, #2b1650 50%, #120a24);
+}
+.room-hallway .doors {
+  perspective: 700px;
+}
+.room-hallway .doors .door:nth-child(odd) {
+  transform: rotateY(18deg) scale(0.92);
+}
+.room-hallway .doors .door:nth-child(even) {
+  transform: rotateY(-18deg) scale(0.92);
+}
+.room-hallway .room-name {
+  letter-spacing: 0.25em;
+}
+
+.room-mirrors {
+  color: #e6fbff;
+  background: linear-gradient(115deg, #9ec9d6, #e9f7fa 30%, #7aa8b8 55%, #dff3f7 75%, #8fbccb);
+}
+.room-mirrors .room-name,
+.room-mirrors .room-intro {
+  color: #0d3340;
+  filter: url(#warp);
+}
+.room-mirrors .room-intro {
+  font-weight: bold;
+}
+.room-mirrors .door-label,
+.room-mirrors .wall-msg,
+.room-mirrors .room-note {
+  color: #0d3340;
+}
+
+.room-arcade {
+  color: #0ff;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 0, 200, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(0, 255, 255, 0.2), transparent 40%), #05010d;
+  font-family: ui-monospace, 'Courier New', monospace;
+}
+.room-arcade .room-name {
+  text-shadow:
+    0 0 8px #f0f,
+    0 0 20px #f0f;
+  animation: flicker 3s infinite;
+}
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  62%,
+  64%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  63% {
+    opacity: 0.3;
+  }
+}
+
+.room-1998 {
+  color: #000;
+  background: #c0c0c0 repeating-conic-gradient(#d4d0c8 0 25%, #c0c0c0 0 50%) 0 0 / 16px 16px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.room-1998 a {
+  color: #00e;
+}
+.room-1998 .room-name {
+  color: #f0f;
+  text-shadow: 2px 2px 0 #00f;
+}
+.room-1998 .door-panel {
+  border-radius: 0;
+  background: #c0c0c0;
+  box-shadow: none;
+  border: 3px outset #fff;
+}
+.room-1998 .door-panel::after {
+  display: none;
+}
+.room-1998 .door-label {
+  color: #00e;
+  text-decoration: underline;
+}
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 -1rem 1rem;
+  padding: 0.2rem 0;
+  color: #ff0;
+  background: #000080;
+  font-family: 'Courier New', monospace;
+}
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 14s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+.hit-counter span {
+  padding: 0 0.3rem;
+  font-family: 'Courier New', monospace;
+  color: #0f0;
+  background: #000;
+  letter-spacing: 0.15em;
+}
+
+.room-stairs {
+  color: #f0e6d0;
+  background:
+    repeating-linear-gradient(170deg, transparent 0 46px, rgba(0, 0, 0, 0.35) 46px 50px),
+    linear-gradient(#1b1b1b 0 18%, #4a2c17 18%);
+}
+.room-stairs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18%;
+  background: repeating-linear-gradient(90deg, #262626 0 60px, #1d1d1d 60px 120px);
+  border-bottom: 4px solid #111;
+}
+.room-stairs > * {
+  position: relative;
+}
+
+/* ---------- Calm mode ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .blink {
+  .blink,
+  .marquee span,
+  .room-arcade .room-name,
+  .shake {
     animation: none;
   }
+  .marquee span {
+    padding-left: 0;
+  }
+  .room-mirrors .room-name,
+  .room-mirrors .room-intro {
+    filter: none;
+  }
+  .door-panel {
+    transition: none;
+  }
+  .jump-out {
+    animation: jump-fade 1.3s forwards;
+    transform: none;
+  }
+  .jump-bottom {
+    transform: translateX(-50%);
+  }
+  @keyframes jump-fade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    20%,
+    75% {
+      opacity: 1;
+    }
+  }
+}
+
+/* ---------- Display case (a live exhibit in an iframe) ---------- */
+.showcase {
+  width: min(100%, 34rem);
+  margin: 1.5rem auto 0;
+  padding: 10px;
+  background: linear-gradient(#5b4128, #3b2814);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 2px #8a6a42,
+    0 10px 30px rgba(0, 0, 0, 0.6);
+}
+.showcase iframe {
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: 0;
+  background: #333;
+}
+
+.room-attic {
+  color: #e9dcc4;
+  background:
+    linear-gradient(160deg, rgba(255, 230, 170, 0.12), transparent 40%),
+    repeating-linear-gradient(115deg, #2a1f14 0 60px, #241a10 60px 120px);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.room-attic a {
+  color: #ffd27a;
 }

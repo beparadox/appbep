@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  Duncan's Auto & Truck Repair (2010): a site built for a real, still-operating business.
+  Shown ONLY as screenshots, with the address, phone number, staff names and map removed,
+  so nobody mistakes this archive for the business's actual website.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, noimageindex" />
+    <title>Archive: an auto shop website (2010)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        background: #008080;
+        font-family: Tahoma, Verdana, sans-serif;
+      }
+      .notice {
+        max-width: 1040px;
+        margin: 0 auto 12px;
+        padding: 10px 14px;
+        color: #000;
+        background: #ffffe1;
+        border: 1px solid #000;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+      .window {
+        max-width: 1040px;
+        margin: 0 auto;
+        background: #c0c0c0;
+        border: 2px outset #fff;
+      }
+      .titlebar {
+        padding: 3px 6px;
+        color: #fff;
+        background: linear-gradient(90deg, #000080, #1084d0);
+        font-weight: bold;
+        font-size: 13px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 6px;
+        font-size: 13px;
+      }
+      .toolbar button {
+        padding: 2px 10px;
+        font: inherit;
+        background: #c0c0c0;
+        border: 2px outset #fff;
+        cursor: pointer;
+      }
+      .toolbar button[aria-pressed='true'] {
+        border-style: inset;
+        font-weight: bold;
+      }
+      .address {
+        flex: 1;
+        min-width: 12rem;
+        padding: 2px 6px;
+        background: #fff;
+        border: 2px inset #fff;
+        font-family: 'Courier New', monospace;
+      }
+      .viewport {
+        margin: 0 6px 6px;
+        border: 2px inset #fff;
+        background: #fff;
+      }
+      .viewport img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .back {
+        display: block;
+        margin: 14px auto 0;
+        text-align: center;
+        color: #ff0;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="notice">
+      <strong>This is an archive, not a business website.</strong> These are screenshots of a site I built in 2010
+      for a family auto shop. It is <strong>not</strong> their current site and isn't affiliated with them. The address,
+      phone number, map and staff names have been blacked out. Links in the screenshots don't work.
+    </p>
+
+    <div class="window">
+      <div class="titlebar">Netscape Navigator: an auto shop website, circa 2010</div>
+      <div class="toolbar" role="group" aria-label="Pages">
+        <button type="button" data-page="index" aria-pressed="true">Home</button>
+        <button type="button" data-page="about_us" aria-pressed="false">About Us</button>
+        <button type="button" data-page="location" aria-pressed="false">Location</button>
+        <button type="button" data-page="contact_us" aria-pressed="false">Contact Us</button>
+        <span class="address" id="address">archive://auto-shop-2010/index.html</span>
+      </div>
+      <div class="viewport">
+        <img id="shot" src="img/index.jpg" width="1024" height="1423" alt="Screenshot of the home page" />
+      </div>
+    </div>
+
+    <a class="back" href="/funhouse" target="_top">back to the funhouse</a>
+
+    <script>
+      (function () {
+        var names = { index: 'home page', about_us: 'About Us page', location: 'Location page', contact_us: 'Contact Us page' };
+        var sizes = { index: 1423, about_us: 1423, location: 923, contact_us: 1023 };
+        var shot = document.getElementById('shot');
+        var address = document.getElementById('address');
+        var buttons = document.querySelectorAll('[data-page]');
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].addEventListener('click', function () {
+            var page = this.getAttribute('data-page');
+            shot.src = 'img/' + page + '.jpg';
+            shot.height = sizes[page];
+            shot.alt = 'Screenshot of the ' + names[page];
+            address.textContent = 'archive://auto-shop-2010/' + page + '.html';
+            for (var j = 0; j < buttons.length; j++) buttons[j].setAttribute('aria-pressed', String(buttons[j] === this));
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

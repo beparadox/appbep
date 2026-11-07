@@ -179,6 +179,6 @@ guestbook are dropped; the Bio is left out for now (a trimmed draft is kept loca
 1. ~~Public or private repo?~~ Decided: **public**, MIT license.
 2. ~~2009/2011 quiz facts?~~ Decided: keep as written, labeled "as of 2009".
 3. **APF new questions:** you write them, or I draft some in the APF voice for you to edit?
-4. **Leaderboards:** one global board per game, or keep the old "today" + "all-time" split?
+4. ~~Leaderboards?~~ Decided: keep **"today" + "all-time"**, each ranked by moves and by time (N-Puzzizzle). Names: 3-12 letters/digits/underscores, server-side word filter, admin delete script. WTF Blaster keeps personal bests on the device. See `docs/tutorials/npuzzle-leaderboard.md`.
 5. ~~Contact info?~~ Decided: contact form (see above), no public email address.
 6. **Name for the funhouse:** "Funhouse" is a placeholder.

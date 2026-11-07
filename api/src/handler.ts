@@ -1,4 +1,5 @@
 import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
+import type { Deps } from './npuzzle/service';
 
 /**
  * Single Lambda behind API Gateway (HTTP API). Routes (see docs/PLAN.md):
@@ -44,6 +45,21 @@ const json = (statusCode: number, body: unknown): APIGatewayProxyResultV2 => ({
   headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
   body: JSON.stringify(body),
 });
+
+/**
+ * N-Puzzle tutorial step 7 (docs/tutorials/npuzzle-leaderboard.md): YOU implement this.
+ * Route the three N-Puzzle requests to the service functions with the given deps, and turn
+ * their Reply into a response with `json`. Everything else: the same 404/501 as `handler`.
+ * Then make `handler` call `handle(event, <the real deps>)`.
+ */
+export async function handle(
+  event: APIGatewayProxyEventV2,
+  deps: Deps,
+): Promise<APIGatewayProxyResultV2> {
+  throw new Error(
+    `TODO step 7: handle (called with ${event.requestContext.http.method} ${event.rawPath}, ${Object.keys(deps)})`,
+  );
+}
 
 export async function handler(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
   const route = matchRoute(event.requestContext.http.method, event.rawPath);

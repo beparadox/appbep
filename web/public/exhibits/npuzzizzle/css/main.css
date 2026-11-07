@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/*===========================================================================
+ Main IDs
+ ============================================================================
+ */
+#header {
+    position: relative; 
+    margin: auto;
+    width: 100%;
+    height: 100px;
+}
+
+#main {
+    position: relative;
+    padding: 10px;
+    width: 100%;
+}
+
+#main-content-wrapper {
+    text-align: center;
+    position: relative;
+    top: 0px;
+    height: 100%; 
+
+}
+#nav-left {
+    position: relative;
+    height: 100%;    
+}
+
+#nav-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 4em;
+}
+
+/*==========================================================
+Puzzle Block
+*/
+
+#npuzzle {
+    position: relative;
+    /*padding: 10px; */
+}
+
+.puzzle-block {
+    position: absolute;
+
+
+}
+.abs {
+    position: absolute;
+}
+
+.hide {
+    display: none;
+}
+
+.fullscreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: green;
+
+}
+
+.mar5 {
+    margin: 5px; 
+}
+
+.border {
+    border: 1px solid #000000; 
+}
+
+.wid100 {
+    width: 100%;
+}
+
+.center {
+    position: relative;
+    text-align: center; 
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+.btn-custom {
+    width: 250px;
+    margin-bottom: 10px; 
+}
+ 
+body {
+    background: #ffffff;
+}
+
+.header-title {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    font-family: serif;
+    font-size: 400%;
+    /*font-size: 100%;*/
+    font-weight: bold;
+}
+.lbl {
+    background-color: #00008B;
+}
+
+/* Class Jumbotron from Twitter bootstrap */
+.mini-jumbotron {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 100px;
+  /*right: 0px;
+  bottom: 0px;*/
+  z-index: 2; 
+  padding: 0px 0;
+  color: #fff;
+  text-align: center;
+  /* #0000FF */
+  /* #00008B */
+  text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+  /* Current colors:  #0000FF #00008B*/
+
+  background: #0000FF; /* Old browsers */
+  background: -moz-linear-gradient(45deg,  #0000FF 0%, #00008B 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#0000FF), color-stop(100%,#00008B)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg,  #0000FF 0%,#00008B 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(45deg,  #0000FF 0%,#00008B 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  #0000FF 0%,#00008B 100%); /* IE10+ */
+  background: linear-gradient(45deg,  #0000FF 0%,#00008B 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0000FF', endColorstr='#00008B',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+     -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+          box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+}
+.jumbotron h1 {
+  font-size: 90px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.inline {
+    display: inline; 
+}
+
+.icon:hover {
+   cursor: pointer;  
+}
+
+.input-height {
+    height: 50px; 
+}
+
+.denotes {
+    margin-top: 10px;
+    float: left;
+}
+
+.wid90 {
+    width: 90%;
+}
+ 
+#npuzzle-panes {
+    position: relative; 
+    margin-top: 0px;
+    min-height: 500px;
+}
+
+
+.npuzzle-pane {
+    position: relative;
+    width: 100%;
+  /*  height: 100%;
+    height: 500px;
+    border: 1px solid black;*/
+    display: none;
+}
+
+.npuzzle-block {
+    position: absolute;
+    color: 'white';
+    border-radius: 25px;    
+}
+
+.rel {
+    position: relative;
+}
+
+.bot0 {
+    bottom: 0;
+}
+
+.wid140 {
+    width: 80px;
+}
+
+.height40 {
+    height: 40px;
+}
+
+.bottom0 {
+    position: absolute;
+    bottom: 10px;
+}
+
+.gamefont {
+    font: 23px bold mono;
+} 
+
+.pad10 {
+    padding: 10px;
+}
+
+.mar10 {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.marbot10 {
+    margin-bottom: 10px;
+ }
+
+ .exptext {
+    font: 23px cursive times new roman;
+ }
+
+ .caption {
+    font: 17px bold courier;
+}
+
+.dnone {
+    display: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.image {
+    width: 250px;
+    height: 250px;
+}
+
+.mw {
+    position: absolute;
+    top: 0;
+    right: 0; 
+    height: 100%;
+    width: 50px;
+    font: 25px bold;
+}
+
+.table-label,
+.table-row {
+    text-align: right;
+}
+
+.table-row  {
+    font: 25px bold mono;
+    margin-left: 15px; 
+}
+
+.table-label {
+    margin-right: 25px;
+}
+
+
+table.center {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid yellow;
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<!--
+  POPFishies (2014), restored. The game code is the original, with the input and
+  sizing fixes listed at the top of popfishies.js.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>POPFishies (2014)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        font-family: monospace;
+      }
+      /* The game draws on a fixed 320x480 canvas; CSS scales it to fit the screen. */
+      canvas {
+        display: block;
+        margin: 0 auto;
+        background: #3366ff;
+        width: min(100vw, calc((100vh - 3rem) * 2 / 3));
+        height: auto;
+        touch-action: manipulation;
+      }
+      .back {
+        display: block;
+        margin: 0.75rem auto;
+        text-align: center;
+        color: #ff0;
+      }
+    </style>
+    <script src="popfishies.js"></script>
+  </head>
+  <body>
+    <canvas aria-label="POPFishies game: tap bubbles and fish to pop them">
+      POPFishies needs a browser with canvas support.
+    </canvas>
+    <a class="back" href="/funhouse" target="_top">back to the funhouse</a>
+  </body>
+</html>

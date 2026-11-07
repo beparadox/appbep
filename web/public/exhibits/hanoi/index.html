@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  Towers of Hanoi (2013-14), restored. The game code is the original, with the input
+  and sizing fixes listed at the top of towers_of_hanoi.js.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Towers of Hanoi (2014)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        font-family: monospace;
+      }
+      /* The game draws on a fixed 900x600 canvas; CSS scales it to fit the screen. */
+      canvas {
+        display: block;
+        margin: 0 auto;
+        background: #ffffff;
+        width: min(100vw, calc((100vh - 3rem) * 1.5));
+        height: auto;
+        touch-action: manipulation;
+      }
+      .back {
+        display: block;
+        margin: 0.75rem auto;
+        text-align: center;
+        color: #ff0;
+      }
+      .rotate {
+        display: none;
+        color: #ccc;
+        text-align: center;
+        margin: 0.5rem 1rem 0;
+      }
+      @media (orientation: portrait) and (max-width: 40rem) {
+        .rotate {
+          display: block;
+        }
+      }
+    </style>
+    <script src="towers_of_hanoi.js"></script>
+  </head>
+  <body>
+    <canvas aria-label="Towers of Hanoi game: tap a peg to move the discs there">
+      Towers of Hanoi needs a browser with canvas support.
+    </canvas>
+    <p class="rotate">Tip: turn your phone sideways for a bigger board.</p>
+    <a class="back" href="/funhouse" target="_top">back to the funhouse</a>
+  </body>
+</html>

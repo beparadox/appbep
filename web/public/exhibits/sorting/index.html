@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+  Sorting animations (c. 2016), restored. The page layout is the original's, with a
+  few lines of CSS in place of Bootstrap; the changes to the script are listed at the
+  top of sorting_animations.js.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Sorting Demos (2016)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0 1rem 1rem;
+        background: #fff;
+        color: #333;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-align: center;
+      }
+      h2 {
+        font-weight: 500;
+        margin: 1.25rem 0 0.75rem;
+      }
+      canvas {
+        display: block;
+        margin: 0 auto 0.75rem;
+        max-width: 100%;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: center;
+      }
+      .field {
+        display: inline-flex;
+        gap: 0.4rem;
+        align-items: center;
+      }
+      select,
+      button {
+        font: inherit;
+        padding: 0.35rem 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+        color: #333;
+        cursor: pointer;
+      }
+      button:hover:not(:disabled) {
+        background: #e6e6e6;
+      }
+      :disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      footer {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+      }
+      footer a {
+        color: #337ab7;
+        margin-right: 0.75rem;
+      }
+    </style>
+    <script src="sorting_animations.js"></script>
+  </head>
+  <body>
+    <h2>Sorting Demos</h2>
+    <canvas id="animations_canvas" aria-label="Bars being sorted by height"></canvas>
+
+    <div class="controls">
+      <span class="field">
+      <label for="algo">Select sorting method:</label>
+      <select id="algo">
+        <option value="quick">Quick</option>
+        <option value="bubble">Bubble</option>
+        <option value="merge">Merge</option>
+        <option value="selection">Selection</option>
+        <option value="insertion">Insertion</option>
+      </select>
+      </span>
+      <span class="field">
+      <label for="speed">Speed:</label>
+      <select id="speed">
+        <option value="4">Slow</option>
+        <option value="2" selected>Medium</option>
+        <option value="1">Original (2016)</option>
+      </select>
+      </span>
+      <button id="sort_button" type="button">Sort</button>
+      <button id="new_points_button" type="button">New Points</button>
+    </div>
+
+    <footer>
+      <a href="/funhouse" target="_top">back to the funhouse</a>
+      <span>&copy; Bambridge E. Peterson</span>
+    </footer>
+  </body>
+</html>

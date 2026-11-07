@@ -81,12 +81,12 @@ export const EXHIBITS: Exhibit[] = [
     id: 'hanoi',
     title: 'Towers of Hanoi',
     kind: 'demo',
-    year: 'c. 2014',
+    year: '2013–14',
     tech: ['JavaScript', 'Animation'],
     blurb: 'Moving a stack of disks one at a time, never putting a big disk on a small one.',
     lesson:
       'The textbook example of recursion: to move n disks, move n−1 out of the way, move the biggest, then move the n−1 back on top. It always takes 2ⁿ−1 moves; 64 disks would take longer than the age of the universe.',
-    legacy: { port: 8081, path: '/js/towers_of_hanoi/index.html' },
+    live: true,
   },
   {
     id: 'sorting',
@@ -94,10 +94,10 @@ export const EXHIBITS: Exhibit[] = [
     kind: 'demo',
     year: 'c. 2016',
     tech: ['JavaScript', 'Animation'],
-    blurb: 'Bubble, selection, insertion, merge and quick sort, racing in slow motion.',
+    blurb: 'Bubble, selection, insertion, merge and quick sort, one at a time, in slow motion.',
     lesson:
       'Bubble, selection and insertion sort compare roughly every pair (n² steps); merge and quick sort split the list in half again and again (about n·log n). For a million items, that is the difference between a trillion steps and twenty million.',
-    legacy: { port: 8084, path: '/sortinganimations' },
+    live: true,
   },
   {
     id: 'schportz',

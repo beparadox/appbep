@@ -72,7 +72,7 @@ _Draft 1 · 2026-11-05_
 | Score             | `SCORE#wtfblaster`    | `2026-11-05#<score padded>#<id>` | name, stats…             |
 | Daily-board index | GSI on `day` + score  |                                  |                          |
 | Vote tally        | `QUIZ#apf#2009-09-14` | `TALLY`                          | c0..c4 (atomic counters) |
-| Voter marker      | `QUIZ#apf#2009-09-14` | `VOTER#<hash(ip+salt)>`          | TTL 2 days               |
+| Voter marker      | `QUIZ#apf#2009-09-14` | `VOTER#<hmac(key, ip+quiz+id)>`  | TTL 30 days              |
 | Contact limiter   | `CONTACT#<hash(ip)>`  | `<yyyy-mm-dd>`                   | count, TTL 2 days        |
 
 **Spam protection:** API Gateway throttling, server-side plausibility checks (e.g. hits ≤ shots, time > minimum possible), a name length/charset filter with a bad-word list, and hashed-IP vote dedupe. If spam shows up, add **Cloudflare Turnstile** (free). We skip AWS WAF because it alone costs more than the budget.
@@ -101,6 +101,8 @@ Cost: SES is $0.10 per 1,000 emails; Turnstile is free.
 - One React quiz component, skinned twice (sports-desk Schportz, angry-fan APF), shows one question per "day" with the five choices, the per-answer snark, and the tally.
 - The "day" is a rotation through the question list keyed on the current date, so there's always a fresh question without anyone curating it.
 - Decided: the old answers stay as written, labeled "as of 2009" (it's a relic).
+
+**Schportz status (Nov 2026):** built as a vintage restore (`web/public/exhibits/schportz/`), not a React component: the 2011 markup and CSS, one new script. 33 questions in `content/quizzes/schportz.json` (32 from the 2011 dump + 1 found only in the 2010 tables), 24 with their 2010 vote counts. Votes: `api/src/quiz/`. Headlines: a scheduled Lambda writes `/feeds/schportz.json` every 30 minutes (Yahoo, CBS, ESPN, Google; ESPN's league feeds for the NFL/NBA/MLB/NHL tabs). Setup: [docs/tutorials/schportz-setup.md](tutorials/schportz-setup.md). APF can reuse `api/src/quiz/` and the page script's quiz logic.
 
 ### Angry Packers Fan exhibit
 

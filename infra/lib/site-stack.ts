@@ -12,6 +12,9 @@ import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ses from 'aws-cdk-lib/aws-ses';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as eventTargets from 'aws-cdk-lib/aws-events-targets';
+import * as triggers from 'aws-cdk-lib/triggers';
 import * as apigw from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
@@ -35,6 +38,15 @@ export const CONTACT_PARAMS = {
   to: '/appbep/contact/to',
   turnstile: '/appbep/contact/turnstile-secret',
 } as const;
+
+/**
+ * Key for hashing visitor IPs (quiz vote dedupe). A random value you create by hand
+ * (docs/tutorials/schportz-setup.md); without it, votes answer "not configured".
+ */
+export const HASH_KEY_PARAM = '/appbep/hash-key';
+
+/** Where the scheduled feed reader saves the Schportz headlines in the site bucket. */
+export const FEEDS_KEY = 'feeds/schportz.json';
 
 export class SiteStack extends Stack {
   constructor(scope: Construct, id: string, props: SiteStackProps) {
@@ -66,6 +78,7 @@ export class SiteStack extends Stack {
           : '',
         CONTACT_TO_PARAM: CONTACT_PARAMS.to,
         TURNSTILE_SECRET_PARAM: CONTACT_PARAMS.turnstile,
+        HASH_KEY_PARAM,
       },
       logGroup: new logs.LogGroup(this, 'ApiLogs', {
         retention: logs.RetentionDays.ONE_MONTH,
@@ -83,6 +96,19 @@ export class SiteStack extends Stack {
         resources: Object.values(CONTACT_PARAMS).map((name) =>
           this.formatArn({ service: 'ssm', resource: 'parameter', resourceName: name.slice(1) }),
         ),
+      }),
+    );
+    // Quiz votes: read the hashing key.
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['ssm:GetParameter'],
+        resources: [
+          this.formatArn({
+            service: 'ssm',
+            resource: 'parameter',
+            resourceName: HASH_KEY_PARAM.slice(1),
+          }),
+        ],
       }),
     );
     fn.addToRolePolicy(
@@ -178,14 +204,44 @@ export class SiteStack extends Stack {
 
     // Upload the built site if it exists (run `npm run build` first).
     const dist = path.join(REPO_ROOT, 'web', 'dist');
+    let siteDeployment: s3deploy.BucketDeployment | undefined;
     if (fs.existsSync(dist)) {
-      new s3deploy.BucketDeployment(this, 'DeploySite', {
+      siteDeployment = new s3deploy.BucketDeployment(this, 'DeploySite', {
         sources: [s3deploy.Source.asset(dist)],
         destinationBucket: bucket,
         distribution,
         distributionPaths: ['/*'],
+        // The feed reader writes these; a deploy must not delete them.
+        exclude: ['feeds/*'],
       });
     }
+
+    // ---------- Schportz headlines: fetched every 30 minutes, saved as a static file ----------
+    const feedsFn = new nodejs.NodejsFunction(this, 'FeedsFn', {
+      entry: path.join(REPO_ROOT, 'api', 'src', 'feeds', 'handler.ts'),
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_22_X,
+      architecture: lambda.Architecture.ARM_64,
+      memorySize: 256,
+      timeout: Duration.seconds(30),
+      environment: { BUCKET: bucket.bucketName, FEEDS_KEY },
+      logGroup: new logs.LogGroup(this, 'FeedsLogs', {
+        retention: logs.RetentionDays.ONE_MONTH,
+        removalPolicy: RemovalPolicy.DESTROY,
+      }),
+      bundling: { format: nodejs.OutputFormat.ESM, minify: true, sourceMap: true },
+    });
+    bucket.grantRead(feedsFn, 'feeds/*');
+    bucket.grantPut(feedsFn, 'feeds/*');
+    new events.Rule(this, 'FeedsSchedule', {
+      schedule: events.Schedule.rate(Duration.minutes(30)),
+      targets: [new eventTargets.LambdaFunction(feedsFn)],
+    });
+    // Also run once right after a deploy, so the page has headlines straight away.
+    new triggers.Trigger(this, 'FeedsAfterDeploy', {
+      handler: feedsFn,
+      executeAfter: siteDeployment ? [siteDeployment] : [],
+    });
 
     new CfnOutput(this, 'SiteUrl', {
       value: `https://${names[0] ?? distribution.distributionDomainName}`,

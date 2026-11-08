@@ -2,15 +2,17 @@ import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda
 import type { Deps } from './npuzzle/service';
 import { createContactDeps, viewerIp } from './contact/aws';
 import { submitContact, type ContactDeps } from './contact/service';
+import { createQuizDeps } from './quiz/aws';
+import { castVote, getTally, type QuizDeps } from './quiz/service';
 
 /**
  * Single Lambda behind API Gateway (HTTP API). Routes (see docs/PLAN.md):
  *   GET  /api/scores/{game}             leaderboards
  *   POST /api/scores/{game}             submit a score
- *   GET  /api/quiz/{quiz}/{date}/tally  vote counts
- *   POST /api/quiz/{quiz}/{date}/vote   cast a vote
+ *   GET  /api/quiz/{quiz}/{date}/tally  vote counts (quiz/)
+ *   POST /api/quiz/{quiz}/{date}/vote   cast a vote (quiz/)
  *   POST /api/contact                   contact form (contact/)
- * Scores and quizzes land in Phases 4–5; for now they answer 501.
+ * Scores land in Phase 4 (the N-Puzzle tutorial); until then they answer 501.
  */
 export const GAMES = ['wtfblaster', 'npuzzle'] as const;
 export const QUIZZES = ['schportz', 'apf'] as const;
@@ -88,14 +90,43 @@ export async function handleContact(
   }
 }
 
+/** GET .../tally and POST .../vote with the given deps. */
+export async function handleQuiz(
+  event: APIGatewayProxyEventV2,
+  route: { kind: 'tally' | 'vote'; quiz: string; date: string },
+  deps: QuizDeps,
+): Promise<APIGatewayProxyResultV2> {
+  try {
+    const reply =
+      route.kind === 'tally'
+        ? await getTally(deps, route.quiz, route.date)
+        : await castVote(
+            deps,
+            route.quiz,
+            route.date,
+            bodyText(event),
+            viewerIp(event.headers ?? {}, event.requestContext.http.sourceIp),
+          );
+    return json(reply.status, reply.body);
+  } catch (err) {
+    console.error('quiz: unexpected error', err);
+    return json(500, { error: 'internal' });
+  }
+}
+
 // Created on first use and kept while the Lambda stays warm.
 let contactDeps: ContactDeps | undefined;
+let quizDeps: QuizDeps | undefined;
 
 export async function handler(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
   const route = matchRoute(event.requestContext.http.method, event.rawPath);
   if (route?.kind === 'contact') {
     contactDeps ??= createContactDeps(process.env);
     return handleContact(event, contactDeps);
+  }
+  if (route?.kind === 'tally' || route?.kind === 'vote') {
+    quizDeps ??= createQuizDeps(process.env);
+    return handleQuiz(event, route, quizDeps);
   }
   if (!route) return json(404, { error: 'not_found' });
   return json(501, { error: 'not_implemented', route });

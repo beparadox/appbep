@@ -1,0 +1,373 @@
+<!doctype html>
+<!--
+  schportz.com (2010-15), restored. The markup and CSS are the original page's. Changes:
+  - the quiz questions come from a static file (/quizzes/schportz.json, recovered from the
+    2010-11 MySQL dumps) and votes go to the new API, instead of PHP + MySQL
+  - the headlines come from /feeds/schportz.json, refreshed every 30 minutes by a scheduled
+    job, instead of Google's AJAX Feed API (shut down in 2016)
+  - jQuery, jQuery UI, Modernizr, the Google loader and Google Analytics are gone: one small
+    script (js/schportz.js) does it all
+  - a layout for phones (the 2011 page was 1,200px wide), and the logo links to the funhouse
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>schportz.com</title>
+    <meta name="author" content="Bambridge E. Peterson" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/schportz.css" />
+    <style>
+      /* ---------- Added 2026 ---------- */
+      .gf_schp_hl.active {
+        background: #ffffff;
+        color: #000000;
+      }
+      .gf_schp_hl {
+        user-select: none;
+      }
+      #schportz_feed_control {
+        clear: both;
+        background: #f7f7f7;
+        color: #000;
+        text-align: left;
+        font: 14px Arial, sans-serif;
+      }
+      .headline {
+        padding: 6px 10px;
+        border-bottom: 1px solid #d8d8d8;
+      }
+      .headline a {
+        color: #070707;
+        text-decoration: none;
+      }
+      .headline a:hover {
+        text-decoration: underline;
+      }
+      .headline .when {
+        color: #707070;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .feed-note {
+        padding: 6px 10px;
+        color: #707070;
+        font-size: 12px;
+      }
+      .quiz_chose {
+        color: #f7f7f7;
+        text-align: right;
+      }
+      .quiz-answers-rows.correct .quiz_answer {
+        color: #7cfc00;
+      }
+      .quiz-answers-rows.mine .quiz_answer {
+        text-decoration: underline;
+      }
+      #qod_submit:disabled {
+        opacity: 0.5;
+      }
+      .relic-note {
+        color: #c8c8c8;
+        font: italic 12px Georgia, serif;
+        text-align: center;
+        margin: 0.5em 1em 1.5em;
+        clear: both;
+      }
+      .relic-note a {
+        color: #f7f7f7;
+      }
+      footer a {
+        color: #f7f7f7;
+      }
+      /* Wide windows: quiz and headlines side by side, centered, same height and border. */
+      @media (min-width: 1221px) {
+        #content_nav_wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        #quiz_wrapper,
+        #nav {
+          float: none;
+          margin: 8px 0 16px;
+        }
+        /* Same outer size and border as the quiz box (#quiz_wrapper: 450px + padding + border). */
+        #nav {
+          box-sizing: border-box;
+          height: 480px;
+          border: 5px solid white;
+          background: #000;
+        }
+        #schportz_rss_feeds {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          margin-top: 0 !important;
+        }
+        #schportz_feed_control {
+          flex: 1;
+          max-height: none;
+          overflow-y: auto;
+        }
+        #header_inner_wrap {
+          text-align: center;
+        }
+        #schportz_logo {
+          position: static !important;
+          float: none !important;
+          margin: 1.6em 0 0 !important;
+        }
+      }
+      /* Footer on wider windows: one centered row with space between the pieces. */
+      @media (min-width: 801px) {
+        footer {
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+          gap: 4em;
+          height: auto;
+          padding: 0.5em 0 1em;
+        }
+        footer > div {
+          float: none !important;
+          width: auto !important;
+          height: auto !important;
+        }
+        footer > div > * {
+          position: static !important;
+        }
+      }
+      /* The original link color was black, which is invisible on this background. */
+      footer .schportz-footer-links {
+        color: #f7f7f7;
+      }
+      /* Phones and narrow windows: stack everything in one column. */
+      @media (max-width: 1220px) {
+        #quiz_wrapper,
+        #nav {
+          float: none;
+          min-width: 0;
+          max-width: 771px;
+          width: auto;
+          margin: 0.5em auto;
+        }
+      }
+      @media (max-width: 800px) {
+        #quiz_wrapper {
+          height: auto;
+          border-width: 3px;
+          overflow: hidden;
+        }
+        #quiz,
+        #quiz_response_wrapper {
+          float: none;
+          width: auto;
+          height: auto;
+          margin: 5px;
+        }
+        #quiz_body {
+          height: auto;
+          padding-bottom: 12px;
+        }
+        #inner_quiz_body {
+          height: auto;
+        }
+        /* The arrow/Submit row is three floats; contain them so nothing wraps around it. */
+        #quiz_input_buttons {
+          display: flow-root;
+        }
+        #quiz_response_wrapper {
+          position: static;
+          min-height: 8em;
+          max-height: none;
+          margin-top: 10px;
+        }
+        #quiz_response {
+          height: auto !important;
+          min-height: 8em;
+        }
+        .gf_schp_hl {
+          width: 25%;
+          box-sizing: border-box;
+        }
+        #quiz_sports {
+          position: static !important;
+          margin: 8px 12px 12px;
+        }
+        footer > div {
+          float: none !important;
+          width: 100% !important;
+          height: auto !important;
+        }
+        footer > div > * {
+          position: static !important;
+        }
+        footer {
+          height: auto;
+        }
+        #last-modified {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <div id="header_inner_wrap">
+        <a href="/funhouse" target="_top" title="Back to the funhouse"
+          ><img
+            id="schportz_logo"
+            src="img/schportz_logo_notm.png"
+            alt="schportz.com"
+            style="position: absolute; bottom: 1.25em; margin-left: 1em; float: left"
+        /></a>
+      </div>
+    </div>
+
+    <div role="main">
+      <div id="content_nav_wrapper">
+        <div id="quiz_wrapper">
+          <div id="quiz">
+            <div style="height: 5px"></div>
+            <div id="quiz_body">
+              <div id="inner_quiz_body">
+                <div id="quiz_choices">
+                  <div style="margin-bottom: 1em; padding: 5px; min-height: 3em; margin-top: 0.3em">
+                    <div
+                      class="quiz_font"
+                      id="quiz_question"
+                      aria-live="polite"
+                      style="background: transparent; color: #ffffff; width: 100%; text-align: center"
+                    >
+                      <img src="img/ajaxLoad1.gif" alt="Loading" />
+                    </div>
+                  </div>
+                  <div>
+                    <div id="quiz-answers" role="radiogroup" aria-labelledby="quiz_question"></div>
+                  </div>
+                  <div
+                    id="total-votes"
+                    style="height: 1em; width: 100%; text-align: center; color: white; margin-bottom: 1em"
+                  >
+                    <div id="total_votes_txt" style="display: none; height: 100%; width: 100%; margin-bottom: 2px"></div>
+                  </div>
+                </div>
+                <div id="quiz_input_buttons" style="width: 100%; margin-top: 2px">
+                  <div style="float: left; width: 30%; text-align: right">
+                    <input
+                      type="button"
+                      class="quiz_arrow"
+                      id="quiz_previous"
+                      value=""
+                      aria-label="Previous question"
+                      style="margin-right: 1em; height: 27px; width: 27px; background: url(img/quiz_previous2.gif)"
+                    />
+                  </div>
+                  <div style="float: left; width: 40%; text-align: center; font-size: 17px">
+                    <input type="button" value="Submit" id="qod_submit" class="quiz_input" disabled />
+                  </div>
+                  <div style="float: left; width: 30%">
+                    <input
+                      type="button"
+                      class="quiz_arrow"
+                      id="quiz_next"
+                      value=""
+                      aria-label="Next question"
+                      style="margin-left: 1em; height: 27px; width: 27px; background: url(img/quiz_next2.gif)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="quiz_response_wrapper" class="quiz_font">
+            <div id="quiz_response_filler" style="height: 100%">
+              <div style="width: 100%; height: 50%; color: #f7f7f7">
+                <span class="quiz_response_text">Quiz of the Day</span>
+                <div style="width: 85%; margin: auto; text-align: left; margin-top: 0.9em">
+                  <div id="quiz_category" class="quiz_category_text">
+                    Quiz Category : <span id="quiz_category_text" style="margin-left: 2px">ALL</span>
+                  </div>
+                  <div style="margin-top: 5px">
+                    Date: <span id="quiz_date" class="quiz_response_text_too" style="margin-left: 4px"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="quiz_response"
+              class="quiz_answer"
+              aria-live="polite"
+              style="display: none; height: 98%; color: #000000; background-color: #f7f7f7; padding: 1%; overflow-y: auto"
+            ></div>
+          </div>
+
+          <div id="quiz_sports" style="position: absolute; left: 50%; top: 60%; text-align: left; color: #f7f7f7">
+            <div class="quiz_response_var" style="margin-bottom: 5px; margin-top: 7px">
+              <label for="quiz_sports_select" style="text-decoration: underline; margin-right: 5px">Set category:</label>
+              <select id="quiz_sports_select">
+                <option>ALL</option>
+              </select>
+            </div>
+            <div id="search_for_quiz" class="quiz_response_var">
+              <form id="quiz_search_form" style="margin-bottom: 5px">
+                <label for="quiz_search_date" style="text-decoration: underline">Get by date:</label>
+                <input
+                  id="quiz_search_date"
+                  type="text"
+                  placeholder="mm/dd/yy"
+                  style="margin-left: 6px"
+                  size="8"
+                  inputmode="numeric"
+                /><input id="get_quiz_by_date" class="cursor" type="submit" value="Go" />
+                <div class="quiz_by_date_margin">
+                  <span style="font-size: 0.85em; font-style: italic">Earliest date: </span>
+                  <span id="quiz_by_date_earliest"></span>
+                </div>
+                <div id="quiz_warnings" role="alert" style="text-align: center; color: #f7f7f7"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div id="nav">
+          <div id="schportz_rss_feeds" style="width: 100%; margin-top: 0.7em">
+            <div class="schportz-gfg-title" style="text-align: center">Sports Headlines</div>
+            <div id="choose_feed_control" role="tablist" style="width: 100%; text-align: center"></div>
+            <div id="schportz_feed_control" class="feed_control" role="tabpanel" aria-live="polite">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="relic-note">
+      The quiz questions and answers are from 2010&ndash;11, and so are the facts: no updates since. The
+      headlines are today's, from each site's own feed.
+    </p>
+
+    <footer>
+      <div id="footer_left">
+        <div style="position: absolute; bottom: 0; font-size: 0.75em; width: 100%; text-align: center">
+          &copy; 2010-2015 Bambridge E. Peterson
+        </div>
+      </div>
+      <div id="footer_center">
+        <div style="position: absolute; bottom: 0; width: 100%; text-align: center">
+          <a class="schportz-footer-links" href="#">Top</a>
+          <a class="schportz-footer-links" href="/funhouse" target="_top">back to the funhouse</a>
+        </div>
+      </div>
+      <div id="footer_right">
+        <div id="last-modified" style="position: absolute; bottom: 0; font-size: 0.75em; width: 100%; text-align: center">
+          <span>Restored 2026</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/schportz.js"></script>
+  </body>
+</html>

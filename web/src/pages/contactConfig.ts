@@ -11,7 +11,7 @@ export const TURNSTILE_SITE_KEY = '';
  * Cloudflare's published test key: always passes, shows a "testing only" widget. Used by the
  * dev server so the form works locally. Docs: developers.cloudflare.com/turnstile/troubleshooting/testing/
  */
-export const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';
+export const TURNSTILE_TEST_SITE_KEY = '0x4AAAAAAF4pHbQwJcwEZDnT';
 
 export const siteKey = import.meta.env.DEV ? TURNSTILE_TEST_SITE_KEY : TURNSTILE_SITE_KEY;
 

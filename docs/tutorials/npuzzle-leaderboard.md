@@ -176,9 +176,10 @@ Implement `handle(event, deps)`: match the route, call the right service functio
 `Reply` into a response with the existing `json()` helper. Notes:
 
 - The query string is `event.queryStringParameters`; the body is `event.body`.
-- If `event.isBase64Encoded` is true, the body is base64:
-  `Buffer.from(event.body, 'base64').toString('utf8')`.
-- Leave every non-npuzzle route as it is (404 / 501).
+- If `event.isBase64Encoded` is true, the body is base64. `bodyText(event)` in `handler.ts`
+  (written for the contact form) already handles that; reuse it.
+- Leave every non-npuzzle route as it is (404 / 501), and keep the contact form's
+  `if (route?.kind === 'contact')` line at the top of `handler`.
 
 Then make `handler` call `handle(event, deps)` with the real thing. Build the deps **once, at
 module level** (outside the function), so warm Lambda invocations reuse them:
@@ -199,9 +200,10 @@ Write `class DynamoStore implements NpuzzleStore`. The table already exists (cre
 `infra/lib/site-stack.ts`): string keys `pk` and `sk`, pay-per-request, and a TTL attribute
 named `ttl` (epoch **seconds**; DynamoDB deletes the item some time after that).
 
-**Packages:** `npm install -w api @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb`. The Lambda
-runtime already includes the AWS SDK, so the bundler leaves it out of the upload; installing
-gives you the types and lets tests import it. Use `DynamoDBDocumentClient` from `lib-dynamodb`:
+**Packages:** `@aws-sdk/client-dynamodb` and `@aws-sdk/lib-dynamodb` are already installed
+(the contact form uses them; its `api/src/contact/aws.ts` has a DynamoDB `UpdateCommand` you
+can look at for the shape of a call). The Lambda runtime already includes the AWS SDK, so the
+bundler leaves it out of the upload; the packages give you the types and let tests import it. Use `DynamoDBDocumentClient` from `lib-dynamodb`:
 it converts plain JS objects for you.
 
 **Suggested keys** (one table holds everything, told apart by prefixes):

@@ -136,3 +136,66 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
   gap: 1rem;
 }
+
+/* ---------- Contact form (/contact) ---------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 32rem;
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: 600;
+}
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  font-weight: normal;
+  padding: 0.5rem 0.6rem;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--face-edge);
+  border-radius: 6px;
+}
+.contact-form textarea {
+  resize: vertical;
+}
+.contact-form button {
+  align-self: flex-start;
+  font: inherit;
+  padding: 0.55rem 1.4rem;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contact-form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.contact-turnstile {
+  min-height: 65px;
+}
+.contact-error {
+  color: #b3261e;
+}
+/* Off-screen rather than display:none, which some bots know to skip. */
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (prefers-color-scheme: dark) {
+  .contact-form button {
+    color: #121212;
+  }
+  .contact-error {
+    color: #ff8a80;
+  }
+}

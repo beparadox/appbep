@@ -88,7 +88,9 @@ Anti-spam layers, all checked server-side (a bot can skip anything done only in 
 3. **Minimum fill time**: forms submitted within ~3 seconds of loading are bots.
 4. **Rate limit**: max 3 messages per visitor (hashed IP) per day, plus API Gateway throttling overall.
 5. **Content limits**: length caps, at most 2 links, required valid reply-to address.
-6. **Sending**: Amazon SES sends to your verified address with the visitor as Reply-To. Your address and the Turnstile secret live in AWS (SSM Parameter Store / Lambda env), never in git.
+6. **Sending**: Amazon SES sends to your verified address with the visitor as Reply-To. Your address and the Turnstile secret live in AWS (SSM Parameter Store), never in git.
+
+**Status (Nov 2026):** built (`/contact`, `api/src/contact/`, SES identity + DKIM in the stack). Content checks run before Turnstile, since a Turnstile token works only once. Switching it on is a console walkthrough: [docs/tutorials/contact-form-setup.md](tutorials/contact-form-setup.md).
 
 Cost: SES is $0.10 per 1,000 emails; Turnstile is free.
 

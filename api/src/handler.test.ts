@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { APIGatewayProxyEventV2 } from 'aws-lambda';
-import { handle, handler, matchRoute } from './handler';
+import { handle, handleContact, handler, matchRoute } from './handler';
+import type { ContactDeps } from './contact/service';
 import type { Deps } from './npuzzle/service';
 import { MemoryStore } from './npuzzle/store';
 
@@ -31,6 +32,45 @@ describe('matchRoute', () => {
     });
     expect(matchRoute('POST', '/api/quiz/apf/9-14-09/vote')).toBeNull();
     expect(matchRoute('GET', '/api/quiz/apf/2009-09-14/vote')).toBeNull();
+  });
+});
+
+describe('contact route', () => {
+  it('matches POST /api/contact only', () => {
+    expect(matchRoute('POST', '/api/contact')).toEqual({ kind: 'contact' });
+    expect(matchRoute('GET', '/api/contact')).toBeNull();
+    expect(matchRoute('POST', '/api/contact/x')).toBeNull();
+  });
+
+  it('passes the body and the CloudFront viewer IP to the service', async () => {
+    const seen: string[] = [];
+    const deps: ContactDeps = {
+      now: () => 1_000_000,
+      isConfigured: async () => true,
+      verifyTurnstile: async (_token, ip) => {
+        seen.push(ip);
+        return true;
+      },
+      allowAnother: async () => true,
+      send: async () => {},
+    };
+    const body = {
+      name: 'Ada',
+      email: 'ada@example.com',
+      message: 'Hello from a test.',
+      website: '',
+      startedAt: 0,
+      turnstileToken: 't',
+    };
+    const event = {
+      rawPath: '/api/contact',
+      requestContext: { http: { method: 'POST', sourceIp: '10.0.0.1' } },
+      headers: { 'cloudfront-viewer-address': '203.0.113.7:4444' },
+      body: Buffer.from(JSON.stringify(body)).toString('base64'),
+      isBase64Encoded: true,
+    } as unknown as APIGatewayProxyEventV2;
+    expect(await handleContact(event, deps)).toMatchObject({ statusCode: 202 });
+    expect(seen).toEqual(['203.0.113.7']);
   });
 });
 

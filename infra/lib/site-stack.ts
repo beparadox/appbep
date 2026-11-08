@@ -10,6 +10,8 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as logs from 'aws-cdk-lib/aws-logs';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as ses from 'aws-cdk-lib/aws-ses';
 import * as apigw from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
@@ -23,6 +25,16 @@ export interface SiteStackProps extends StackProps {
 }
 
 const REPO_ROOT = path.join(__dirname, '..', '..');
+
+/**
+ * Contact form settings that must stay out of git live in SSM Parameter Store under this
+ * prefix. You create them by hand (docs/tutorials/contact-form-setup.md); the stack only
+ * lets the Lambda read them.
+ */
+export const CONTACT_PARAMS = {
+  to: '/appbep/contact/to',
+  turnstile: '/appbep/contact/turnstile-secret',
+} as const;
 
 export class SiteStack extends Stack {
   constructor(scope: Construct, id: string, props: SiteStackProps) {
@@ -44,8 +56,17 @@ export class SiteStack extends Stack {
       runtime: lambda.Runtime.NODEJS_22_X,
       architecture: lambda.Architecture.ARM_64,
       memorySize: 256,
-      timeout: Duration.seconds(5),
-      environment: { TABLE_NAME: table.tableName },
+      // The contact form waits on SSM, Cloudflare and SES, one after another.
+      timeout: Duration.seconds(10),
+      environment: {
+        TABLE_NAME: table.tableName,
+        // Empty without a domain: the contact form then answers "not configured".
+        CONTACT_FROM: props.domain
+          ? `appbep.com contact form <contact-form@${props.domain.domainName}>`
+          : '',
+        CONTACT_TO_PARAM: CONTACT_PARAMS.to,
+        TURNSTILE_SECRET_PARAM: CONTACT_PARAMS.turnstile,
+      },
       logGroup: new logs.LogGroup(this, 'ApiLogs', {
         retention: logs.RetentionDays.ONE_MONTH,
         removalPolicy: RemovalPolicy.DESTROY,
@@ -53,6 +74,23 @@ export class SiteStack extends Stack {
       bundling: { format: nodejs.OutputFormat.ESM, minify: true, sourceMap: true },
     });
     table.grantReadWriteData(fn);
+
+    // Contact form: read its two settings, and send email from this account's SES identities.
+    // (A SecureString encrypted with the default aws/ssm key needs no extra KMS permission.)
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['ssm:GetParameters'],
+        resources: Object.values(CONTACT_PARAMS).map((name) =>
+          this.formatArn({ service: 'ssm', resource: 'parameter', resourceName: name.slice(1) }),
+        ),
+      }),
+    );
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['ses:SendEmail'],
+        resources: [this.formatArn({ service: 'ses', resource: 'identity', resourceName: '*' })],
+      }),
+    );
 
     const api = new apigw.HttpApi(this, 'HttpApi', {
       defaultIntegration: new HttpLambdaIntegration('ApiIntegration', fn),
@@ -76,11 +114,11 @@ export class SiteStack extends Stack {
     });
 
     let certificate: acm.ICertificate | undefined;
-    let zone: route53.IHostedZone | undefined;
+    let zone: route53.IPublicHostedZone | undefined;
     const names: string[] = [];
     if (props.domain) {
       const { domainName, hostedZoneId } = props.domain;
-      zone = route53.HostedZone.fromHostedZoneAttributes(this, 'Zone', {
+      zone = route53.PublicHostedZone.fromPublicHostedZoneAttributes(this, 'Zone', {
         hostedZoneId,
         zoneName: domainName,
       });
@@ -119,6 +157,18 @@ export class SiteStack extends Stack {
     });
 
     if (zone && props.domain) {
+      // Lets SES send as anything@appbep.com. CDK adds the three DKIM records to the zone,
+      // which is what proves to Gmail that the mail really comes from this domain.
+      new ses.EmailIdentity(this, 'MailDomain', {
+        identity: ses.Identity.publicHostedZone(zone),
+      });
+      // DMARC in monitor-only mode: tells receivers the domain signs its mail (DKIM above).
+      new route53.TxtRecord(this, 'Dmarc', {
+        zone,
+        recordName: `_dmarc.${props.domain.domainName}`,
+        values: ['v=DMARC1; p=none'],
+      });
+
       const target = route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution));
       for (const recordName of [props.domain.domainName, `www.${props.domain.domainName}`]) {
         new route53.ARecord(this, `A-${recordName}`, { zone, recordName, target });

@@ -35,6 +35,29 @@ describe('SiteStack', () => {
     t.resourceCountIs('AWS::CertificateManager::Certificate', 0);
     const withDomain = synth({ domainName: 'appbep.com', hostedZoneId: 'ZTEST' });
     withDomain.resourceCountIs('AWS::CertificateManager::Certificate', 1);
-    expect(Object.keys(withDomain.findResources('AWS::Route53::RecordSet')).length).toBe(4);
+    // A + AAAA for two names, three DKIM CNAMEs, one DMARC TXT
+    expect(Object.keys(withDomain.findResources('AWS::Route53::RecordSet')).length).toBe(8);
+    withDomain.resourceCountIs('AWS::SES::EmailIdentity', 1);
+    t.resourceCountIs('AWS::SES::EmailIdentity', 0);
+  });
+
+  it('lets the API read only the contact settings and send email', () => {
+    const withDomain = synth({ domainName: 'appbep.com', hostedZoneId: 'ZTEST' });
+    withDomain.hasResourceProperties('AWS::Lambda::Function', {
+      Environment: {
+        Variables: Match.objectLike({
+          CONTACT_FROM: 'appbep.com contact form <contact-form@appbep.com>',
+          CONTACT_TO_PARAM: '/appbep/contact/to',
+        }),
+      },
+    });
+    withDomain.hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: Match.arrayWith([
+          Match.objectLike({ Action: 'ssm:GetParameters' }),
+          Match.objectLike({ Action: 'ses:SendEmail' }),
+        ]),
+      },
+    });
   });
 });

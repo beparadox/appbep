@@ -1,0 +1,584 @@
+{
+  "$comment": "Schportz Quiz of the Day (2010-11), recovered from the site's MySQL dumps. Text as written then, typos and all; facts are as of 2011. Vote counts in votes2010 are the original visitors' votes.",
+  "quiz": "schportz",
+  "title": "Schportz Quiz of the Day",
+  "asOf": "2011",
+  "questions": [
+    {
+      "id": "2010-08-26",
+      "sport": "mlb",
+      "question": "Who hit the most home runs during the 2007 season?",
+      "choices": [
+        "Prince Fielder",
+        "Ryan Howard",
+        "Matt Holliday",
+        "Carlos Pena",
+        "Alex Rodriguez"
+      ],
+      "responses": [
+        "You were close, as Prince hit 50 taters during the 2007 season, good for 2nd place overall.",
+        "Howard hit the 3rd most home runs in 2007, with 47.",
+        "Holliday hit 36 home runs in 2007, good for 6th place overall.",
+        "Pena came in 4th with 46 home runs, one behind Ryan Howard.",
+        "ARod smacked 54 home runs in 2007, 4 more than Prince Fielder, good for 1st place.  They were the only two players to hit 50 home runs or more that season."
+      ],
+      "answer": 4,
+      "votes2010": [17, 6, 21, 4, 0]
+    },
+    {
+      "id": "2011-07-05",
+      "sport": "nhl",
+      "question": "What goaltender holds the record for most playoff wins in a career?",
+      "choices": ["Patrick Roy", "Martin Brodeur", "Bill Smith", "Grant Fuhr", "Dominik Hasek"],
+      "responses": [
+        "Roy had 151 career playoff wins, best all-time.",
+        "It isn't Brodeur, although he is 2nd all-time with 96.",
+        "It isn't Smith, who is actually 5th all-time with 88.",
+        "It isn't Fuhr, who is only 3rd all-time with 92 wins.",
+        "It isn't Hasek."
+      ],
+      "answer": 0,
+      "votes2010": [0, 1, 1, 1, 0]
+    },
+    {
+      "id": "2011-07-06",
+      "sport": "mlb",
+      "question": "Who hit the most home runs during the 2007 MLB season?",
+      "choices": [
+        "Prince Fielder",
+        "Ryan Howard",
+        "Matt Holliday",
+        "Carlos Pena",
+        "Alex Rodriguez"
+      ],
+      "responses": [
+        "You were close, as Prince hit 50 taters during the 2007 season, good for 2nd place overall.",
+        "Howard hit the 3rd most home runs in 2007, with 47.",
+        "Holliday hit 36 home runs in 2007, good for 6th place overall.",
+        "Pena came in 4th with 46 home runs, one behind Ryan Howard.",
+        "ARod smacked 54 home runs in 2007, 4 more than Prince Fielder, good for 1st place.  Fielder and Rodriguez were the only two players to hit 50 home runs or more that season."
+      ],
+      "answer": 4
+    },
+    {
+      "id": "2011-07-07",
+      "sport": "nhl",
+      "question": "Who led the NHL in scoring during the 2005-2006 season?",
+      "choices": [
+        "Joe Thorton",
+        "Jaromir Jagr",
+        "Alex Ovechkin",
+        "Dany Heatley",
+        "Daniel Alfredsson"
+      ],
+      "responses": [
+        "Joe Thorton led the NHL in points in 2005-06 with 125 points.",
+        "Close, but Jagr came in second in points that year.",
+        "Ovechkin actually came in third in points with 106.",
+        "Heatley tied for 4th most points with 103.",
+        "Alfredsson tied with Heatley for the 4th most points with 103."
+      ],
+      "answer": 0
+    },
+    {
+      "id": "2011-07-08",
+      "sport": "mlb",
+      "question": "Who is MLB's all-time strike out leader?",
+      "choices": ["Roger Clemens", "Steve Carlton", "Greg Maddux", "Nolan Ryan", "Randy Johnson"],
+      "responses": [
+        "Roger Clemens is 3rd on the all-time list.",
+        "Steve Carlton is 4th on the all-time strikeout list.",
+        "Actually, Maddux is only 10th on the all-time strikeout list.",
+        "Nolan Ryan threw 5,714 career strikeouts over the course of 27 seasons, good for 1st place all-time",
+        "Johnson is 2nd on this list with 4,875 career strikeouts."
+      ],
+      "answer": 3,
+      "votes2010": [3, 25, 58, 1, 2]
+    },
+    {
+      "id": "2011-07-09",
+      "sport": "mlb",
+      "question": "What was the last team to win consecutive World Series?",
+      "choices": [
+        "Chicago Cubs",
+        "Florida Marlins",
+        "New York Yankees",
+        "Boston Red Sox",
+        "Chicago White Sox"
+      ],
+      "responses": [
+        "Ha. Very funny.",
+        "The Marlins have won two World Series' but six years apart (1997 and 2003).",
+        "The New York Yankees are the last team to win consecutive World Series', winning three in a row from 1998-2000.",
+        "They won two Series in the last decade, only 4 years apart.",
+        "The ChiSox won one (2006) since 1917."
+      ],
+      "answer": 2
+    },
+    {
+      "id": "2011-07-10",
+      "sport": "nba",
+      "question": "What team won the 2000-2001 NBA championship?",
+      "choices": [
+        "Philadelphia 76ers",
+        "Los Angeles Lakers",
+        "Chicago Bulls",
+        "San Antonio Spurs",
+        "New York Knicks"
+      ],
+      "responses": [
+        "You're close, because the 76ers did make it to the NBA finals that season.",
+        "The Lakers defeated the 76ers for the 2000-2001 NBA championship.",
+        "It wasn't the Bulls, they didn't even make the playoffs that season.",
+        "The Spurs were swept by the Lakers in the Western Conference finals.",
+        "The Knicks were tossed in the first round."
+      ],
+      "answer": 1,
+      "votes2010": [1, 3, 1, 6, 2]
+    },
+    {
+      "id": "2011-07-11",
+      "sport": "nhl",
+      "question": "What team won the Stanley Cup in 1993-1994?",
+      "choices": [
+        "Detroit Red Wings",
+        "Chicago Blackhawks",
+        "Vancouver Canucks",
+        "New York Rangers",
+        "New Jersey Devils"
+      ],
+      "responses": [
+        "The Red Wings won the Central Division but were eliminated in the first round of the playoffs.",
+        "What? The Blackhawks didn't even make it past the quarterfinals that year.",
+        "The Canucks lost in the Stanley Cup finals.",
+        "The New York Rangers won the 1994 Stanley Cup playoffs, defeating the Vancouver Canucks 4 games to 3.",
+        "The Devils were eliminated from the playoffs by the eventual champions."
+      ],
+      "answer": 3,
+      "votes2010": [15, 3, 5, 0, 1]
+    },
+    {
+      "id": "2011-07-12",
+      "sport": "nba",
+      "question": "Who is the NBA's all-time leader in blocked shots?",
+      "choices": [
+        "Manute Bol",
+        "Mark Eaton",
+        "Kareem Abdul-Jabbar",
+        "Hakeem Olajuwon",
+        "Mugsy Bogues"
+      ],
+      "responses": [
+        "Bol only blocked 2,086 shots in his career, for which he currently ranks 14th all-time.",
+        "Eaton is actually in 3rd place on the all-time blocked shots list.",
+        "Abdul-Jabbar is 2nd on the all-time list with 3,189 blocked shots.",
+        "Hakeem \"The Dream\" Olajuwon blocked 3,459 shots in his career, good for first on the all-time list.",
+        "Bogues actually accumulated 39 blocked shots in his career, not bad for only being 5'3''.  Remember that time he blocked Patrick Ewing's shot? Awesome."
+      ],
+      "answer": 3,
+      "votes2010": [0, 0, 0, 0, 0]
+    },
+    {
+      "id": "2011-07-13",
+      "sport": "nhl",
+      "question": "Who lead the NHL in scoring in 2000-2001?",
+      "choices": ["Patrik Elias", "Alexei Kovalev", "Pavel Bure", "Jaromir Jagr", "Joe Sakic"],
+      "responses": [
+        "Elias was actually 3rd overall with 96 points.",
+        "Kovalev was only 4th overall with 95 points.",
+        "Bure wasn't even top five ya turd.",
+        "Jaromir Jagr was the NHL's leading point scorer during the 2000-2001 season with a total of 121 points.",
+        "Close, but Sakick finished 2nd overall with 118 points."
+      ],
+      "answer": 3,
+      "votes2010": [2, 0, 2, 0, 0]
+    },
+    {
+      "id": "2011-07-14",
+      "sport": "nba",
+      "question": "In what city did Wilt Chamberlain have his historic 100 point game?",
+      "choices": ["Hershey, PA", "New York City", "Philadelphia, PA", "Chicago, IL", "Tupelo, MS"],
+      "responses": [
+        "On March 2nd, 1962, the New York Knicks squared off against the Philadelphia Warriors at Hersheypark Arena in Hershey, PA, and Chamberlain scored 100 points as the Warriors won 169 to 147.",
+        "While it's true Chamberlain was playing against the Knicks, they weren't playing in NYC.",
+        "Chamberlain was playing for the Philadelphia Warriors when he scored 100 points, but they weren't playing in Philadelphia.",
+        "No, it didn't happen in Chicago.",
+        "Honestly, I'm not even sure if an NBA game has ever been played in Tupelo."
+      ],
+      "answer": 0,
+      "votes2010": [4, 1, 2, 1, 1]
+    },
+    {
+      "id": "2011-07-15",
+      "sport": "nfl",
+      "question": "Who is the NFL's all-time leader in passing yardage?",
+      "choices": ["Brett Favre", "Dan Marino", "Joe Montana", "Peyton Manning", "Tom Brady"],
+      "responses": [
+        "Old Man Favre is currently in 1st place with 71,838 passing yards.",
+        "Marino is 2nd all-time with 61,361 total passing yards.",
+        "Joe Cool may have won 4 Super Bowls in his career, but only ranks 10th all-time in total passing yards.",
+        "Manning is currently in 3rd place with 54,828 yard as of the end of the 2010 NFL regular season.",
+        "Brady isn't even in the top ten! As of the end of 2010 he's only 19th all-time with 34,744 yards."
+      ],
+      "answer": 0,
+      "votes2010": [7, 14, 43, 34, 6]
+    },
+    {
+      "id": "2011-07-16",
+      "sport": "nhl",
+      "question": "How many points did Jaromir Jagr score during the 1997-1998 NHL season?",
+      "choices": ["102", "90", "30", "91", "70"],
+      "responses": [
+        "Jagr had 35 goals and 67 assists for a total of 102 points, good for first overall in 1997-98.",
+        "Close but not quite.",
+        "30 points?  He scored more points than that.",
+        "Not a bad guess but not correct.",
+        "You weren't even close."
+      ],
+      "answer": 0,
+      "votes2010": [1, 1, 1, 0, 0]
+    },
+    {
+      "id": "2011-07-17",
+      "sport": "mlb",
+      "question": "What MLB team has won the most World Series' all-time?",
+      "choices": [
+        "St. Louis Cardinals",
+        "Pittsburgh Pirates",
+        "Chicago Cubs",
+        "Boston Red Sox",
+        "New York Yankees"
+      ],
+      "responses": [
+        "The Cardinals have won the 2nd most World Series' all-time with 10.",
+        "The Pirates are currently tied for 4th place (with several teams) with 5 World Series titles overall.",
+        "Hahahahahahahahahahaha. The Cubs? Good one.",
+        "The BoSox have won 7 World Series titles in their storied history, good for 3rd place all-time.",
+        "Yeah, this was an easy question.  It's the damn Yankees, with 27 World Series titles overall, more than double any other MLB team."
+      ],
+      "answer": 4,
+      "votes2010": [0, 8, 0, 0, 1]
+    },
+    {
+      "id": "2011-07-18",
+      "sport": "mlb",
+      "question": "Who was NL home run leader in 2003?",
+      "choices": ["Barry Bonds", "Sammy Sosa", "Richie Sexson", "Javy Lopez", "Jim Thome"],
+      "responses": [
+        "Barry Bonds hit 45 home runs in 2003, tied for 2nd overall.",
+        "Sammy Sosa hit only 40 homes runs in 2003, which means he wasn't in the top five.",
+        "Richie Sexon hit 45 home runs in 2003, tying Barry Bonds for 2nd overall.",
+        "Lopez hit 43 home runs in 2003, good for 3rd place.",
+        "Jim Thome was the MLB home run leader in 2003 with 47 home runs."
+      ],
+      "answer": 4
+    },
+    {
+      "id": "2011-07-19",
+      "sport": "nhl",
+      "question": "Who had the top save percentage during the 2001-02 NHL season?",
+      "choices": [
+        "Nikolai Khabibulin",
+        "Marty Turco",
+        "Roman Cechmanek",
+        "Patrick Roy",
+        "Jose Theodore"
+      ],
+      "responses": [
+        "Khabibulin was 5th overall in save percentages.",
+        "Turco tied with Cechmanek for 3rd place with a save percentage of .921.",
+        "Cechmanek was 3rd with a save percentage of .921.",
+        "Roy was actually 2nd with a .925 save percentage.",
+        "Jose Theodore had the top save percentage in 2001-02 with a save percentage of .931."
+      ],
+      "answer": 4
+    },
+    {
+      "id": "2011-07-20",
+      "sport": "mlb",
+      "question": "What year did the Chicago Cubs last win the World Series?",
+      "choices": ["2006", "1908", "1945", "1918", "1907"],
+      "responses": [
+        "You think the Cubs won the World Series in 2006? Are you some kind of moron or something?",
+        "The Cubbies last won the World Series in 1908, 103 years ago. It could very well be that long until they win one again.",
+        "1945 is the last time the Cubs have appeared in a World Series, but they lost to the Detroit Tigers.",
+        "The Cubs lost the 1918 World Series to the Boston Red Sox, who were led by their ace pitcher Babe Ruth.",
+        "You actually think the Cubs have won a World Series in the last 25 years?"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "2011-07-21",
+      "sport": "nfl",
+      "question": "What team has won the most Super Bowls all-time?",
+      "choices": [
+        "Green Bay Packers",
+        "Chicago Bears",
+        "Pittsburgh Steelers",
+        "New England Patriots",
+        "Dallas Cowboys"
+      ],
+      "responses": [
+        "While it's true the Packers have won the most NFL Championships (12 overall), they have only won 3 Super Bowls.",
+        "The Bears have the 2nd most NFL Championships all-time (9 overall), but have only won one Super Bowl (1985).",
+        "The Steelers have the most Super Bowl victories all-time with 6.",
+        "The Patriots have won 3 Super Bowls overall, but have appeared in 6.",
+        "The Cowboys have the most Super Bowl appearances all-time with 8, but have won 5, good for 2nd all-time."
+      ],
+      "answer": 2,
+      "votes2010": [2, 27, 9, 7, 3]
+    },
+    {
+      "id": "2011-07-22",
+      "sport": "mlb",
+      "question": "Which among the following players has hit the most home runs in their career?",
+      "choices": ["Sammy Sosa", "Mickey Mantle", "Willie Mays", "Mark McGwire", "Frank Robinson"],
+      "responses": [
+        "Sosa is 2nd among the five players listed with 609 career homers.",
+        "Mantle is actually last among the players listed here, with 536 career home runs.",
+        "Mays is 4th on the all-time list with 660 home runs, good for 1st among the players listed here.",
+        "'Roid Boy hit 583 taters in his career, 3rd among the players listed here.",
+        "Robinson is 3rd on this list with 587 career dingers."
+      ],
+      "answer": 2,
+      "votes2010": [10, 8, 5, 1, 1]
+    },
+    {
+      "id": "2011-07-23",
+      "sport": "nba",
+      "question": "Which two players were chosen ahead of Michael Jordan in the 1984 NBA draft?",
+      "choices": [
+        "Hakeem Olajuwon and Sam Bowie",
+        "Hakeem Olajuwon and Charles Barkley",
+        "Sam Perkins and Sam Bowie",
+        "Charles Barkley and Melvin Turpin",
+        "Lancaster Gordan and Leon Wood"
+      ],
+      "responses": [
+        "Olajuwon was chosen first overall by the Houston Rockets in the 1984 NBA draft, while Bowie was the 2nd overall pick by the Trail Blazers, ahead of Jordan, the 3rd overall pick.  Olajuwon turned out to be a great pick, Bowie not so much.",
+        "Barkley was actually chosen after Jordan.",
+        "Bowie was actually chosen one spot ahead of Jordan, with Perkins being drafted right after him.",
+        "Both Barkley and Turpin were chosen after Jordan.",
+        "Gordan and Wood are your choice?  I'm surprised you've even heard of them."
+      ],
+      "answer": 0,
+      "votes2010": [1, 0, 0, 0, 0]
+    },
+    {
+      "id": "2011-07-24",
+      "sport": "nfl",
+      "question": "Who is the NFL's all-time leading rusher?",
+      "choices": ["Walter Payton", "Jim Brown", "Barry Sanders", "Emmitt Smith", "Eric Dickerson"],
+      "responses": [
+        "Good guess, but Sweetness is now in 2nd place on the all-time rushing yardage list.",
+        "Brown held the record until 1984, and currently isn't even in the top five; he's in 9th place.",
+        "No doubt if Sanders hadn't retired he'd be in first place, but unfortunately he did and is only 3rd on the all-time list.",
+        "Emmit Smith is the NFL's all-time leading rusher, having amassed 18,355 rushing yards in 15 seasons playing for the Cowboys (1990-2002) and the Cardinals (2003-04).",
+        "Dickerson is currently 6th all-time with 13,259 yards total."
+      ],
+      "answer": 3,
+      "votes2010": [29, 47, 31, 41, 23]
+    },
+    {
+      "id": "2011-07-25",
+      "sport": "nba",
+      "question": "What's the record for most points scored by a single person in an NBA game?",
+      "choices": ["12", "48", "101", "100", "69"],
+      "responses": [
+        "Holy cow, you don't know much about basketball do you?",
+        "That's a good number of points, but nowhere near the record.",
+        "That's pretty close but a little bit over.",
+        "The record for most points scored in an NBA game by one player is 100, which was accomplished by Wilt Chamberlin back in 1962.",
+        "You've got a dirty mind don't you?"
+      ],
+      "answer": 3,
+      "votes2010": [0, 2, 2, 1, 0]
+    },
+    {
+      "id": "2011-07-26",
+      "sport": "nba",
+      "question": "How many NBA championships did the Chicago Bulls win in the 1990's?",
+      "choices": ["4", "3", "6", "1", "12"],
+      "responses": [
+        "4? They won more than that ya dope.",
+        "Actually they won twice as many as that.",
+        "6 is correct. The Chicago Bulls had two 'three-peats' in the 1990s, winning three championships in a row from 1991-1993 and again from 1996-1998.",
+        "One?  You think they only won one NBA championship? Geez you're a moron.",
+        "Huh. 12 NBA championships in one decade. You're not too bright are you?"
+      ],
+      "answer": 2,
+      "votes2010": [0, 1, 3, 3, 0]
+    },
+    {
+      "id": "2011-07-27",
+      "sport": "nfl",
+      "question": "Who is the NFL's all-time leader in interceptions?",
+      "choices": ["Rod Woodson", "Dick Lane", "Paul Krause", "Dick LeBeau", "Ronnie Lott"],
+      "responses": [
+        "Woodson is actually 3rd on the all-time list.",
+        "\"Night Train\" Lane is actually 4th on the all-time list with 68 interceptions.",
+        "Krause is the NFL's all-time interception leader with 81 career interceptions.",
+        "LeBeau finished his career with 62 interceptions, good for 8th on the all-time list.",
+        "Lott isn't even top five: he's actually 6th with 63 career interceptions."
+      ],
+      "answer": 2,
+      "votes2010": [16, 1, 2, 2, 1]
+    },
+    {
+      "id": "2011-07-28",
+      "sport": "nba",
+      "question": "Who led the NBA in RPG (rebounds per game) during the 2008 regular season?",
+      "choices": [
+        "Tyson Chandler",
+        "Dwight Howard",
+        "Michael Jordan",
+        "Marcus Camby",
+        "Lamar Odom"
+      ],
+      "responses": [
+        "Chandler was actually 3rd with 11.7 RPG",
+        "Howard let the NBA in RPG with 14.2 RPG",
+        "Jordan had retired by this time ya dope.",
+        "Camby ended up 2nd in RPG with 13.1",
+        "Odom wasn't even in the top 5."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "2011-07-29",
+      "sport": "nfl",
+      "question": "Merlin Olsen was elected to a record number of Pro Bowls.  How many was he elected to?",
+      "choices": ["12", "13", "16", "14", "7"],
+      "responses": [
+        "He was elected to a few more than that.",
+        "He was elected to more than 13 Pro Bowls.",
+        "He wasn't elected to that many.",
+        "Olsen was elected to a record 14 Pro Bowls in his legendary career.  Which leads us into tomorrow's question...",
+        "7?  I said \"elected to a record number of Pro Bowls\".  You think 7 Pro Bowls is a record?"
+      ],
+      "answer": 3,
+      "votes2010": [4, 1, 0, 1, 2]
+    },
+    {
+      "id": "2011-07-30",
+      "sport": "nhl",
+      "question": "Who is the NHL's all-time leading goal scorer?",
+      "choices": ["Wayne Gretzky", "Brett Hull", "Gordie Howe", "Mark Messier", "Phil Esposito"],
+      "responses": [
+        "The Great One is the NHL's all-time leading goal scorer with a whopping 894 goals in 20 season.",
+        "Bret Hull is 3rd all-time with 741 goals",
+        "You were close, but Howe is only 2nd all-time in goals scored with 801.",
+        "Messier is only 7th on the all-time list with 694 goals.",
+        "Phil Esposito was at one point in time the 2nd leading goal scorer in NHL history, but currently ranks 5th all-time."
+      ],
+      "answer": 0,
+      "votes2010": [1, 1, 2, 2, 1]
+    },
+    {
+      "id": "2011-07-31",
+      "sport": "nfl",
+      "question": "Who was the last team to win back-to-back Super Bowls?",
+      "choices": [
+        "Denver Broncos",
+        "St. Louis Rams",
+        "Green Bay Packers",
+        "New England Patriots",
+        "Pittsburgh Steelers"
+      ],
+      "responses": [
+        "The Bronocos are the 2nd to last team to win back-to-back Super Bowls.",
+        "Actually the Rams have never even played in back-to-back Super Bowls; the closest they came was playing in Super Bowls XXXIV and XXXVI, winning only Super Bowl XXXIV.",
+        "The Packers last played in back-to-back Super Bowls following the '96 and '97 seasons, but lost Super Bowl XXXI to the Broncos.",
+        "The Patriots are the last team to win back-to-back Super Bowls, winning Super Bowls XXXVIII and XXXIX.",
+        "The Steelers haven't played in back-to-back Super Bowls since the 1970s."
+      ],
+      "answer": 3,
+      "votes2010": [58, 48, 35, 40, 20]
+    },
+    {
+      "id": "2011-08-01",
+      "sport": "nhl",
+      "question": "Who won the Hart Memorial Trophy in 1990-91?",
+      "choices": ["Wayne Gretzky", "Mark Messier", "Mario Lemieux", "Bobby Hull", "Brett Hull"],
+      "responses": [
+        "It wasn't Wayne Gretzky.",
+        "Messier actually won the year before and the year after the 1990-91 NHL season.",
+        "It wasn't Mario Lemieux.",
+        "Actually Bobby Hull retired several years before 1991.",
+        "Brett Hull was the Hart Memorial Trophy winner in 1990-91."
+      ],
+      "answer": 4,
+      "votes2010": [1, 1, 2, 1, 2]
+    },
+    {
+      "id": "2011-08-02",
+      "sport": "nfl",
+      "question": "Who led the AFC in rushing in 2008?",
+      "choices": [
+        "Steve Slaton",
+        "Chris Johnson",
+        "LaDainian Tomlinson",
+        "Marshawn Lynch",
+        "Thomas Jones"
+      ],
+      "responses": [
+        "Slaton actually finished 2nd with 1,282 rushing yards.",
+        "Johnson finished 3rd with 1228 rushing yards.",
+        "Tomlinson wasn't even in the top three, finishing 4th with 1,110 yards.",
+        "Lynch had the 5th most rushing yards in the AFC with 1,036 yards.",
+        "Thomas Jones was the AFC's leading rusher in 2008 with 1,312 rushing yards."
+      ],
+      "answer": 4
+    },
+    {
+      "id": "2011-08-03",
+      "sport": "mlb",
+      "question": "What team won the World Series in 2007?",
+      "choices": [
+        "Chicago Cubs",
+        "Colorado Rockies",
+        "Boston Red Sox",
+        "Arizona Diamondbacks",
+        "New York Yankees"
+      ],
+      "responses": [
+        "The Cubs?  Hahahahahahaha good one.",
+        "While they did win the NL, the Rockies were swept by the BoSox in the World Series.",
+        "The Red Sox won the 2007 World Series. They swept the Rockies, who had swept the Diamondbacks, who in turn had swept the Cubs.  Iif you think about it, the BoSox kind of triple-swept the Cubs.",
+        "The Diamondbacks were swept in the NLCS by the Rockies.",
+        "The Yankees lost the ALDS to the Cleveland Indians"
+      ],
+      "answer": 2,
+      "votes2010": [2, 1, 2, 0, 1]
+    },
+    {
+      "id": "2011-08-04",
+      "sport": "nba",
+      "question": "Who scored the most overall points in the 2009-10 NBA postseason?",
+      "choices": ["Kobe Bryant", "Pau Gasol", "Kevin Garnett", "Paul Pierce", "Larry Bird"],
+      "responses": [
+        "Bryant had the most points overall during the 2009-2010 postseason with 671 points, 220 more than 2nd place Paul Pierce.",
+        "Gasol was actually 3rd overall with 450 total points.",
+        "Garnett had the 7th most points with 345.",
+        "Close enough. Pierce came in 2nd with 451 total points, only 1 ahead of Pau Gasol",
+        "Bird retired years ago idiot."
+      ],
+      "answer": 0
+    },
+    {
+      "id": "2011-08-05",
+      "sport": "nfl",
+      "question": "Which of the following players tied Merlin Olsen's record of 14 Pro Bowl appearances?",
+      "choices": ["Junior Seau", "Bruce Matthews", "Barry Sanders", "Ronnie Lott", "Jerry Rice"],
+      "responses": [
+        "You're close, as Seau has currently been elected to 12 Pro Bowls in his career",
+        "Bruce Matthews is the one player who was able to match Olsen's 14 Pro Bowl appearances.",
+        "Barry was actually elected to 10 Pro Bowls in his career, which lasted exactly 10 seasons.  10 for 10. 10 for 10? The guy was absolutely amazing.",
+        "Mr. Lott was named to 10 Pro Bowls in his illustrious career, 4 less than Olsen's record.",
+        "Rice was actually elected to 13 Pro Bowls in his career, one less than Olsen."
+      ],
+      "answer": 1,
+      "votes2010": [4, 3, 9, 10, 9]
+    }
+  ]
+}

@@ -105,11 +105,12 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Schportz Quiz of the Day',
     kind: 'site',
     year: '2010–11',
-    tech: ['PHP', 'MySQL'],
-    blurb: 'A daily sports quiz. The questions were recovered from a 2011 database dump.',
+    tech: ['PHP', 'MySQL', 'jQuery', 'RSS'],
+    blurb:
+      'A daily sports quiz with live headlines. The questions were recovered from 2010–11 database dumps.',
     lesson:
       'A database "dump" is just a text file of SQL commands that rebuild the tables row by row, which is why fifteen-year-old questions could be brought back to life.',
-    legacy: { port: 8083, path: '/' },
+    live: true,
   },
   {
     id: 'duncans',

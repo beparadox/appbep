@@ -41,6 +41,13 @@ describe('SiteStack', () => {
     t.resourceCountIs('AWS::SES::EmailIdentity', 0);
   });
 
+  it('refreshes the headlines every 30 minutes', () => {
+    t.hasResourceProperties('AWS::Events::Rule', { ScheduleExpression: 'rate(30 minutes)' });
+    t.hasResourceProperties('AWS::Lambda::Function', {
+      Environment: { Variables: Match.objectLike({ FEEDS_KEY: 'feeds/schportz.json' }) },
+    });
+  });
+
   it('lets the API read only the contact settings and send email', () => {
     const withDomain = synth({ domainName: 'appbep.com', hostedZoneId: 'ZTEST' });
     withDomain.hasResourceProperties('AWS::Lambda::Function', {

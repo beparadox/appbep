@@ -1,0 +1,730 @@
+/*schportz_header.css*/
+#header {
+  top: 0;
+  background: #000000;
+  height: 5em;
+  width: 100%;
+  position: relative;
+}
+header a {
+	color: #f7f7f7;
+}
+
+#header_inner_wrap {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	margin: auto;
+}
+
+#schportz_logo {
+	position: absolute;
+	bottom: 1.25em;
+	float: left;
+}
+
+.schportz-links {
+	margin-right: 1em;
+	font-size: 0.85em;
+}
+#login {
+	position: absolute;
+	top: 0em;
+	right: 1em;
+	margin: auto;
+	color: #000000;
+}
+
+.login_link {
+	font-size: 0.9em;
+	margin: 1em; 
+}
+.login_text {
+	font: 0.75em sans-serif; 
+	color: #000000;
+	width: 40px; 
+}
+.login_text a:visited {
+	color: #c8c8c8;	
+}
+
+.login_input {
+	width: 10em;
+	margin-right: 1em;
+}
+
+#logged_in {
+	width: 20%;
+	position: absolute;
+	right: 1em; 
+	top: 0;
+	color: #000000;  
+}
+
+#logged_in a {
+	color: blue;
+}
+
+#welcome_banner {
+	display: none; 
+	color: #f7f7f7;
+	font-size: 1em; 
+}
+
+#content_nav_wrapper{
+  position: relative;
+  width: 100%;
+  min-height: 30em;
+  clear: both;
+  margin: auto;
+}
+
+#nav, #content {
+   width: 400px;
+} 
+
+#quiz_wrapper, #content, #nav {
+    float: left;
+    margin-right: 10px;
+}
+
+/* This is for the nav div */
+
+
+
+/* this is for the content div */
+
+/*#content {
+  background-color: #000000;
+  border: 1px solid #707070;
+  color: #000000;
+  position: relative;
+  margin-right: 32%;
+  padding: 3px;
+  height: 30em;
+
+}*/
+
+footer {
+    clear: both;
+	height: 2em;
+	width: 100%;
+	margin: auto;
+	margin-top: 1em;
+	border-top: 1px solid #000000;
+	color: #FFFFFF;
+}
+.schportz-footer-links {
+	color: #000000;
+	margin-right: 1em;
+	font-size: 0.85em;
+}
+#footer_left {
+	height: 100%;
+	position: relative; 
+	float: left;
+	width: 33% ;
+}
+
+#footer_center {
+	height: 100%;
+	position: relative; 
+	float: left;
+	width: 33% ;
+}
+
+#footer_center a {
+ margin-right: 0.5em;
+
+}
+
+#footer_right {
+	height: 100%;
+	position: relative; 
+	float: left;
+	width: 33% ;
+}
+/* general*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #999999; /*u#555555rl(../images/schportz_bkgd2.gif) repeat-x; */
+  color: #ffffff;
+  font-family: times new roman ;
+}
+.cursor {
+	cursor: pointer;
+}
+.gfg-root {
+  width : 100%;
+  height : auto;
+  position : relative;
+  overflow : hidden;
+  text-align : center;
+  font-family: "Arial", sans-serif;
+  font-size: 0.8em;
+/*  border:1px solid #000000; /*#BCCDF0;*/
+  background: #f7f7f7; 
+  color: #000000;
+}
+
+.feed_control {
+      overflow-x: hidden;
+      overflow-y: scroll;
+      max-height: 25em;	  
+      margin-top : 0px;
+      margin-left: auto;
+      margin-right: auto;
+      width : 100%;
+      font-size: 16px;
+      color: #9CADD0;
+ }
+
+.gf_schp_hl {
+    border-bottom: 1px solid #c8c8c8;
+    border-right: solid 1px #707070;
+    width: 24.75%;	
+    text-align: center;
+    font: bold 1em serif;
+    color: #f7f7f7;
+    float: left;
+    background: url('../img/menu_bkgd_25.gif') repeat-x; 
+} 
+
+.gf_schp_hl:hover {
+
+   color: #000000;
+    background: #f7f7f7;
+}
+.gfg-title {
+  display: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #f7f7f7;
+  background: #000000;
+ /* background: url(../img/chromebg_d8_25.gif);*/
+  line-height : 2.0em;
+  overflow : hidden;
+  white-space : nowrap;
+ /* border-top: 2px solid #000000;*/
+  border-top: 2px solid #8B0000;
+  border-left: 2px solid #8B0000;
+}
+.schportz-gfg-title {
+  font-size: 1.50em;
+  font-weight: bold;
+  color: #f7f7f7;
+  background: #333333;
+ /* background: url(../img/chromebg_d8_25.gif);*/
+  line-height : 1.5em;
+  overflow : hidden;
+  white-space : nowrap;
+  border-top: 1px solid #707070;
+  border-left: 1px solid #707070;
+  border-right: 1px solid #707070;
+
+ /* border-top: 2px solid #000000;*/
+}
+
+
+.gfg-subtitle a {
+  color : #f7f7f7;
+}
+
+.gfg-subtitle {
+  font-size: 1.25em;
+  font-weight : bold;
+  color : #000000;
+  background: #333333; /* url(../img/chromebg_d8_25.gif); */
+  width: 100%;
+  margin-left: auto;
+  line-height : 2.0em;
+  overflow : hidden;
+  white-space : nowrap;
+  margin-bottom : 0px;
+  border-bottom: 2px solid #707070;
+  border-top: 2px solid #707070;
+}
+
+.gfg-title a {
+  color: #8b0000;
+}
+
+.gfg-entry {
+
+  background-color: #f7f7f7;
+
+  color: #000000;
+
+  width : 100%;
+
+  min-height : 9.0em;
+
+  position : relative;
+  
+  text-align : left;
+
+  padding-bottom: 2em;
+}
+
+.schportz-gfg-entry {
+
+
+
+  width : 100%;
+
+
+  position : relative;
+  
+  text-align : left;
+
+  padding-bottom: 2em;
+}
+.gfg-entry-footer {
+
+  background-color: #f7f7f7;
+
+  color: #000000;
+
+  width : 100%;
+
+
+  position : relative;
+  
+  text-align : left;
+
+  padding-bottom: 2em;
+}
+
+
+.gfg-entry a {
+
+	color: #070707;
+
+}
+
+/* To allow correct behavior for overlay */
+.gfg-root .gfg-entry .gf-result {
+ 
+  position : relative;
+ 
+  background-color: #f7f7f7;
+ 
+  color: #000000;
+  
+  width : auto;
+ 
+  height : 100%;
+ 
+  padding-left : 10px;
+ 
+  padding-right : 5px;
+}
+
+.gfg-list {
+
+  position : relative;
+
+  text-align : left;
+
+  margin-bottom : 3px;
+}
+
+.gfg-listentry {
+
+  white-space: inherit;
+
+  text-indent: -10px;
+
+  padding-left : 25px;
+
+  padding-right : 5px;
+
+  margin-left : 2px;
+
+  margin-right : 2px;
+  margin-bottom: 0.5em;
+}
+
+.gfg-listentry a {
+	color: #000000; /* #f7f7f7;*/
+}
+
+
+.gfg-listentry-highlight { 
+  background-image : url('../img/garrow.gif');
+  background-repeat: no-repeat;
+  background-position : center left;
+}
+
+/*
+ * FeedControl customizations.
+ */
+
+.gfg-root .gfg-entry .gf-result .gf-snippet {
+  height : 5.5em;
+  color: #000000;
+  margin-top : 3px;
+}
+
+/*
+ * Easy way to get horizontal mode, applicable via js options to gadget.
+ */
+
+.gfg-horizontal-container {
+  position : relative;
+}
+.border {
+    border: 1px solid black;
+}
+
+.gfg-horizontal-root {
+  height : 1.5em;
+  _height : 100%;
+  position : relative;
+  white-space : nowrap;
+  text-align : center;
+  font-family: "Arial", sans-serif;
+  font-size: 1.2em;
+  border: 1px solid #AAAAAA;
+  padding : 5px;
+  margin-right : 80px;
+}
+
+.gfg-horizontal-root .gfg-title {
+  font-weight : bold;
+  background-color: #FFFFFF;
+  line-height : 1.5em;
+  overflow : hidden;
+  white-space : nowrap;
+  float : left;
+  padding-left : 10px;
+  padding-right : 12px;
+  border-right: 1px solid #AAAAAA;
+}
+
+.gfg-horizontal-root .gfg-title a {
+  color : #f7f7f7;
+  text-decoration : none;
+}
+
+.gfg-horizontal-root .gfg-entry {
+  width : auto;
+  height : 1.5em;
+  position : relative;
+  overflow : hidden;
+  text-align : left;
+  margin-top : 0px;
+  margin-left : 0px;
+  padding-left : 10px;
+}
+
+/* To allow correct behavior for overlay */
+.gfg-horizontal-root .gfg-entry .gf-result {
+  position : relative;
+  background-color : white;
+  width : 100%;
+  height : 100%;
+  line-height : 1.5em;
+  overflow : hidden;
+  white-space : nowrap;
+}
+
+.gfg-horizontal-root .gfg-list {
+  display : none;
+}
+
+/*
+ * FeedControl customizations.
+ */
+
+.gfg-horizontal-root .gfg-entry .gf-result .gf-snippet,
+.gfg-horizontal-root .gfg-entry .gf-result .gf-author {
+  display : none;
+}
+
+.gfg-horizontal-root .gfg-entry  .gf-result .gf-title {
+  color: #f7f7f7;
+  margin-right : 3px;
+  float : left;
+}
+
+.gfg-horizontal-root .gfg-entry .gf-result .gf-spacer {
+  float : left;
+}
+
+.gfg-horizontal-root .gfg-entry .gf-result .gf-spacer,
+.gfg-horizontal-root .gfg-entry .gf-result .gf-relativePublishedDate {
+  display : block;
+  color: #AAAAAA;
+}
+
+.gfg-branding {
+  white-space : nowrap;
+  overflow : hidden;
+  text-align : left;
+  position : absolute;
+  right : 0px;
+  top : 0px;
+  width : 80px;
+}
+
+.gfg-collapse-open, .gfg-collapse-closed {
+  background-repeat : no-repeat;
+  background-position : center;
+  cursor : pointer;
+  float : right;
+  width : 17px;
+  height : 20px;
+}
+
+.gfg-collapse-open {
+  background-image : url('../img/site_images/arrow_open.gif');
+}
+
+.gfg-collapse-closed {
+  background-image : url('../img/site_images/arrow_close.gif');
+}
+
+.gfg-collapse-href {
+  float : left;
+}
+
+.clearFloat {
+  clear : both;
+}
+/* 
+########################### QUIZ ################################
+
+
+ This section will be for the quiz 
+*/
+
+body {
+    background-color: black;
+}
+
+#quiz_wrapper {
+    padding: 10px;
+  border: 5px solid white;
+  height: 450px;
+  min-width: 771px;
+  max-width : 771px; 
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  min-height: 320px;
+  position: relative;
+  background-color: #000000; /*url(../img/quiz_bkgd2.gif);*/
+  font-family: "times new roman";
+  font-size: 1.2em;
+}
+
+#quiz {
+
+ background: #c8c8c8; /*url(../img/site_images/metallic_bkgd.jpg);*/
+
+ width: 48%;
+
+ height: 450px;
+ 
+ margin-left: 5px; 
+ margin-top: 3px;
+
+ -moz-border-radius: 20px; 
+ 
+ -webkit-border-radius: 20px;
+
+ -khtml-border/-radius: 20px;
+
+  border-radius: 20px
+}
+
+#quiz_body {
+    position: relative;
+  background: #000000; /*url(../img/quiz_bkgd2.gif); /*#000000;*/
+  border: 1px solid #000000;
+  color: #f7f7f7;
+  width: 95%;
+  height: 437px;
+  margin: auto;
+  margin-bottom: 10px;
+  /*
+  margin-top: auto;
+  margin-bottom:auto;
+  margin-left: auto;
+
+  margin-right: auto;
+ */
+  -moz-border-radius: 20px; 
+ 
+  -webkit-border-radius: 20px;
+
+  -khtml-border-radius: 20px;
+ 
+   border-radius: 20px;
+}
+#inner_quiz_body {
+    height: 350px;
+}
+input::-moz-focus-inner { border: 0; }
+
+
+#quiz_response_wrapper {
+  border: 1px solid #000000;
+  border: 1px solid white; 
+  font: bold 1.0em times new roman;
+  text-align: left;
+  position: absolute;
+  left: 50%;
+  right: 5px;
+  top: 3px;
+  height: 95%;
+  margin-top: 10px;
+  min-height: 50%;
+  max-height: 55%;
+  /*right: 2%;*/
+
+}
+#quiz_response_filler {
+	width: 100%;
+    background: url(../img/quiz_bkgd2.gif); /*#000000;*/
+	text-align: center;
+}
+.quiz_response_text {
+	text-align: center;
+	font: 2.2em impact, times new roman; 
+	width: 100%;
+	min-height: 1em;
+	color: #f7f7f7;
+}
+.quiz_response_var{
+	font: 0.9em times new roman;
+
+}
+
+#quiz_options {
+
+ width: 60%;
+
+ margin-left: 1em;
+  
+}
+
+.quiz_answer {
+ font-size: 0.90em;
+ font-family: times new roman;
+
+
+}
+
+.quiz_chose {
+  
+font-size: 0.80em;
+ font-family: times new roman;
+
+
+  padding: 1px;
+
+}
+
+.quiz_by_date_margin {
+		margin-left: 7px;
+}
+.quiz_font {
+ font-size: 0.90em;
+ font-family: times new roman;
+
+
+}
+
+.quiz-answers-rows {
+
+  height: 25px;
+  margin-bottom: 8px;
+}
+
+.quiz_arrow {
+  height: 25px;
+  width:35px;
+  margin-top: 1px;
+}
+
+.quiz_arrow:hover {
+
+  border: 1px groove  #000000;
+}
+
+/* mainly applies to the submit button 
+ * div: submit
+ */
+.quiz_input {
+
+ background: url(../img/chromebg_d8_25.gif) repeat-x;
+ 
+ font: bold 0.85em serif;
+
+ height: 27px; 
+
+ border: 2px solid #7f7f7f;
+
+ width: 5.5em;
+ 
+ -moz-border-radius: 10px; 
+
+ -webkit-border-radius: 10px;
+
+ -khtml-border-radius: 10px;
+
+  border-radius: 10px;
+
+}
+
+
+
+.quiz_input:hover {
+  background: #000000;
+  color: #f7f7f7;
+  border: 2px solid #f7f7f7;
+  text-decoration: underline;
+
+}
+
+
+/*
+.quiz_league_buttons {
+
+ background-color: #000000;
+
+ color: #f7f7f7;
+
+ font-weight: bold;
+
+ margin: 2px;
+
+ padding: 1px;
+
+ width: 3em;
+
+-moz-border-radius: 10px;
+
+-webkit-border-radius: 10px;
+
+-khtml-border-radius: 10px;
+
+ border-radius: 10px;
+
+}
+
+.quiz_league_buttons:hover {
+
+  background-color: #f7f7f7;
+  color: #000000;
+  text-decoration: underline;
+}
+*/
+/************** END OF QUIZ   *******************/
+
+.league-feeds {
+
+}

@@ -5,7 +5,7 @@
  * lives only in AWS SSM). Paste yours here: docs/tutorials/contact-form-setup.md, step 2.
  * While it's empty, the production site shows "not open yet" instead of the form.
  */
-export const TURNSTILE_SITE_KEY = '';
+export const TURNSTILE_SITE_KEY = '0x4AAAAAAF4pHbQwJcwEZDnT';
 
 /**
  * Cloudflare's published test key: always passes, shows a "testing only" widget. Used by the

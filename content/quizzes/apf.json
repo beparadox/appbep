@@ -1,0 +1,554 @@
+{
+  "$comment": "Angry Packers Fan's Packers Quiz O' the Day (2009). origin: 'recovered' = from the 2009 SQL scripts, as written; 'reconstructed' = the 2009 responses survived but the question and choices were rebuilt from them; 'draft' = written in 2026 in APF's voice, facts as of September 2009. Edit the drafts freely.",
+  "quiz": "apf",
+  "title": "Packers Quiz O' the Day",
+  "asOf": "2009",
+  "questions": [
+    {
+      "id": "2009-09-14",
+      "origin": "recovered",
+      "question": "Who is the Packer's all-time leading rusher?",
+      "choices": [
+        "Ahman Green",
+        "Paul Hornung",
+        "John Brockington",
+        "Jim Taylor",
+        "Donnie Anderson"
+      ],
+      "responses": [
+        "Ahman Green rushed for 8,162 yards in his tenure with the Pack, good for second on the all-time list.",
+        "Hornung was no doubt a stud, but he only amassed 3,711 rushing yards in his career.",
+        "John Brockington was the Packer's leading rusher in the 1970's, amassing 5,024 yards in his tenure with the Packers, good for 3rd place all time.",
+        "",
+        "Donnie Anderson??? Are you serious?  Do your homework pal."
+      ],
+      "answer": 3,
+      "explanation": "Jim Taylor amassed 8,207 rushing yards for the Pack from 1958-1966, good for 1st all-time.  Baddest fullback ever."
+    },
+    {
+      "id": "2009-09-17",
+      "origin": "reconstructed",
+      "question": "Who is the Packers all-time leader in receiving yards?",
+      "choices": ["Sterling Sharpe", "Don Hutson", "Donald Driver", "Max McGee", "James Lofton"],
+      "responses": [
+        "Damn good guess, but Sharp's 8,134 yards leaves him in second place all-time.",
+        "Close, but Hutson's 7,911 career receiving yards with the Pack is only good for 4th place on the all-time list.",
+        "Driver was 3 yards behind Hutson at the end of 2008, so he's now in 3rd place all-time.",
+        "McGee was the Pack's leading receiver for 5 season in a row, but he's not even top 5 all time.",
+        "Yes! Can you believe it? I never would have guessed it."
+      ],
+      "answer": 4,
+      "explanation": "Lofton piled up 9,656 receiving yards from 1978-86, good for first place all-time."
+    },
+    {
+      "id": "2009-09-19",
+      "origin": "recovered",
+      "question": "Who is the Packers all-time leading tackler?",
+      "choices": ["Nick Barnett", "John Anderson", "LeRoy Butler", "Chuck Cecil", "Johnnie Gray"],
+      "responses": [
+        "If Barnett stays with the Packers long enough he could end up number one, but currently he's not even in the top five",
+        "Yes indeedy.",
+        "Not a bad guess, but Butler is the 4th all-time leading tackler in Packers history.",
+        "Dude could hit like a Mack truck but isn't the Pack's all-time leading tackler.",
+        "Oh so close. Gray's 1001 tackles is good for second place all-time."
+      ],
+      "answer": 1,
+      "explanation": "Anderson amassed 1, 020 tackles from 1978-89, good for first place."
+    },
+    {
+      "id": "2009-09-23",
+      "origin": "recovered",
+      "question": "Which of the following players has the most inteception return yards as a Packer?",
+      "choices": ["Bobby Dillon", "Herb Adderley", "Willie Wood", "Darren Sharper", "LeRoy Butler"],
+      "responses": [
+        "",
+        "Adderley had 795 return yards from 1961-69, good for 2nd place all time.",
+        "Wood had 699 return yards from 1960-71, good for 3rd place all time.",
+        "Sharper had 677 return yards from 1997-2004, good for 4th place all time.",
+        "Butler had 533 return yards from 1990-2001, good for 5th place all time."
+      ],
+      "answer": 0,
+      "explanation": "Dillon had 976 interception return yards from 1952-59, good for first place all-time in the Packers record book."
+    },
+    {
+      "id": "2009-09-24",
+      "origin": "recovered",
+      "question": "What's the most wins the Packers have had in a regular season?",
+      "choices": ["16", "15", "13", "12", "10"],
+      "responses": [
+        "Only the Patriots won 16 regular season games, back in 2007.",
+        "I wish.",
+        "",
+        "The Packers have won 12 games in a regular season in 1929, '31,'66, 2001,  and '02, but they've had more wins than that in a regular season. ",
+        "Where have you been the last 10 years?"
+      ],
+      "answer": 2,
+      "explanation": "The most regular season games the Packers won was 13, and they did in 1962,  '96, '97 and 2007."
+    },
+    {
+      "id": "2009-09-25",
+      "origin": "draft",
+      "question": "Who did the Packers whoop in Super Bowl I?",
+      "choices": [
+        "Kansas City Chiefs",
+        "Oakland Raiders",
+        "New England Patriots",
+        "Denver Broncos",
+        "Baltimore Colts"
+      ],
+      "responses": [
+        "",
+        "The Raiders got their asses handed to them in Super Bowl II, 33-14. Different game, pal.",
+        "We beat the Pats in Super Bowl XXXI. Wrong decade, wrong Super Bowl.",
+        "Don't even say the word Broncos to me. Super Bowl XXXII still hurts.",
+        "The Colts weren't even in it. Try again, genius."
+      ],
+      "answer": 0,
+      "explanation": "Green Bay beat the Chiefs 35-10 in the first Super Bowl ever played, January 15, 1967. Lombardi's boys showed the AFL how it's done."
+    },
+    {
+      "id": "2009-09-26",
+      "origin": "draft",
+      "question": "Who was the MVP of Super Bowl XXXI?",
+      "choices": [
+        "Brett Favre",
+        "Desmond Howard",
+        "Reggie White",
+        "Antonio Freeman",
+        "Dorsey Levens"
+      ],
+      "responses": [
+        "Favre threw two TD passes, but he didn't get the trophy. Thank God, considering where he is now.",
+        "",
+        "The Minister of Defense sacked Bledsoe three times, a Super Bowl record, but he didn't get the MVP.",
+        "Freeman caught an 81-yard bomb, but no trophy for him.",
+        "Levens ran hard all day, but no MVP."
+      ],
+      "answer": 1,
+      "explanation": "Desmond Howard ran a kickoff back 99 yards for a touchdown and became the first special teams player ever named Super Bowl MVP. Packers 35, Patriots 21."
+    },
+    {
+      "id": "2009-09-27",
+      "origin": "draft",
+      "question": "In what year were the Packers founded?",
+      "choices": ["1909", "1919", "1921", "1933", "1946"],
+      "responses": [
+        "Ten years too early. Curly was still in grade school.",
+        "",
+        "1921 is when the Pack joined the league, but the team was already two years old by then.",
+        "Way off. The Packers already had three NFL titles by 1933.",
+        "1946? Are you kidding me? Do your homework pal."
+      ],
+      "answer": 1,
+      "explanation": "Curly Lambeau and George Calhoun started the Packers in 1919, with jerseys paid for by the Indian Packing Company. Kicking ass since 1919, baby."
+    },
+    {
+      "id": "2009-09-28",
+      "origin": "draft",
+      "question": "What was Lambeau Field called when it opened in 1957?",
+      "choices": [
+        "Hagemeister Park",
+        "Bellevue Park",
+        "City Stadium",
+        "Milwaukee County Stadium",
+        "Packerland Stadium"
+      ],
+      "responses": [
+        "The Pack played at Hagemeister Park in the early '20s, but that was long gone by 1957.",
+        "Bellevue Park was home for a couple of seasons in the '20s. Not it.",
+        "",
+        "The Pack played some home games in Milwaukee for years, but County Stadium wasn't Lambeau.",
+        "Packerland Stadium? You just made that up."
+      ],
+      "answer": 2,
+      "explanation": "It opened as City Stadium in 1957 and was renamed Lambeau Field in 1965, after Curly Lambeau died."
+    },
+    {
+      "id": "2009-09-29",
+      "origin": "draft",
+      "question": "As of 2009, how many NFL championships (Super Bowls included) have the Packers won?",
+      "choices": ["3", "9", "11", "12", "13"],
+      "responses": [
+        "That's just the Super Bowls (I, II and XXXI). The Pack was winning titles long before there was a Super Bowl.",
+        "Nine? You're shortchanging the greatest franchise in sports.",
+        "Close, but count again.",
+        "",
+        "Thirteen? I like your optimism. Maybe next year."
+      ],
+      "answer": 3,
+      "explanation": "Twelve titles: 1929, '30, '31, '36, '39, '44, '61, '62, '65, '66, '67 and '96. More than any other team in the NFL. Titletown, USA."
+    },
+    {
+      "id": "2009-09-30",
+      "origin": "draft",
+      "question": "Who's the Packers' head coach for the 2009 season?",
+      "choices": ["Mike Holmgren", "Mike Sherman", "Ray Rhodes", "Mike McCarthy", "Lindy Infante"],
+      "responses": [
+        "The Big Walrus left for Seattle after the '98 season.",
+        "Sherman got canned after 2005.",
+        "Rhodes lasted one season, 1999, and it felt like ten.",
+        "",
+        "Infante coached from 1988 to 1991. Where have you been?"
+      ],
+      "answer": 3,
+      "explanation": "Mike McCarthy took over in 2006. He's the guy now, and he better beat the Vikings twice this year."
+    },
+    {
+      "id": "2009-10-01",
+      "origin": "draft",
+      "question": "Whose injury in September 1992 gave Brett Favre his shot as the Packers' quarterback?",
+      "choices": ["Don Majkowski", "Lynn Dickey", "Randy Wright", "Mark Brunell", "Anthony Dilweg"],
+      "responses": [
+        "",
+        "Dickey retired in the '80s.",
+        "Randy Wright was long gone by '92.",
+        "Brunell was Favre's backup. He didn't get hurt to open the door.",
+        "Dilweg wasn't the starter in '92."
+      ],
+      "answer": 0,
+      "explanation": "The Majik Man hurt his ankle against the Bengals on September 20, 1992. Favre came in, won the game, and started every game for the next 16 years. Then he went and screwed it all up."
+    },
+    {
+      "id": "2009-10-02",
+      "origin": "draft",
+      "question": "Which team did the Packers trade with to get Brett Favre?",
+      "choices": [
+        "New York Jets",
+        "Atlanta Falcons",
+        "Minnesota Vikings",
+        "Houston Oilers",
+        "New Orleans Saints"
+      ],
+      "responses": [
+        "That's the team we traded him TO, in 2008. Good riddance.",
+        "",
+        "The Vikings didn't trade for him, they just waited until he was a free agent like the vultures they are.",
+        "Nope.",
+        "Favre's from Mississippi, but no, it wasn't the Saints."
+      ],
+      "answer": 1,
+      "explanation": "Ron Wolf sent a first-round pick to Atlanta for Favre in February 1992. Best trade the Pack ever made."
+    },
+    {
+      "id": "2009-10-03",
+      "origin": "draft",
+      "question": "Who scored the winning touchdown in the Ice Bowl?",
+      "choices": ["Jerry Kramer", "Chuck Mercein", "Bart Starr", "Donny Anderson", "Boyd Dowler"],
+      "responses": [
+        "Kramer threw the block that made it happen, but he didn't score.",
+        "Mercein ran hard on that last drive, but he didn't score the TD.",
+        "",
+        "Anderson got the Pack down to the 1, but he didn't punch it in.",
+        "Dowler caught two TDs earlier in the game, but not the winner."
+      ],
+      "answer": 2,
+      "explanation": "Bart Starr snuck it in with 13 seconds left to beat the Cowboys 21-17 for the 1967 NFL title. Kramer's block on Jethro Pugh opened the hole."
+    },
+    {
+      "id": "2009-10-04",
+      "origin": "draft",
+      "question": "What was the temperature at kickoff of the Ice Bowl?",
+      "choices": ["10 degrees", "0 degrees", "-5 degrees", "-13 degrees", "-25 degrees"],
+      "responses": [
+        "10 degrees is a nice fall day in Green Bay.",
+        "Colder than that.",
+        "Colder than that, pansy.",
+        "",
+        "Not quite, but with the wind it felt worse than that."
+      ],
+      "answer": 3,
+      "explanation": "It was 13 below zero at kickoff on December 31, 1967, with a wind chill around 48 below. The officials' whistles froze to their lips. Real football weather."
+    },
+    {
+      "id": "2009-10-05",
+      "origin": "draft",
+      "question": "How many NFL MVP awards did Brett Favre win as a Packer?",
+      "choices": ["None", "1", "2", "3", "4"],
+      "responses": [
+        "Where were you in the '90s?",
+        "More than that.",
+        "He's got one more than that.",
+        "",
+        "Easy there, he's not THAT good."
+      ],
+      "answer": 3,
+      "explanation": "Favre won it three straight years, 1995, '96 and '97 (he shared the '97 award with Barry Sanders). Back when he was still a Packer, and still cool."
+    },
+    {
+      "id": "2009-10-06",
+      "origin": "draft",
+      "question": "Which team did the Packers steal Reggie White from in 1993?",
+      "choices": [
+        "New York Giants",
+        "Dallas Cowboys",
+        "Philadelphia Eagles",
+        "Chicago Bears",
+        "Detroit Lions"
+      ],
+      "responses": [
+        "Nope.",
+        "Nope. Thank God, too.",
+        "",
+        "The Bears never had anyone as good as Reggie.",
+        "The Lions never had anyone as good as Reggie either."
+      ],
+      "answer": 2,
+      "explanation": "The Minister of Defense signed with Green Bay as a free agent in 1993, after eight years with the Eagles. Best free agent signing in NFL history, period."
+    },
+    {
+      "id": "2009-10-07",
+      "origin": "draft",
+      "question": "Who is the Packers' all-time leader in sacks?",
+      "choices": [
+        "Reggie White",
+        "Kabeer Gbaja-Biamila",
+        "Aaron Kampman",
+        "Tim Harris",
+        "Ezra Johnson"
+      ],
+      "responses": [
+        "Reggie had 68.5 sacks as a Packer, good for second.",
+        "",
+        "Kampman's a stud, but he's not there yet.",
+        "Harris could get after the QB, but he's not number one.",
+        "Johnson got plenty of sacks before they kept official stats, but no."
+      ],
+      "answer": 1,
+      "explanation": "KGB had 74.5 sacks from 2000 to 2008, the most since sacks became an official stat in 1982."
+    },
+    {
+      "id": "2009-10-08",
+      "origin": "draft",
+      "question": "Who has the most coaching wins in Packers history?",
+      "choices": ["Vince Lombardi", "Curly Lambeau", "Mike Holmgren", "Mike Sherman", "Bart Starr"],
+      "responses": [
+        "Lombardi won five titles in nine years, but he didn't coach long enough to catch Curly.",
+        "",
+        "Holmgren won a Super Bowl but he's not even close to number one.",
+        "Sherman won a lot of regular season games, but he's nowhere near number one.",
+        "Bart was a better quarterback than a coach. Way better."
+      ],
+      "answer": 1,
+      "explanation": "Curly Lambeau won over 200 games coaching the Pack from 1919 to 1949. That's why the stadium's named after him."
+    },
+    {
+      "id": "2009-10-09",
+      "origin": "draft",
+      "question": "Who's the Packers' general manager in 2009?",
+      "choices": ["Ron Wolf", "Ted Thompson", "Bob Harlan", "Mike Sherman", "Mark Murphy"],
+      "responses": [
+        "Wolf retired in 2001. Great GM, though.",
+        "",
+        "Harlan was the team president, not the GM.",
+        "Sherman was GM and coach for a while. Didn't work out.",
+        "Murphy's the president, not the GM."
+      ],
+      "answer": 1,
+      "explanation": "Ted Thompson took over as GM in 2005. He drafted Rodgers, so he's alright by me."
+    },
+    {
+      "id": "2009-10-10",
+      "origin": "draft",
+      "question": "Who was the MVP of both Super Bowl I and Super Bowl II?",
+      "choices": ["Max McGee", "Paul Hornung", "Bart Starr", "Jim Taylor", "Herb Adderley"],
+      "responses": [
+        "McGee was the star of Super Bowl I, but he didn't get the MVP.",
+        "Hornung barely played in Super Bowl I.",
+        "",
+        "Taylor ran for a TD in Super Bowl I but didn't win MVP.",
+        "Adderley ran a pick back for a TD in Super Bowl II, but no MVP."
+      ],
+      "answer": 2,
+      "explanation": "Bart Starr won MVP in both of the first two Super Bowls. The greatest Packers quarterback of all time, and don't let anyone tell you different."
+    },
+    {
+      "id": "2009-10-11",
+      "origin": "draft",
+      "question": "Who caught the first touchdown pass in Super Bowl history?",
+      "choices": ["Boyd Dowler", "Carroll Dale", "Max McGee", "Elijah Pitts", "Jim Taylor"],
+      "responses": [
+        "Dowler started, but he got hurt early and McGee came in.",
+        "Dale didn't catch a TD in that game.",
+        "",
+        "Pitts ran for two TDs, but didn't catch one.",
+        "Taylor ran for a TD, he didn't catch one."
+      ],
+      "answer": 2,
+      "explanation": "Max McGee caught it, after (legend has it) staying out all night drinking because he didn't think he'd play. A true Wisconsin hero."
+    },
+    {
+      "id": "2009-10-12",
+      "origin": "draft",
+      "question": "As of 2009, which of these Packers greats has NOT had his number retired?",
+      "choices": ["Bart Starr", "Don Hutson", "Ray Nitschke", "Reggie White", "Brett Favre"],
+      "responses": [
+        "Starr's 15 is retired.",
+        "Hutson's 14 is retired.",
+        "Nitschke's 66 is retired.",
+        "Reggie's 92 was retired in 2005.",
+        ""
+      ],
+      "answer": 4,
+      "explanation": "Favre's number 4 is NOT retired, and as long as he's wearing purple, it shouldn't be."
+    },
+    {
+      "id": "2009-10-13",
+      "origin": "draft",
+      "question": "Which team did Brett Favre sign with in August 2009?",
+      "choices": [
+        "New York Jets",
+        "Chicago Bears",
+        "Minnesota Vikings",
+        "Tampa Bay Buccaneers",
+        "Nobody, he retired for good"
+      ],
+      "responses": [
+        "That was 2008, when we traded him there.",
+        "Thank God, not the Bears. That would be the end of the world.",
+        "",
+        "No.",
+        "He 'retired' twice and came back twice. You believed him?"
+      ],
+      "answer": 2,
+      "explanation": "The traitor signed with the Vikings on August 18, 2009. Jet Favre is now Viking Favre. I'm gonna need another beer."
+    },
+    {
+      "id": "2009-10-14",
+      "origin": "draft",
+      "question": "Where was Aaron Rodgers picked in the 2005 NFL Draft?",
+      "choices": ["1st overall", "9th overall", "24th overall", "32nd overall", "2nd round"],
+      "responses": [
+        "The 49ers took Alex Smith first overall. How's that working out for them?",
+        "He thought he'd go that high. He didn't.",
+        "",
+        "Not quite that far, but he did slide a long way.",
+        "He didn't fall THAT far."
+      ],
+      "answer": 2,
+      "explanation": "Rodgers slid all the way to the Pack at 24th overall. Most teams that passed on him are going to regret it."
+    },
+    {
+      "id": "2009-10-15",
+      "origin": "draft",
+      "question": "Which college did Aaron Rodgers play for?",
+      "choices": ["Oregon", "USC", "Southern Miss", "Cal", "Butte Community College"],
+      "responses": [
+        "Nope.",
+        "Nope.",
+        "That's Favre's school, dummy.",
+        "",
+        "He started at Butte, but he made his name somewhere else."
+      ],
+      "answer": 3,
+      "explanation": "Rodgers played for Cal, the Golden BEARS. Don't hold it against him."
+    },
+    {
+      "id": "2009-10-16",
+      "origin": "draft",
+      "question": "Who owns the Green Bay Packers?",
+      "choices": [
+        "The City of Green Bay",
+        "The Lambeau family",
+        "The NFL",
+        "The fans",
+        "Miller Brewing Company"
+      ],
+      "responses": [
+        "Close, but no.",
+        "Curly's family doesn't own it.",
+        "The NFL doesn't own anybody.",
+        "",
+        "I wish. Free High Life for everyone."
+      ],
+      "answer": 3,
+      "explanation": "The Packers are owned by the fans: over 100,000 shareholders. It's the only community-owned team in major league sports. No rich jerk is moving this team to L.A."
+    },
+    {
+      "id": "2009-10-17",
+      "origin": "draft",
+      "question": "After Favre, who is the Packers' all-time leader in passing yards?",
+      "choices": ["Lynn Dickey", "Bart Starr", "Don Majkowski", "Tobin Rote", "Aaron Rodgers"],
+      "responses": [
+        "Dickey threw for 21,369 yards from 1976-85, good for third.",
+        "",
+        "The Majik Man had one great year. Not even close.",
+        "Rote was good in the '50s, but no.",
+        "Give him time. He only just got started."
+      ],
+      "answer": 1,
+      "explanation": "Bart Starr threw for 24,718 yards from 1956 to 1971. Favre's way out in front, but he's dead to me."
+    },
+    {
+      "id": "2009-10-18",
+      "origin": "draft",
+      "question": "Antonio Freeman's famous \"He did WHAT?!\" catch in 2000 came against which team?",
+      "choices": [
+        "Chicago Bears",
+        "Detroit Lions",
+        "Tampa Bay Buccaneers",
+        "Minnesota Vikings",
+        "San Francisco 49ers"
+      ],
+      "responses": [
+        "Nope.",
+        "Nope.",
+        "Nope.",
+        "",
+        "Nope, but 'The Catch III' vs San Fran would have been nice."
+      ],
+      "answer": 3,
+      "explanation": "Monday night, November 6, 2000: Freeman caught the ball while lying on the ground and ran it in to beat the Vikings in overtime. Best Monday night ever."
+    },
+    {
+      "id": "2009-10-19",
+      "origin": "draft",
+      "question": "Who did the first Lambeau Leap?",
+      "choices": [
+        "Robert Brooks",
+        "Reggie White",
+        "LeRoy Butler",
+        "Sterling Sharpe",
+        "Edgar Bennett"
+      ],
+      "responses": [
+        "Brooks made it famous, but he didn't do it first.",
+        "Reggie set it up, actually: he lateraled the ball to Butler.",
+        "",
+        "Sharpe didn't do it first.",
+        "Nope."
+      ],
+      "answer": 2,
+      "explanation": "LeRoy Butler jumped into the stands after a fumble return against the Raiders on December 26, 1993. Now everybody does it."
+    },
+    {
+      "id": "2009-10-20",
+      "origin": "draft",
+      "question": "In what year did the Packers and Bears first play?",
+      "choices": ["1919", "1921", "1925", "1933", "1946"],
+      "responses": [
+        "The Packers were around in 1919, but they didn't play the Bears yet.",
+        "",
+        "Earlier than that.",
+        "Way earlier than that.",
+        "Come on now."
+      ],
+      "answer": 1,
+      "explanation": "The first one was in 1921, when the Bears were still the Staleys. Most-played rivalry in the NFL, and the Bears still suck."
+    },
+    {
+      "id": "2009-10-21",
+      "origin": "draft",
+      "question": "Who holds the Packers' single-season rushing record?",
+      "choices": ["Jim Taylor", "Dorsey Levens", "Ahman Green", "Ryan Grant", "Edgar Bennett"],
+      "responses": [
+        "Taylor ran for 1,474 yards in 1962, the record for 41 years.",
+        "Levens ran for 1,435 yards in 1997.",
+        "",
+        "Grant ran for 1,203 in 2008. Not bad, not the record.",
+        "Bennett was good, not that good."
+      ],
+      "answer": 2,
+      "explanation": "Ahman Green ran for 1,883 yards in 2003. Beast mode before beast mode."
+    }
+  ]
+}

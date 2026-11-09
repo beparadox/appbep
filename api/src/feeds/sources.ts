@@ -1,6 +1,7 @@
 /**
- * The headline feeds on the Schportz page: the four "sites" tabs of the 2011 page, and the
- * four league tabs. The 2011 league feeds (nfl.com, nba.com, nhl.com, mlb.com) are gone, so
+ * The headline feeds, one file per exhibit page.
+ *
+ * Schportz: the four "sites" tabs of the 2011 page, and the four league tabs. The 2011 league feeds (nfl.com, nba.com, nhl.com, mlb.com) are gone, so
  * those tabs use ESPN's league feeds. All checked working in November 2026.
  */
 export interface FeedSource {
@@ -22,6 +23,25 @@ export const SCHPORTZ_FEEDS: readonly FeedSource[] = [
   { id: 'nba', label: 'NBA', url: 'https://www.espn.com/espn/rss/nba/news' },
   { id: 'mlb', label: 'MLB', url: 'https://www.espn.com/espn/rss/mlb/news' },
   { id: 'nhl', label: 'NHL', url: 'https://www.espn.com/espn/rss/nhl/news' },
+];
+
+/**
+ * Angry Packers Fan: the 2009 HEADLINES box read Packers feeds that are long gone; these are
+ * today's equivalents (checked November 2026).
+ */
+export const APF_FEEDS: readonly FeedSource[] = [
+  { id: 'packers', label: 'Packers.com', url: 'https://www.packers.com/rss/news' },
+  {
+    id: 'google',
+    label: 'Google News',
+    url: 'https://news.google.com/rss/search?q=%22Green+Bay+Packers%22&hl=en-US&gl=US&ceid=US:en',
+  },
+];
+
+/** Each file the job writes to the site bucket (the pages read /feeds/<name>.json). */
+export const FEED_FILES: readonly { key: string; sources: readonly FeedSource[] }[] = [
+  { key: 'feeds/schportz.json', sources: SCHPORTZ_FEEDS },
+  { key: 'feeds/apf.json', sources: APF_FEEDS },
 ];
 
 /** Headlines kept per feed (the 2011 page showed 12). */

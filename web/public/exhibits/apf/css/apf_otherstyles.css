@@ -1,0 +1,220 @@
+/*This page will contain the miscellaneous styles for some of the pages, styles not
+directly related to the header, left-nav, right-nav, content or footer sections
+
+List of pages which use this style:
+home page
+blog pages
+
+*/
+/*this is used to wrap text around images*/
+
+
+
+/*this little ditty gets rid of those annoying outlines around links*/
+:focus {
+	outline-style: none;
+}
+#ads-right {
+	float: right;
+	margin: 0;
+	padding: 3px;
+}
+
+#ads-left {
+	float: left;
+	margin-right: 2px;
+	padding: 3px;
+}
+
+a:link {
+ color: #003300;
+}
+
+a:visited {
+ color: black;
+
+}
+
+#content-header a {
+	color: #ffcc00;
+	text-decoration: none;
+}
+#content-header a:hover {
+
+	background: #003300;
+
+}
+
+/*keep the index.php image slide show from getting too big*/
+
+#slideimg {
+	max-width: 100%;
+}
+/*This is going to be used as a background header for certain sections, such as the quiz*/
+.section_head {
+	font: bold 1em arial,times new roman, sans-serif;
+	height: 25px;
+        width: 90%;
+	margin-left: auto;
+        margin-right: auto;
+	margin-top: 5px;
+	background: url(../img/green_bkgd.png) repeat-x;
+	color: #ffcc00;
+	text-align: center;
+	border: 2px solid #ffcc00;
+
+	-moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+         border-radius: 20px;
+
+}
+
+.section_head2 {
+
+	font: bold 1em arial,times new roman, sans-serif;
+	height: 25px;
+        width: 90%;
+	margin-left: auto;
+        margin-right: auto;
+	margin-top: 5px;
+	background: url(../img/green_bkgd.png) repeat-x;
+	color: #ffcc00;
+	text-align: center;
+	border: 2px solid #ffcc00;
+
+
+}
+.section_headr {
+	font: bold 1.8em impact, arial,times new roman, sans-serif;
+	height: 25px;
+	background: url(../img/green_bkgd.png) repeat-x;
+	color: #ffcc00;
+	text-align: center;
+	border: 2px solid #ffcc00;
+	-moz-border-radius: 20px;
+	-webkit-border-radius-top-left: 20px;
+	-khtml-border-radius: 20px;
+         border-radius: 20px;
+
+}
+.quiz_answer {
+	text-align: left;
+	color: #003300;
+	background: #f0f0f0;
+	font: bold 12px verdana, helvetica, times new roman;
+}
+.quiz_font {
+	font: bold 12px verdana, helvetica, times new roman;
+	text-align: left;
+	color: #003300;
+}
+
+#qbr {
+
+	border-left: 2px solid #ffcc00;
+	border-right: 2px solid #ffcc00;
+	border-bottom: 2px solid #ffcc00;
+}
+/*the div that contains the quiz*/
+#quiz {
+
+	background: #f0f0f0;
+	-moz-border-radius: 20px; -webkit-border-radius: 20px;
+
+}
+
+#quiz_body {
+	margin-top: 0px;
+
+	border-left: 2px solid #ffcc00;
+	border-right: 2px solid #ffcc00;
+	border-bottom: 2px solid #ffcc00;
+	background: url(../img/quiz_bkgd.png);
+
+}
+
+#quiz_num {
+	font: bold 10px verdana, helvetica;
+	color: #ffcc00;
+}
+
+#quiz_bottom_row {
+	height: 25px;
+	background: url(../img/green_bkgd.png);
+	border: none;
+}
+
+#quiz_ans_row {
+
+}
+
+#quiz_que_row {
+
+}
+/*this title is self-descriptive, the blog images*/
+#blog-image-left {
+	margin-right: 10px;
+}
+/*this title is self-descriptive, the blog images*/
+#blog-image-right {
+	margin-left: 10px;
+}
+
+#quiz_question {
+	text-align: center;
+	color: black;
+}
+
+.quiz_nav {
+	height: 20px;
+	width: 60px;
+	border: 2px solid #003300;
+
+}
+
+/*heades in the biography of APF */
+.bio_header {
+	font: bold 1.8em times new roman, sans-serif, helvetica;
+}
+
+.more_text {
+	font: bold 1em times new roman, sans-serif, helvetica;
+}
+
+.link-und {
+	text-decoration: underline;
+	color: #003300;
+}
+
+div.tabArea {
+  font-size: 80%;
+  font-weight: bold;
+  background: #003300;
+  color: #D4A017;
+}
+
+a.tab {
+  background-color: #003300;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  border-bottom-width: 0px;
+  padding: 2px 1em 0px 1em;
+  text-decoration: none;
+}
+
+
+a.tab:hover {
+  background-color: #ffcc00;
+  color: #003300;
+}
+
+a.desc-visible {
+font: italic 15px times new roman;
+text-decoration: none;
+color: #ffcc00;
+ }
+
+a.rss-links {
+color: #ffcc00;
+}

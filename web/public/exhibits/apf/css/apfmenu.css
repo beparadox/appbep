@@ -1,0 +1,158 @@
+/*This CSS page is for the drop-down menu of Angry Packers Fan*/
+
+div#menu {
+
+	font: bold 11px sans-serif;
+
+	background: url(../img/chromebg_d8_25.gif) repeat-x;
+
+	border-top: 1px solid black;
+
+	border-bottom: 1px solid black;
+
+	color: #003300;
+
+	height: 25px;
+
+	width: 1024px;
+
+	margin: auto;
+
+
+
+}
+
+div.menu > div > ul.menu > li {
+
+	display: block;
+
+	float: left;
+}
+
+li.menu {
+
+
+	padding: 0;
+
+	border-right: 2px solid #B0B0B0;
+
+	height: 19px;
+
+	min-width: 80px;
+
+	max-width: 2000px;
+
+	margin: auto;
+	position: relative;
+	z-index: 1;
+
+
+}
+
+
+
+ul.menu a {
+
+	color: #003300;
+
+	text-decoration: none;
+
+	width: 100%;
+
+    display: block;
+
+	height: 100%;
+
+	position: relative;
+}
+
+ul.menu,
+ul.menu ul {
+
+	list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+}
+
+
+li.menu > div{
+
+	position: absolute;
+	visibility: hidden;
+	background: #707070;
+
+	width: 222px;
+
+	padding: 2px 2 2px 2;
+}
+
+.menu-cat {
+	text-align: center;
+	color: #ffffff;
+}
+
+div.menu > div > ul.menu > li.menu > div {
+
+	top: 25px;
+
+	left: 0;
+
+	right: 0;
+}
+
+ul.menu li {
+
+	position: relative;
+
+	padding: 1px;
+
+	padding: 6px 0px 0px 4px;
+}
+
+
+
+li.menu > div > div > ul > li {
+
+	border: 1px solid #b0b0b0;
+
+	padding: 2px 0px 0px 0px;
+
+	height: 18px;
+}
+
+
+.menu-header {
+	text-align: center;
+
+	font-weight: bold;
+}
+ul.menu li:hover  .menu-header {
+
+	text-decoration: underline;
+}
+ li.menu  > div > div > ul  li:hover {
+
+	 color: #003300;
+
+	 background: url(../img/chromebg_d8_20.gif) repeat-x;
+ }
+
+
+
+ ul.menu li:hover > div{
+
+	visibility: visible;
+
+}
+
+
+ul.menu span {
+
+	display: block;
+
+	padding: 0px 5px;
+
+}
+

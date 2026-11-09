@@ -1,0 +1,305 @@
+<!doctype html>
+<!--
+  angrypackersfan.com (2008-10), restored. The layout, CSS, art and text are the original
+  site's. Changes:
+  - PHP + MySQL are gone: the pages are static fragments (pages/*.html) that js/apf.js loads into
+    the middle column, like the old site's AJAX did
+  - the Packers Quiz O' the Day reads /quizzes/apf.json and votes go to appbep.com's API
+  - the HEADLINES box reads /feeds/apf.json (packers.com and Google News, refreshed every 30 min)
+  - the 2009 outbound links open their Wayback Machine copies (many of those sites are gone or
+    taken over); the Google search box, AddThis, PayPal button, video widget and contact form
+    are gone
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="robots" content="noindex" />
+    <title>APF HOME</title>
+    <link rel="stylesheet" href="css/apfstyles.css" />
+    <link rel="stylesheet" href="css/apf_otherstyles.css" />
+    <link rel="stylesheet" href="css/apfmenu.css" />
+    <link rel="stylesheet" href="css/apf2026.css" />
+  </head>
+  <body>
+    <div id="header-container">
+      <div id="hc-ads"><a id="top"></a></div>
+      <div id="hc-title">
+        <div id="htitle-lc"><img id="header-image" alt="" src="img/apf_bearssuck.png" /></div>
+        <div id="htitle-cc">
+          <div id="title-c">
+            <p id="title">
+              <img id="apf_title" alt="Angry Packers Fan" title="Click me" src="img/title.png" />
+            </p>
+          </div>
+          <div id="banner-c"><p id="banner">Still kicking ass after all these years</p></div>
+        </div>
+        <div id="htitle-rc"><img id="header-image-right" alt="" src="img/apf_bearssuck.png" /></div>
+      </div>
+    </div>
+
+    <div class="menu" id="menu">
+      <div>
+        <ul class='menu'>
+          <li class='menu' id='menu-1'>
+            <span class='menu-header'>PACKERS</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/http://www.packers.com' target='_blank' rel='noopener noreferrer' title='http://www.packers.com (as archived around 2009)'><span>Packers Official Web Site</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.lambeaufield.com/hall_of_fame/visit_the_hall_of_fame/' target='_blank' rel='noopener noreferrer' title='http://www.lambeaufield.com/hall_of_fame/visit_the_hall_of_fame/ (as archived around 2009)'><span>Packers Hall of Fame</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.lambeaufield.com' target='_blank' rel='noopener noreferrer' title='http://www.lambeaufield.com (as archived around 2009)'><span>Lambeau Field</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packersproshop.com' target='_blank' rel='noopener noreferrer' title='http://www.packersproshop.com (as archived around 2009)'><span>Packers Pro Shop</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nfl.com/teams/greenbaypackers/profile?team=GB' target='_blank' rel='noopener noreferrer' title='http://www.nfl.com/teams/greenbaypackers/profile?team=GB (as archived around 2009)'><span>NFL Page</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://en.wikipedia.org/wiki/Green_Bay_Packers' target='_blank' rel='noopener noreferrer' title='http://en.wikipedia.org/wiki/Green_Bay_Packers (as archived around 2009)'><span>Wikipedia Entry</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packerfantours.com/' target='_blank' rel='noopener noreferrer' title='http://www.packerfantours.com/ (as archived around 2009)'><span>Packer Fan Tours</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packersuniforms.com/' target='_blank' rel='noopener noreferrer' title='http://www.packersuniforms.com/ (as archived around 2009)'><span>Packers Uniform Database</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-2'>
+            <span class='menu-header'>PACKERS NEWS</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/http://www.packers.com/news/' target='_blank' rel='noopener noreferrer' title='http://www.packers.com/news/ (as archived around 2009)'><span>Packers.com News</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.greenbaypressgazette.com/apps/pbcs.dll/section?category=PKR01' target='_blank' rel='noopener noreferrer' title='http://www.greenbaypressgazette.com/apps/pbcs.dll/section?category=PKR01 (as archived around 2009)'><span>GB Press-Gazette</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://gnb.scout.com/' target='_blank' rel='noopener noreferrer' title='http://gnb.scout.com/ (as archived around 2009)'><span>Packer Report</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.jsonline.com/sports/packers/' target='_blank' rel='noopener noreferrer' title='http://www.jsonline.com/sports/packers/ (as archived around 2009)'><span>Milwaukee Journal Sentinal</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.madison.com/wsj/home/sports/packers/' target='_blank' rel='noopener noreferrer' title='http://www.madison.com/wsj/home/sports/packers/ (as archived around 2009)'><span>Wisconsin State Journal</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nfl.com/teams/greenbaypackers/profile?team=GB' target='_blank' rel='noopener noreferrer' title='http://www.nfl.com/teams/greenbaypackers/profile?team=GB (as archived around 2009)'><span>Packers @CBS Sports</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.sportingnews.com/nfl/teams/packers/' target='_blank' rel='noopener noreferrer' title='http://www.sportingnews.com/nfl/teams/packers/ (as archived around 2009)'><span>Packers @The Sporting News</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://msn.foxsports.com/nfl/team/green-bay-packers' target='_blank' rel='noopener noreferrer' title='http://msn.foxsports.com/nfl/team/green-bay-packers (as archived around 2009)'><span>Packers @Fox Sports</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://sports.yahoo.com/nfl/teams/gnb' target='_blank' rel='noopener noreferrer' title='http://sports.yahoo.com/nfl/teams/gnb (as archived around 2009)'><span>Packers @Yahoo Sports</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://sports.espn.go.com/nfl/clubhouse?team=gnb' target='_blank' rel='noopener noreferrer' title='http://sports.espn.go.com/nfl/clubhouse?team=gnb (as archived around 2009)'><span>Packers @ESPN</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-3'>
+            <span class='menu-header'>FAN SITES</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/http://www.acmepackingcompany.com/' target='_blank' rel='noopener noreferrer' title='http://www.acmepackingcompany.com/ (as archived around 2009)'><span>Acme Packing Company</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.bratsandbeer.com/' target='_blank' rel='noopener noreferrer' title='http://www.bratsandbeer.com/ (as archived around 2009)'><span>Brats and Beer</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cheddarheadpackhouston.com/' target='_blank' rel='noopener noreferrer' title='http://www.cheddarheadpackhouston.com/ (as archived around 2009)'><span>Cheddar Head Pack of Houston</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cheeseheadtv.com/' target='_blank' rel='noopener noreferrer' title='http://www.cheeseheadtv.com/ (as archived around 2009)'><span>Cheesehead TV</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://mvn.com/thefrozentundra/' target='_blank' rel='noopener noreferrer' title='http://mvn.com/thefrozentundra/ (as archived around 2009)'><span>The Frozen Tundra</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.jerseyal.com/GBP/?cat=12' target='_blank' rel='noopener noreferrer' title='http://www.jerseyal.com/GBP/?cat=12 (as archived around 2009)'><span>Jersey Al's Packers Blog</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.meatpackersunion.com/' target='_blank' rel='noopener noreferrer' title='http://www.meatpackersunion.com/ (as archived around 2009)'><span>Meat Packers Union</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://olbagofdonuts.com/' target='_blank' rel='noopener noreferrer' title='http://olbagofdonuts.com/ (as archived around 2009)'><span>Ol' Bag of Donuts</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://packergeeks.wordpress.com/' target='_blank' rel='noopener noreferrer' title='http://packergeeks.wordpress.com/ (as archived around 2009)'><span>packergeeks</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packernet.com/' target='_blank' rel='noopener noreferrer' title='http://www.packernet.com/ (as archived around 2009)'><span>Packernet</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packer.com/' target='_blank' rel='noopener noreferrer' title='http://www.packer.com/ (as archived around 2009)'><span>Packer.com</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packerchatters.com/' target='_blank' rel='noopener noreferrer' title='http://www.packerchatters.com/ (as archived around 2009)'><span>Packer Chatters</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packersgab.com/' target='_blank' rel='noopener noreferrer' title='http://www.packersgab.com/ (as archived around 2009)'><span>Packers Gab</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://packerslounge.com/' target='_blank' rel='noopener noreferrer' title='http://packerslounge.com/ (as archived around 2009)'><span>Packers Lounge</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packerpalace.com/' target='_blank' rel='noopener noreferrer' title='http://www.packerpalace.com/ (as archived around 2009)'><span>Packer Palace</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://community.sportsbubbler.com/blogs/railbird_central/default.aspx' target='_blank' rel='noopener noreferrer' title='http://community.sportsbubbler.com/blogs/railbird_central/default.aspx (as archived around 2009)'><span>Railbird Central</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.tundravision.com/' target='_blank' rel='noopener noreferrer' title='http://www.tundravision.com/ (as archived around 2009)'><span>Tundra Vision</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-4'>
+            <span class='menu-header'>MORE FAN SITES</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/http://www.schportz.com/phpBB3' target='_blank' rel='noopener noreferrer' title='http://www.schportz.com/phpBB3 (as archived around 2009)'><span>APF's Forum</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://cheeseheadtv.com/forum/index.php' target='_blank' rel='noopener noreferrer' title='http://cheeseheadtv.com/forum/index.php (as archived around 2009)'><span>Packer Fan Forum</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.packerforum.com/' target='_blank' rel='noopener noreferrer' title='http://www.packerforum.com/ (as archived around 2009)'><span>Packer Forum</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://timesfour.com/eve/forums/a/frm/f/938109321' target='_blank' rel='noopener noreferrer' title='http://timesfour.com/eve/forums/a/frm/f/938109321 (as archived around 2009)'><span>X4</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.yardbarker.com/forum/3/53' target='_blank' rel='noopener noreferrer' title='http://www.yardbarker.com/forum/3/53 (as archived around 2009)'><span>Yard Barker</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.topix.com/forum/nfl/green-bay-packers' target='_blank' rel='noopener noreferrer' title='http://www.topix.com/forum/nfl/green-bay-packers (as archived around 2009)'><span>Topix</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.footballsfuture.com/phpBB2/viewforum.php?f=17' target='_blank' rel='noopener noreferrer' title='http://www.footballsfuture.com/phpBB2/viewforum.php?f=17 (as archived around 2009)'><span>Footballs Future</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.prosportsdaily.com/forums/forumdisplay.php?f=89' target='_blank' rel='noopener noreferrer' title='http://www.prosportsdaily.com/forums/forumdisplay.php?f=89 (as archived around 2009)'><span>Pro Sports Daily</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://community.sportsbubbler.com/forums/default.aspx?GroupID=54' target='_blank' rel='noopener noreferrer' title='http://community.sportsbubbler.com/forums/default.aspx?GroupID=54 (as archived around 2009)'><span>Sports Bubbler</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-5'>
+            <span class='menu-header'>NFL</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/http://www.nfl.com' target='_blank' rel='noopener noreferrer' title='http://www.nfl.com (as archived around 2009)'><span>NFL.com</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.profootballhof.com/' target='_blank' rel='noopener noreferrer' title='http://www.profootballhof.com/ (as archived around 2009)'><span>Hall of Fame</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nfl.com/superbowl/43' target='_blank' rel='noopener noreferrer' title='http://www.nfl.com/superbowl/43 (as archived around 2009)'><span>Super Bowl</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://en.wikipedia.org/wiki/National_Football_League' target='_blank' rel='noopener noreferrer' title='http://en.wikipedia.org/wiki/National_Football_League (as archived around 2009)'><span>Wikipedia Page</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.stubhub.com/tix11-ticketcenter/nfl-tickets/?gcid=C12289x005&amp;keyword=n%20f%20l%20tickets&amp;gclid=CLLeqfS7ppsCFSQeDQodjis0DQ' target='_blank' rel='noopener noreferrer' title='http://www.stubhub.com/tix11-ticketcenter/nfl-tickets/?gcid=C12289x005&amp;keyword=n%20f%20l%20tickets&amp;gclid=CLLeqfS7ppsCFSQeDQodjis0DQ (as archived around 2009)'><span>Tickets</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://sports.espn.go.com/mnf/' target='_blank' rel='noopener noreferrer' title='http://sports.espn.go.com/mnf/ (as archived around 2009)'><span>Monday Night Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.snfonnbc.com/' target='_blank' rel='noopener noreferrer' title='http://www.snfonnbc.com/ (as archived around 2009)'><span>Sunday Night Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://msn.foxsports.com/nfl' target='_blank' rel='noopener noreferrer' title='http://msn.foxsports.com/nfl (as archived around 2009)'><span>Fox Sports NFL</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://nbcsports.msnbc.com/id/3032875' target='_blank' rel='noopener noreferrer' title='http://nbcsports.msnbc.com/id/3032875 (as archived around 2009)'><span>NBC Sports NFL</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://espn.go.com/nfl/' target='_blank' rel='noopener noreferrer' title='http://espn.go.com/nfl/ (as archived around 2009)'><span>ESPN.com NFL</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cbssports.com/nfl' target='_blank' rel='noopener noreferrer' title='http://www.cbssports.com/nfl (as archived around 2009)'><span>CBS Sports NFL Page</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://sports.yahoo.com/nfl' target='_blank' rel='noopener noreferrer' title='http://sports.yahoo.com/nfl (as archived around 2009)'><span>Yahoo! Sports NFL</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.sportingnews.com/nfl/' target='_blank' rel='noopener noreferrer' title='http://www.sportingnews.com/nfl/ (as archived around 2009)'><span>The Sporting News NFL</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-7'>
+            <span class='menu-header'>WISCONSIN BREWERIES</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='https://web.archive.org/web/2009/https://www.millerhighlife.com/Default.aspx' target='_blank' rel='noopener noreferrer' title='https://www.millerhighlife.com/Default.aspx (as archived around 2009)'><span>High Life</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.leinie.com/av.html' target='_blank' rel='noopener noreferrer' title='http://www.leinie.com/av.html (as archived around 2009)'><span>Leinenkugels</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.newglarusbrewing.com/' target='_blank' rel='noopener noreferrer' title='http://www.newglarusbrewing.com/ (as archived around 2009)'><span>New Glarus</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.citybrewery.com/' target='_blank' rel='noopener noreferrer' title='http://www.citybrewery.com/ (as archived around 2009)'><span>City Brewery</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.lakefrontbrewery.com/' target='_blank' rel='noopener noreferrer' title='http://www.lakefrontbrewery.com/ (as archived around 2009)'><span>Lakefront Brewery</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.capital-brewery.com/' target='_blank' rel='noopener noreferrer' title='http://www.capital-brewery.com/ (as archived around 2009)'><span>Capital Brewery</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.pointbeer.com/' target='_blank' rel='noopener noreferrer' title='http://www.pointbeer.com/ (as archived around 2009)'><span>Point Brewery</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.lakelouie.com/' target='_blank' rel='noopener noreferrer' title='http://www.lakelouie.com/ (as archived around 2009)'><span>Lake Louie</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.sprecherbrewery.com/index.php' target='_blank' rel='noopener noreferrer' title='http://www.sprecherbrewery.com/index.php (as archived around 2009)'><span>Sprecher</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.minhasbrewery.com/' target='_blank' rel='noopener noreferrer' title='http://www.minhasbrewery.com/ (as archived around 2009)'><span>Minhas Brewery</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.tyranena.com/' target='_blank' rel='noopener noreferrer' title='http://www.tyranena.com/ (as archived around 2009)'><span>Tyranena</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.sandcreekbrewing.com/' target='_blank' rel='noopener noreferrer' title='http://www.sandcreekbrewing.com/ (as archived around 2009)'><span>Sand Creek Brewing Company</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.centralwaters.com/' target='_blank' rel='noopener noreferrer' title='http://www.centralwaters.com/ (as archived around 2009)'><span>Central Waters Brewing Company</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.vikingbrewing.com/' target='_blank' rel='noopener noreferrer' title='http://www.vikingbrewing.com/ (as archived around 2009)'><span>Viking Brewing Company</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.greatdanepub.com/' target='_blank' rel='noopener noreferrer' title='http://www.greatdanepub.com/ (as archived around 2009)'><span>The Great Dane</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-6'>
+            <span class='menu-header'>LONG LIST OF USEFUL LINKS</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a class='menu-cat'><span>WISCONSIN:</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.wisconsin.gov/state/home/app?COMMAND=gov.wi.state.cpp.command.LoadPortalHome' target='_blank' rel='noopener noreferrer' title='http://www.wisconsin.gov/state/home/app?COMMAND=gov.wi.state.cpp.command.LoadPortalHome (as archived around 2009)'><span>State of WI Offical Website</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.dnr.state.wi.us/' target='_blank' rel='noopener noreferrer' title='http://www.dnr.state.wi.us/ (as archived around 2009)'><span>Wisconsin DNR</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.ci.green-bay.wi.us/' target='_blank' rel='noopener noreferrer' title='http://www.ci.green-bay.wi.us/ (as archived around 2009)'><span>City of Green Bay</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cityofmadison.com/' target='_blank' rel='noopener noreferrer' title='http://www.cityofmadison.com/ (as archived around 2009)'><span>City of Madison</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.ci.mil.wi.us/' target='_blank' rel='noopener noreferrer' title='http://www.ci.mil.wi.us/ (as archived around 2009)'><span>City of Milwaukee</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://milwaukee.brewers.mlb.com/index.jsp?c_id=mil' target='_blank' rel='noopener noreferrer' title='http://milwaukee.brewers.mlb.com/index.jsp?c_id=mil (as archived around 2009)'><span>Milwaukee Brewers</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nba.com/bucks/' target='_blank' rel='noopener noreferrer' title='http://www.nba.com/bucks/ (as archived around 2009)'><span>Milwaukee Bucks</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.milwaukeeadmirals.com/home.html' target='_blank' rel='noopener noreferrer' title='http://www.milwaukeeadmirals.com/home.html (as archived around 2009)'><span>Milwaukee Admirals</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://sconnie.com/' target='_blank' rel='noopener noreferrer' title='http://sconnie.com/ (as archived around 2009)'><span>Sconnie Nation</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.wisc.edu/' target='_blank' rel='noopener noreferrer' title='http://www.wisc.edu/ (as archived around 2009)'><span>UW-Madison</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.uwbadgers.com/' target='_blank' rel='noopener noreferrer' title='http://www.uwbadgers.com/ (as archived around 2009)'><span>UW Athletics</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.uwbadgers.com/sport_news/fb/headlines/headlines.html?sportid=111' target='_blank' rel='noopener noreferrer' title='http://www.uwbadgers.com/sport_news/fb/headlines/headlines.html?sportid=111 (as archived around 2009)'><span>UW Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.uwwsports.com/index.aspx?path=football' target='_blank' rel='noopener noreferrer' title='http://www.uwwsports.com/index.aspx?path=football (as archived around 2009)'><span>UW-Whitewater Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://wisdells.com/' target='_blank' rel='noopener noreferrer' title='http://wisdells.com/ (as archived around 2009)'><span>Wisconsin Dells</span></a></li>
+              <li><a class='menu-cat'><span>SPORTS:</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.bigten.org/' target='_blank' rel='noopener noreferrer' title='http://www.bigten.org/ (as archived around 2009)'><span>Big 10 Conference</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.bigten.org/' target='_blank' rel='noopener noreferrer' title='http://www.bigten.org/ (as archived around 2009)'><span>Big 10 Conference</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.espn.com/' target='_blank' rel='noopener noreferrer' title='http://www.espn.com/ (as archived around 2009)'><span>ESPN</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://espn.go.com/college-football/' target='_blank' rel='noopener noreferrer' title='http://espn.go.com/college-football/ (as archived around 2009)'><span>ESPN College Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cbssports.com' target='_blank' rel='noopener noreferrer' title='http://www.cbssports.com (as archived around 2009)'><span>CBS Sports</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.cbssports.com/collegefootball' target='_blank' rel='noopener noreferrer' title='http://www.cbssports.com/collegefootball (as archived around 2009)'><span>CBS Sports College Football</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.mlb.com' target='_blank' rel='noopener noreferrer' title='http://www.mlb.com (as archived around 2009)'><span>MLB</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nba.com' target='_blank' rel='noopener noreferrer' title='http://www.nba.com (as archived around 2009)'><span>NBA</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.nhl.com' target='_blank' rel='noopener noreferrer' title='http://www.nhl.com (as archived around 2009)'><span>NHL</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.olympic.org/' target='_blank' rel='noopener noreferrer' title='http://www.olympic.org/ (as archived around 2009)'><span>Olympics</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.sportingnews.com/' target='_blank' rel='noopener noreferrer' title='http://www.sportingnews.com/ (as archived around 2009)'><span>Sporting News</span></a></li>
+              <li><a class='menu-cat'><span>WEB:</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.bing.com/' target='_blank' rel='noopener noreferrer' title='http://www.bing.com/ (as archived around 2009)'><span>Bing</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.digg.com/' target='_blank' rel='noopener noreferrer' title='http://www.digg.com/ (as archived around 2009)'><span>Digg</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.facebook.com/' target='_blank' rel='noopener noreferrer' title='http://www.facebook.com/ (as archived around 2009)'><span>Facebook</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.google.com' target='_blank' rel='noopener noreferrer' title='http://www.google.com (as archived around 2009)'><span>Google</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.msn.com/' target='_blank' rel='noopener noreferrer' title='http://www.msn.com/ (as archived around 2009)'><span>MSN</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.myspace.com/' target='_blank' rel='noopener noreferrer' title='http://www.myspace.com/ (as archived around 2009)'><span>MySpace</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.twitter.com/' target='_blank' rel='noopener noreferrer' title='http://www.twitter.com/ (as archived around 2009)'><span>Twitter</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.weather.com/' target='_blank' rel='noopener noreferrer' title='http://www.weather.com/ (as archived around 2009)'><span>Weather.com</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.wikipedia.com' target='_blank' rel='noopener noreferrer' title='http://www.wikipedia.com (as archived around 2009)'><span>Wikipedia</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.yahoo.com' target='_blank' rel='noopener noreferrer' title='http://www.yahoo.com (as archived around 2009)'><span>Yahoo!</span></a></li>
+              <li><a class='menu-cat'><span>MISCELLANEOUS:</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.theonion.com' target='_blank' rel='noopener noreferrer' title='http://www.theonion.com (as archived around 2009)'><span>The Onion</span></a></li>
+              <li><a href='https://web.archive.org/web/2009/http://www.yahoo.com' target='_blank' rel='noopener noreferrer' title='http://www.yahoo.com (as archived around 2009)'><span>Yahoo!</span></a></li>
+            </ul></div></div>
+          </li>
+          <li class='menu' id='menu-0'>
+            <span class='menu-header'>APF LINKS</span><span class='arrow'></span>
+            <div class='menu'><div><ul>
+              <li><a href='#home'><span>Home</span></a></li>
+              <li><a href='#bio'><span>APF's Biography</span></a></li>
+              <li><a href='#faq'><span>FAQ</span></a></li>
+              <li><a href='#contact'><span>Contact</span></a></li>
+              <li><a href='#sitemap'><span>Site Map</span></a></li>
+            </ul></div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="container">
+      <div id="left-nav">
+        <div class="section_head"><span>SITE LINKS</span></div>
+        <div class="nav-btns">
+          <a class='nav-btn' href='#home'>HOME</a>
+          <a class='nav-btn' href='#bio'>BIO</a>
+          <a class='nav-btn' href='#faq'>FAQ</a>
+          <a class='nav-btn' href='#contact'>CONTACT</a>
+          <a class='nav-btn' href='#sitemap'>SITE MAP</a>
+          <a class='nav-btn' href='#bow'>WI BUSINESS OF THE WEEK</a>
+        </div>
+        <br />
+        <div class="section_head"><span>NEWS</span></div>
+        <br />
+        <div class="section_head"><span>2010 SCHEDULE</span></div>
+        <br />
+        <div class="section_head"><span>OTHER LINKS</span></div>
+        <div class="nav-btns">
+          <a class='nav-btn' href='https://web.archive.org/web/2009/http://www.stubhub.com/green-bay-packers-tickets/' target='_blank' rel='noopener noreferrer'>TICKETS</a>
+          <a class='nav-btn' href='https://www.openstreetmap.org/search?query=1265%20Lombardi%20Ave%2C%20Green%20Bay%2C%20WI' target='_blank' rel='noopener noreferrer'>DIRECTIONS TO LAMBEAU</a>
+          <a class='nav-btn' href='https://web.archive.org/web/2009/http://cheeseheadtv.com/' target='_blank' rel='noopener noreferrer'>CHEESEHEAD TV</a>
+          <a class='nav-btn' href='https://web.archive.org/web/2009/http://cheeseheadtv.com/blog/packer-world' target='_blank' rel='noopener noreferrer'>PACKER WORLD</a>
+          <a class='nav-btn' href='https://web.archive.org/web/2009/http://www.jsonline.com/blogs/sports/fanblogs/railbirdcentral.html' target='_blank' rel='noopener noreferrer'>RAILBIRD CENTRAL</a>
+        </div>
+      </div>
+
+      <div id="content">
+        <div id="content-header">
+          <div id="ch-lc">
+            <div id="ch-lc-1">
+              Text Size
+              <a href="#" id="font-down" title="Smaller text"><img alt="Smaller" src="img/greyscale_11.gif" /></a>
+              <a href="#" id="font-up" title="Bigger text"><img alt="Bigger" src="img/greyscale_10.gif" /></a>
+            </div>
+          </div>
+          <div id="ch-cc"><a href="#home"><img alt="APF's BLOG" src="img/apf_blog.png" /></a></div>
+          <div id="ch-rc"></div>
+        </div>
+
+        <div id="nav-toolbar">
+          <div id="nav-toolbar-lc">
+            <a href="#" id="page-prev"><img alt="Previous page" src="img/greyscale_8.gif" /></a>
+            <a href="#" id="page-next" style="float: right"><img alt="Next page" src="img/greyscale_7.gif" /></a>
+          </div>
+          <div id="nav-toolbar-cc"><a href="#sitemap">Site Map</a></div>
+          <div id="nav-toolbar-rc"><span>For</span></div>
+        </div>
+
+        <div id="content-blog" aria-live="polite"></div>
+      </div>
+
+      <div id="right-nav">
+        <div class="section_headr"><img alt="Packers Quiz O' the Day" src="img/quiz_o.png" /></div>
+        <div id="quiz">
+          <div id="quiz_body">
+            <form id="choices" onsubmit="return false">
+              <div id="quiz_que_row"><span class="quiz_font" id="quiz_question">Loading...</span></div>
+              <div id="quiz_choices" role="radiogroup" aria-labelledby="quiz_question"></div>
+              <div class="quiz_submit_row"><input type="button" value="Submit" id="submit" /></div>
+              <div id="quiz_ans_row">
+                <span id="response" class="quiz_font" aria-live="polite">How well do you know the Packers?</span>
+              </div>
+            </form>
+            <table id="qbr">
+              <tr id="quiz_bottom_row">
+                <td style="text-align: left"><input type="button" value="Previous" id="quiz_previous" class="quiz_nav" /></td>
+                <td><span id="quiz_num"></span></td>
+                <td style="text-align: right"><input type="button" value="Next" id="quiz_next" class="quiz_nav" /></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <p class="relic-note">The quiz facts are as of 2009. No updates since.</p>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div id="footer-cc">
+        <div id="footer-links">
+          <a href="#home">Home</a> <a href="#faq">FAQ</a> <a href="#contact">Contact</a>
+          <a href="#bio">Bio</a> <a href="#sitemap">Site Map</a> <a href="#top">Top</a>
+        </div>
+        <h4>Copyright &copy; 2008-2009 angrypackersfan.com All rights reserved</h4>
+        <h6>
+          Content and images are used on this site under the fair use provision of the Copyright Act
+          for purposes of satire, reporting, comment and criticism. angrypackersfan.com invents all
+          names in its writings, except where public figures are being referenced or satirized; any
+          other use of real names was an accident or coincidental. This site is not affiliated with
+          the NFL or the Green Bay Packers.
+        </h6>
+        <h4>angrypackersfan.com is not intended for readers under 18 years of age</h4>
+        <p class="restored">
+          Restored 2026 &middot; <a href="/funhouse" target="_top">back to the funhouse</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="js/apf.js"></script>
+  </body>
+</html>

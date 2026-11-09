@@ -140,11 +140,12 @@ export const EXHIBITS: Exhibit[] = [
     title: 'Angry Packers Fan',
     kind: 'site',
     year: '2009',
-    tech: ['PHP', 'MySQL', 'Photoshop'],
-    blurb: "A fan site with a bio, an FAQ, and the Packers Quiz O' the Day. Facts as of 2009.",
+    tech: ['PHP', 'MySQL', 'Photoshop', 'RSS'],
+    blurb:
+      "Joe Beaumal's fan site: the bio, the FAQ, the headlines, and the Packers Quiz O' the Day. Facts as of 2009.",
     lesson:
       'Sites of this era built every page on the server: PHP pulled rows from MySQL and stitched them into HTML before sending it. Today most of that work happens in the browser.',
-    legacy: { port: 8085, path: '/' },
+    live: true,
   },
 ];
 

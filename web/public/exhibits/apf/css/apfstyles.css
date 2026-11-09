@@ -1,0 +1,400 @@
+/*This is the CSS for Angry Packers Fan home page, as well as all blog related pages.  It
+is basically the template for the style of the entire site*/
+
+/*pages that use this stylesheet (list)
+home_page
+all blog pages */
+
+/*This is going to take care of the body style and the style for the 6 h# headings*/
+body {
+	height: 100%;
+    width: 100%;
+	background: #003300;
+
+	margin : 0;
+	padding : 0;
+	font-family: sans-serif;
+
+}
+h1 {
+	margin: 0;
+	font : bold 3.0em Gazz Stencil, Impact, Helvetica, geneva;
+	text-align; center;
+}
+h2 {
+	margin: 0;
+	font : bold 12pt Arial, Helvetica, geneva;
+}
+
+h3 {
+	margin: 0;
+	font: bold 12px Impact, Helvetica, geneva;
+}
+
+h4{
+	margin: 0;
+	font: bold 8pt Helvetica;
+	color: #ffcc00;
+}
+
+h6 {
+	margin: 0;
+	font: italic 7pt helvetica;
+}
+
+/*this little ditty gets rid of those annoying outlines around links*/
+:focus {
+	outline-style: none;
+}
+
+
+/*The following are the divisions for the header container, which contains a space for ads, a form
+containing a Google search bar, and then a "header container title" div, which has 3 columns, one
+the left and right containing images of APF, and the center containing the title image and a banner
+reading a smart-ass caption */
+
+/*******************************div#header-container**********************/
+div#header-container {
+
+	position: relative;
+	background: url(../img/header_bkgd_2.png);
+	height: 350px;
+	padding: 0px;
+	width: 1024px;
+	margin: auto;
+
+}
+
+/*this is where an ad can be place. it currenty contains a search box form*/
+
+div#hc-ads {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: auto;
+	height: 130px;
+	background: transparent;
+}
+/*this is the form in the ads-container.  it is located in the upper right corner of the page*/
+#cse-search-box {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+/*this is the container for the title */
+div#hc-title {
+	width: 100%;
+	padding: 0px;
+	margin: auto;
+	height: 200px;
+	position: absolute;
+	top: 150px;
+	left: 0;
+
+}
+
+/*this is the left column in the title container. it contains an image*/
+
+div#htitle-lc {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 276px;
+	background: transparent;
+}
+
+/*this is the image contained in htitle-lc*/
+#header-image {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+
+}
+
+/*this is the center column in the title container. it contains the title container (which
+contains an image) and the banner container*/
+div#htitle-cc {
+	position: absolute;
+	top: 0;
+	left: 276px;
+	text-align: center;
+	max-width: 472px;
+	color: #ffcc00;
+
+}
+/* container for the title image*/
+div#title-c{
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 472px;
+	height: 140px;
+	background: transparent;
+}
+/*title image specs */
+#title {
+	background: transparent;
+	font: 3.3em Impact;
+	text-align: center;
+	margin-top: 50px;
+}
+/*this is the container for the banner.  It is a child of htitle-cc*/
+div#banner-c {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	top: 140px;
+	width: 472px;
+	height: 50px;
+
+		font: bold 25px Times New Roman, sans-serif, helvetica;
+	font-style: italic;
+	color: #ffcc00;
+}
+/*specs for the banner*/
+#banner {
+	font: bold 25px Times New Roman, sans-serif, helvetica;
+	font-style: italic;
+	color: #ffcc00;
+	text-align: center;
+	margin-top: 0px;
+}
+
+/*this is the right column in the title container. it contains an image*/
+div#htitle-rc {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 276px;
+	background: transparent;
+}
+/*image contained in htitle-rc*/
+#header-image-right {
+	position: absolute;
+
+	bottom: 0;
+	left: 0;
+}
+/*the end of the header container--------------------------------------------------------------*/
+
+
+
+/*----------------------beginning of div container-------------------------------------------------*/
+
+/*Now comes the container, which holds the left-nav, right-nav and content sections*/
+div#container {
+
+	position : relative;
+
+	background: #003300;
+	max-width: 1024px;
+	min-width: 1024px;
+	min-height: 1024px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	}
+
+
+/* the left-nav container will hold links and ads*/
+div#left-nav {
+
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background: transparent;
+	text-align: center;
+	width: 205px;
+	margin: 0px 3px 0px 0px;
+	position: absolute;
+
+}
+
+div#right-nav {
+
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: transparent;
+
+	width: 205px;
+	margin: 0px 0px 0px 3px;
+	text-align: center;
+
+}
+
+/*this is the container which holds APF's blog and the comments sections where people can leave comments*/
+
+div#content {
+	margin: 0px 213px 3px 213px;
+	background: #F0F0F0;
+        min-height: 2024px;
+	border-top: 4px solid #FFCC00;
+     	border-left: 7px solid #FFCC00;
+	border-right: 7px solid #FFCC00;
+	border-bottom: 7px solid #FFCC00;
+		-moz-border-radius: 10px; -webkit-border-radius: 10px;
+
+
+
+}
+/*the header for the blog */
+
+div#content h1 {
+	font: bold 18px times new roman, sans-serif, helvetica;
+}
+
+div#content h3 {
+	font: bold 14px times new roman, sans-serif, helvetica;
+}
+div#content h6 {
+	font:  12px times new roman, sans-serif, helvetica;
+	color: black;
+}
+
+
+
+div#content h2 {
+	font: italic 12px times new roman, sans-serif, helvetica;
+}
+div#content-header {
+	margin: 0px 0px 1px 0px;
+	background: url(../img/green_bkgd.png) repeat-x;
+	top: 0;
+	position: relative;
+	color: #ffcc00;
+	border-bottom: 3px solid #ffcc00;
+	width: 100%;
+	height: 25px;
+}
+
+
+
+/*the left column of the content header which contains a JavaScript function to alter the size of the text*/
+
+div#ch-lc {
+
+
+	position: absolute;
+	top: 3px;
+	left: 0px;
+	width: 100px;
+	height: 25px;
+	font: bold 12px times new roman;
+	text-decoration: none;
+	color: #ffcc00;
+
+}
+
+/*the center column contains the phrase "APF's Blog" and images of APF's head on the left and right*/
+div#ch-cc {
+
+	position: absolute;
+	top: 0;
+	left: 100px;
+	right: 130px;
+
+	height: 25px;
+	text-align: center;
+	color: #ffcc00;
+	font: bold 1.5em Impact, Helvetica, geneva;
+
+}
+
+/*the right column is going to contain a link in which a person can email the page to someone else
+as well as an icon for printing the page*/
+div#ch-rc {
+	position: absolute;
+	top: 3px;
+	right: 0px;
+
+	width: 130px;
+	color: black;
+	height: 25px;
+	text-align: right;
+	font: bold 12px times new roman;
+}
+
+
+
+div#content-blog {
+
+	font: 100% times new roman, sans-serif, helvetica;
+	color:	black;
+	margin-left: 2px;
+	margin-right: 2px;
+
+}
+
+div#content-comments {
+	border-bottom: 3px solid #ffcc00;
+
+}
+
+
+
+
+/*these are div for the footer of the page, which contains some basic links, the
+copyright information and disclosures regarding use of images and content on the
+site*/
+
+div#footer {
+
+	position : relative;
+	background: #003300;
+	max-width: 1024px;
+	min-width: 824px;
+	margin: auto;
+
+
+}
+
+div#footer-lc {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	color: #ffcc00;
+	background: #003300;
+	width: 200px;
+	margin: 0px 3px 0px 0px;
+}
+
+div#footer-cc {
+	margin: 3px 208px 3px 208px;
+	background: #003300;
+	color:	#ffcc00;
+	text-align: center;
+	  -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+	border: 7px solid #ffcc00;
+}
+div#footer-rc {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: #003300;
+	color: #ffcc00;
+	width: 200px;
+	margin: 0px 0px 0px 3px;
+}
+
+div#footer-links {
+
+	font: 10px times new roman;
+	margin-top: 3px;
+	color: #ffcc00;
+	width: 200px;
+	margin: auto;
+}
+
+div#footer-links > a {
+	color: #ffcc00;
+}
+

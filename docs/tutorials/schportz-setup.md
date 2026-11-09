@@ -1,11 +1,12 @@
 # Walkthrough: switching on Schportz voting
 
-Schportz has three parts. Two work as soon as the code deploys:
+Schportz has three parts (the Angry Packers Fan quiz works the same way and shares the key). Two work as soon as the code deploys:
 
 - **The quiz**: 33 questions from `content/quizzes/schportz.json`, a static file.
 - **The headlines**: a scheduled Lambda (`FeedsFn`) fetches 8 sports feeds every 30 minutes
   and saves them to `/feeds/schportz.json` in the site bucket. It also runs once right after
-  each deploy, so the headlines are there straight away.
+  each deploy, so the headlines are there straight away. (The same job writes
+  `/feeds/apf.json` for the Angry Packers Fan page.)
 
 The third, **voting**, needs one setting that must stay out of git: a random key used to
 hash visitors' IP addresses, so the site can allow one vote per person per question without
@@ -55,7 +56,7 @@ anyone could vote a second time on each question.
 
 ## Changing the feeds
 
-The list is in `api/src/feeds/sources.ts`. To check a feed URL still works:
+The lists are in `api/src/feeds/sources.ts` (one per page). To check a feed URL still works:
 
 ```bash
 curl -sL "https://www.espn.com/espn/rss/nfl/news" | grep -c "<item"

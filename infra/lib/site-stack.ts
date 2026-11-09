@@ -45,9 +45,6 @@ export const CONTACT_PARAMS = {
  */
 export const HASH_KEY_PARAM = '/appbep/hash-key';
 
-/** Where the scheduled feed reader saves the Schportz headlines in the site bucket. */
-export const FEEDS_KEY = 'feeds/schportz.json';
-
 export class SiteStack extends Stack {
   constructor(scope: Construct, id: string, props: SiteStackProps) {
     super(scope, id, props);
@@ -216,7 +213,7 @@ export class SiteStack extends Stack {
       });
     }
 
-    // ---------- Schportz headlines: fetched every 30 minutes, saved as a static file ----------
+    // ---------- Exhibit headlines: fetched every 30 minutes, saved as static files under feeds/ ----------
     const feedsFn = new nodejs.NodejsFunction(this, 'FeedsFn', {
       entry: path.join(REPO_ROOT, 'api', 'src', 'feeds', 'handler.ts'),
       handler: 'handler',
@@ -224,7 +221,7 @@ export class SiteStack extends Stack {
       architecture: lambda.Architecture.ARM_64,
       memorySize: 256,
       timeout: Duration.seconds(30),
-      environment: { BUCKET: bucket.bucketName, FEEDS_KEY },
+      environment: { BUCKET: bucket.bucketName },
       logGroup: new logs.LogGroup(this, 'FeedsLogs', {
         retention: logs.RetentionDays.ONE_MONTH,
         removalPolicy: RemovalPolicy.DESTROY,

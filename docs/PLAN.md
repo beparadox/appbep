@@ -111,6 +111,8 @@ Cost: SES is $0.10 per 1,000 emails; Turnstile is free.
 - Character art (`apf_head_space.png`, `apf_lam_pk.jpg`, the throne, the cheesehead sombrero, …) is also available to the funhouse itself, e.g. as a recurring jump-out character.
 - ⚠️ Leave out press photos (Favre, Rodgers, Burress…) and photos of random people (`used_pics/`): copyright and privacy risk. Use your own photos and your own character art.
 
+**APF status (Nov 2026):** built as a vintage restore (`web/public/exhibits/apf/`): the 2009 layout, CSS, header collage (kept as it was, by decision) and character art; Home, Bio, FAQ, Contact, Site Map and Business of the Week as static fragments (`pages/*.html`) loaded into the middle column by `js/apf.js`. The ~110 outbound 2009 links open their Wayback Machine copies. The contact form is replaced by a note pointing to `/contact`; the Google search box, AddThis, PayPal and video widgets are gone. The quiz (`content/quizzes/apf.json`) has the 4 recovered questions, 1 reconstructed, and 27 drafts written in 2026 in APF's voice (facts as of September 2009) for you to edit; `origin` marks which is which. Votes use the same API as Schportz. The HEADLINES box reads `/feeds/apf.json` (packers.com + Google News), written by the same 30-minute job.
+
 ### Infrastructure & deploys
 
 - **AWS CDK (TypeScript)** in `infra/`: S3, CloudFront, ACM (us-east-1), Route 53 records, API Gateway, Lambda, DynamoDB.
@@ -182,7 +184,7 @@ guestbook are dropped; the Bio is left out for now (a trimmed draft is kept loca
 
 1. ~~Public or private repo?~~ Decided: **public**, MIT license.
 2. ~~2009/2011 quiz facts?~~ Decided: keep as written, labeled "as of 2009".
-3. **APF new questions:** you write them, or I draft some in the APF voice for you to edit?
+3. ~~APF new questions?~~ Decided: I draft them in APF's voice (facts as of 2009), you edit.
 4. ~~Leaderboards?~~ Decided: keep **"today" + "all-time"**, each ranked by moves and by time (N-Puzzizzle). Names: 3-12 letters/digits/underscores, server-side word filter, admin delete script. WTF Blaster keeps personal bests on the device. See `docs/tutorials/npuzzle-leaderboard.md`.
 5. ~~Contact info?~~ Decided: contact form (see above), no public email address.
 6. **Name for the funhouse:** "Funhouse" is a placeholder.

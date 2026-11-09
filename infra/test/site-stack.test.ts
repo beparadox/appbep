@@ -44,7 +44,9 @@ describe('SiteStack', () => {
   it('refreshes the headlines every 30 minutes', () => {
     t.hasResourceProperties('AWS::Events::Rule', { ScheduleExpression: 'rate(30 minutes)' });
     t.hasResourceProperties('AWS::Lambda::Function', {
-      Environment: { Variables: Match.objectLike({ FEEDS_KEY: 'feeds/schportz.json' }) },
+      Handler: 'index.handler',
+      Timeout: 30,
+      Environment: { Variables: { BUCKET: Match.anyValue() } },
     });
   });
 

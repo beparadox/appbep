@@ -1,0 +1,273 @@
+/* ---------- Added 2026 ----------
+   The 2009 page styled its buttons and toolbars inline; those styles live here now, plus the
+   restored pieces: the headlines box, quiz results and the notes about what changed. */
+
+/* Old IE-era rounded corners, written the modern way. */
+#content,
+#footer-cc {
+  border-radius: 10px;
+}
+#quiz,
+.section_head,
+.section_headr {
+  border-radius: 20px;
+}
+
+/* The header photos, 209px square as in 2009 (then stretched to fit; now scaled to fit). */
+#header-image,
+#header-image-right {
+  width: 209px;
+  height: 209px;
+  object-fit: contain;
+  cursor: default;
+}
+#apf_title {
+  cursor: pointer;
+}
+
+/* The middle column was 2024px tall no matter what was in it. */
+div#content {
+  min-height: 900px;
+}
+
+/* ---------- left column: the yellow boxes of green buttons ---------- */
+.nav-btns {
+  background: #ffcc00;
+  border-radius: 10px;
+  padding: 1px 0;
+}
+.nav-btns a.nav-btn,
+.nav-btns a.nav-btn:visited {
+  display: block;
+  width: 97%;
+  box-sizing: border-box;
+  margin: 2px auto;
+  padding: 2px 0;
+  border: 2px outset #0c4d0c;
+  border-radius: 10px;
+  background: #003300;
+  color: #ffcc00;
+  font: 13px arial, sans-serif;
+  text-decoration: none;
+}
+.nav-btns a.nav-btn:hover {
+  background: #0c4d0c;
+}
+.nav-btns a.nav-btn:active {
+  border-style: inset;
+}
+
+/* ---------- middle column: header bar and toolbar ---------- */
+#ch-lc-1 {
+  position: absolute;
+  bottom: 0;
+  font: bold 11px times new roman, serif;
+}
+#ch-lc-1 img {
+  width: 12px;
+  height: 12px;
+  border: none;
+  margin-top: 3px;
+}
+#ch-cc img,
+#nav-toolbar img {
+  border: none;
+}
+#nav-toolbar {
+  height: 30px;
+}
+#nav-toolbar-lc {
+  float: left;
+  width: 13%;
+  height: 100%;
+  background: #ffcc00;
+}
+#nav-toolbar-cc {
+  float: left;
+  width: 50%;
+  height: 100%;
+  background: #ffcc00;
+  text-align: center;
+  line-height: 38px;
+}
+#nav-toolbar-rc {
+  float: right;
+  width: 37%;
+  height: 100%;
+  background: #000;
+  color: #fff;
+}
+#content-blog {
+  clear: both;
+  padding: 1.5em 6px 6px;
+  font-size: 16px;
+  font-family: 'Times New Roman', serif;
+}
+#content-blog img {
+  max-width: 100%;
+}
+
+/* ---------- headlines (home page) ---------- */
+#headlines-pics .section_head2 {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 3px;
+}
+#feed-tabs {
+  background: #003300;
+  padding-top: 4px;
+  font: bold 12px arial, sans-serif;
+}
+#feed-tabs button {
+  background: #003300;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  border-bottom: 0;
+  padding: 2px 1em 0;
+  margin-left: 4px;
+  font: inherit;
+  cursor: pointer;
+}
+#feed-tabs button[aria-selected='true'],
+#feed-tabs button:hover {
+  background: #ffcc00;
+  color: #003300;
+}
+#feed-list {
+  background: #000;
+  color: #ffcc00;
+  height: 250px;
+  overflow-y: auto;
+  padding: 4px 10px;
+  font: 14px 'Times New Roman', serif;
+}
+#feed-list .headline {
+  padding: 4px 0;
+  border-bottom: 1px solid #2a2a2a;
+}
+#feed-list a,
+#feed-list a:visited {
+  color: #ffcc00;
+  text-decoration: none;
+}
+#feed-list a:hover {
+  text-decoration: underline;
+}
+#feed-list .when {
+  color: #a0a0a0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ---------- right column: the quiz ---------- */
+#quiz_body form {
+  margin: 0;
+  padding: 6px 4px 4px;
+}
+#quiz_que_row {
+  min-height: 50px;
+  margin-bottom: 6px;
+}
+#quiz_question {
+  display: block;
+  background: rgba(240, 240, 240, 0.85);
+}
+.quiz-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+.quiz-choice .quiz_answer {
+  flex: 1;
+  background: rgba(240, 240, 240, 0.85);
+}
+.quiz-choice .pct {
+  font: bold 11px verdana, sans-serif;
+  color: #003300;
+  background: #ffcc00;
+  padding: 0 3px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.quiz-choice.correct .quiz_answer {
+  text-decoration: underline;
+}
+.quiz-choice.mine .quiz_answer::after {
+  content: ' \2190 you';
+  font-weight: normal;
+  font-style: italic;
+}
+.quiz_submit_row {
+  text-align: center;
+  margin: 10px 0 6px;
+}
+#submit:disabled {
+  opacity: 0.5;
+}
+#quiz_ans_row {
+  min-height: 50px;
+}
+#response {
+  display: block;
+  font: bold 14px 'Times New Roman', serif;
+  text-align: center;
+  background: #f0f0f0;
+  white-space: pre-line;
+}
+#total_votes {
+  display: block;
+  margin-top: 4px;
+  font: 11px verdana, sans-serif;
+  text-align: center;
+  color: #003300;
+  background: #f0f0f0;
+}
+#qbr {
+  width: 100%;
+  border-spacing: 0;
+}
+#qbr td {
+  width: 33%;
+  text-align: center;
+}
+.quiz_nav {
+  font-size: 11px;
+}
+.relic-note {
+  color: #ffcc00;
+  font: italic 11px Georgia, serif;
+  margin: 6px 4px;
+}
+
+/* ---------- contact + footer ---------- */
+.retired-form {
+  border: 3px dashed #003300;
+  background: #fff8d6;
+  padding: 2px 10px;
+  margin: 1.5em 0;
+}
+#footer h4,
+#footer h6 {
+  margin: 0.8em 6px;
+}
+#footer-links {
+  width: auto !important;
+}
+#footer-links a {
+  margin: 0 3px;
+}
+.restored {
+  font: 11px times new roman, serif;
+  margin: 0.5em 0 1em;
+}
+.restored a,
+.restored a:visited {
+  color: #ffcc00;
+}
+
+/* The dropdown menus on a touch screen: a tap opens one (js/apf.js toggles .open). */
+ul.menu li.open > div {
+  visibility: visible;
+}

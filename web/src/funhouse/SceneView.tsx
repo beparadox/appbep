@@ -77,7 +77,12 @@ export default function SceneView({
     if (h.kind === 'door') {
       const door = room.doors.find((d) => d.label === h.id);
       if (!door) return null;
-      const click = () => ('wall' in door ? onDoor(door) : through(h, () => onDoor(door)));
+      const click = () => {
+        if (!('wall' in door)) return through(h, () => onDoor(door));
+        // A dead end counts as a poke (keyed by the door's label), so the art can react.
+        setPokes((p) => ({ ...p, [h.id]: (p[h.id] ?? 0) + 1 }));
+        onDoor(door);
+      };
       return (
         <button key={h.id} type="button" className="hotspot" style={box(h)} onClick={click}>
           <span className={tag}>{door.label}</span>

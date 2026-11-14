@@ -119,7 +119,7 @@ export default function Room() {
 
       {scene && (
         <>
-          <SceneView key={room.id} scene={scene} room={room} onDoor={open} />
+          <SceneView key={room.id} scene={scene} room={room} onDoor={open} onSay={setWallMsg} />
           <p className="wall-msg" role="status">
             {wallMsg}
           </p>

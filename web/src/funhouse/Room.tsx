@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ExhibitCard from '../exhibits/ExhibitCard';
 import { exhibit } from '../exhibits/registry';
 import FloorPlan from './FloorPlan';
+import { appearChance, enteredRoom, jumpOut, newStalker, wallChance, type Context } from './apf';
 import JumpOut, { type JumpEdge } from './JumpOut';
 import { ROOM_IDS, ROOMS, START, type Door } from './rooms';
 import { play, unlockAudio } from './sound';
@@ -12,6 +13,9 @@ import './funhouse.css';
 const EDGES: JumpEdge[] = ['left', 'right', 'bottom'];
 const pick = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)];
 
+/** The Angry Packers Fan, following you from room to room (see apf.ts). Lasts for the page load. */
+let stalker = newStalker();
+
 export default function Room() {
   const { roomId = START } = useParams();
   const room = ROOMS[roomId];
@@ -20,26 +24,29 @@ export default function Room() {
   const { sound, found } = useFunhouse();
   const [wallMsg, setWallMsg] = useState<string | null>(null);
   const [shaking, setShaking] = useState(false);
-  const [jump, setJump] = useState<JumpEdge | null>(null);
+  const [jump, setJump] = useState<{ edge: JumpEdge; line: string } | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   const visits = useRef(0);
 
-  // Entering a room: remember it, creak, and occasionally something jumps out.
+  // Entering a room: remember it, creak, and now and then the APF is lurking.
   useEffect(() => {
     if (!room) return;
     markFound(room.id);
     setWallMsg(null);
     play('creak', sound);
     visits.current += 1;
-    if (visits.current > 2 && Math.random() < 0.2) {
-      const t = setTimeout(() => surprise(), 600 + Math.random() * 1500);
+    stalker = enteredRoom(stalker);
+    if (Math.random() < appearChance(stalker, visits.current)) {
+      const t = setTimeout(() => surprise({ room: room.id }), 600 + Math.random() * 1500);
       return () => clearTimeout(t);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only on room change
   }, [roomId]);
 
-  function surprise() {
-    setJump(pick(EDGES));
+  function surprise(ctx: Context) {
+    const { line, next } = jumpOut(stalker, ctx);
+    stalker = next;
+    setJump({ edge: pick(EDGES), line });
     play('boing', sound);
   }
 
@@ -49,7 +56,9 @@ export default function Room() {
       setWallMsg(door.wall);
       setShaking(true);
       setTimeout(() => setShaking(false), 400);
-      if (Math.random() < 0.35) setTimeout(surprise, 500);
+      if (Math.random() < wallChance(room.id, door.label)) {
+        setTimeout(() => surprise({ room: room.id, wall: door.label }), 500);
+      }
       return;
     }
     if ('random' in door) {
@@ -131,7 +140,7 @@ export default function Room() {
         {wallMsg}
       </p>
 
-      {jump && <JumpOut edge={jump} onDone={() => setJump(null)} />}
+      {jump && <JumpOut edge={jump.edge} line={jump.line} onDone={() => setJump(null)} />}
       {room.id === 'mirrors' && <WarpFilter />}
     </main>
   );

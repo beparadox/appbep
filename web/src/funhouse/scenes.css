@@ -1,0 +1,146 @@
+/* ---------- Drawn rooms (SceneView) ---------- */
+.scene {
+  position: relative;
+  width: min(100%, 46rem);
+  margin: 1.2rem auto 0;
+  border: 4px solid #1a0d08;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 3px #8a6a42,
+    0 14px 40px rgb(0 0 0 / 60%);
+  overflow: hidden; /* the zoom through a door stays inside the frame */
+  background: #000;
+}
+.scene-inner {
+  position: relative;
+  height: 100%;
+  animation: scene-in 0.5s ease-out;
+}
+.scene-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+@keyframes scene-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) rotate(-1deg);
+  }
+}
+/* Going through a door: rush toward it (transform-origin is set to the door). */
+.scene-leaving {
+  transform: scale(2.6);
+  opacity: 0;
+  transition:
+    transform 0.45s ease-in,
+    opacity 0.45s ease-in;
+}
+
+/* A door or painting: invisible until you point at it, but its name tag always shows. */
+.hotspot {
+  position: absolute;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  outline: 2px dashed transparent;
+  outline-offset: -2px;
+  transition:
+    outline-color 0.15s,
+    background-color 0.15s;
+}
+.hotspot:hover,
+.hotspot:focus-visible {
+  outline-color: #ffd27a;
+  background-color: rgb(255 210 122 / 14%);
+}
+.hotspot-closed {
+  cursor: not-allowed;
+}
+.hotspot-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.15em 0.55em;
+  white-space: nowrap;
+  font:
+    600 clamp(0.62rem, 2.3vw, 0.85rem) / 1.3 Georgia,
+    'Times New Roman',
+    serif;
+  color: #f6e7c1;
+  background: rgb(26 13 8 / 82%);
+  border: 1px solid #8a6a42;
+  border-radius: 4px;
+  pointer-events: none;
+}
+.hotspot-label-below {
+  top: calc(100% + 2px);
+}
+.hotspot-label-above {
+  bottom: calc(100% + 2px);
+}
+/* Tags for hotspots at the picture's edges line up with that edge instead of centering. */
+.hotspot-label-start {
+  left: 0;
+  transform: none;
+}
+.hotspot-label-end {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+/* ---------- The parlor's moving parts ---------- */
+.parlor-fire {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 0.35s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  from {
+    transform: scale(0.92, 0.86) skewX(-3deg);
+  }
+  to {
+    transform: scale(1.04, 1.08) skewX(3deg);
+  }
+}
+.parlor-pendulum {
+  transform-box: view-box;
+  transform-origin: 498px 216px;
+  /* A real pendulum this long takes about a second a swing. This one doesn't. */
+  animation: swing 0.38s ease-in-out infinite alternate;
+}
+@keyframes swing {
+  from {
+    transform: rotate(14deg);
+  }
+  to {
+    transform: rotate(-14deg);
+  }
+}
+.parlor-minute {
+  transform-box: view-box;
+  transform-origin: 498px 166px;
+  animation: spin 6s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-inner,
+  .parlor-fire,
+  .parlor-pendulum,
+  .parlor-minute {
+    animation: none;
+  }
+  .scene-leaving {
+    transition: none;
+  }
+}

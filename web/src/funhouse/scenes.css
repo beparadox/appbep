@@ -58,6 +58,15 @@
   outline-color: #ffd27a;
   background-color: rgb(255 210 122 / 14%);
 }
+/* Props are there to be found: their tag shows only when you point at them. */
+.hotspot-prop .hotspot-label {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.hotspot-prop:hover .hotspot-label,
+.hotspot-prop:focus-visible .hotspot-label {
+  opacity: 1;
+}
 .hotspot-closed {
   cursor: not-allowed;
 }
@@ -142,5 +151,87 @@
   }
   .scene-leaving {
     transition: none;
+  }
+}
+
+/* ---------- The closet's moving parts ---------- */
+.closet-coat {
+  transform-box: view-box;
+  animation: coat-sway 1.6s ease-out;
+}
+@keyframes coat-sway {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(5deg);
+  }
+  45% {
+    transform: rotate(-3.5deg);
+  }
+  70% {
+    transform: rotate(1.5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+.closet-mothball-roll {
+  animation: mothball-roll 1.4s ease-out forwards;
+}
+@keyframes mothball-roll {
+  to {
+    transform: translateX(-210px);
+    opacity: 0;
+  }
+}
+.closet-chain {
+  transform-box: view-box;
+  transform-origin: 303px 30px;
+  animation: chain-swing 1.2s ease-out;
+}
+@keyframes chain-swing {
+  0% {
+    transform: translateY(6px);
+  }
+  25% {
+    transform: rotate(9deg);
+  }
+  55% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+.closet-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 3.2s infinite;
+}
+@keyframes blink {
+  0%,
+  44%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  47% {
+    transform: scaleY(0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .closet-coat,
+  .closet-chain,
+  .closet-eyes {
+    animation: none;
+  }
+  .closet-mothball-roll {
+    animation: none;
+    opacity: 0;
   }
 }

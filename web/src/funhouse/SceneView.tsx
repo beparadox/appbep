@@ -1,7 +1,7 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 import { exhibit, exhibitHref } from '../exhibits/registry';
 import type { Door, Room } from './rooms';
-import type { Hotspot, Scene } from './scenes';
+import type { Hotspot, Pokes, Scene } from './scenes';
 import './scenes.css';
 
 const ZOOM_MS = 450;
@@ -18,12 +18,16 @@ export default function SceneView({
   scene,
   room,
   onDoor,
+  onSay,
 }: {
   scene: Scene;
   room: Room;
   onDoor: (door: Door) => void;
+  /** A prop has something to say (shown under the picture). */
+  onSay: (message: string) => void;
 }) {
   const [zoomTo, setZoomTo] = useState<string | null>(null);
+  const [pokes, setPokes] = useState<Pokes>({});
   const { width, height, Art } = scene;
 
   // Back from an exhibit, desktop browsers restore this page from their back/forward
@@ -50,6 +54,25 @@ export default function SceneView({
 
   function hotspot(h: Hotspot) {
     const tag = `hotspot-label hotspot-label-${h.label ?? 'below'}${h.align ? ` hotspot-label-${h.align}` : ''}`;
+
+    if (h.kind === 'prop') {
+      const poke = () => {
+        const n = (pokes[h.poke] ?? 0) + 1;
+        setPokes({ ...pokes, [h.poke]: n });
+        onSay(h.says[(n - 1) % h.says.length]);
+      };
+      return (
+        <button
+          key={h.id}
+          type="button"
+          className="hotspot hotspot-prop"
+          style={box(h)}
+          onClick={poke}
+        >
+          <span className={tag}>{h.name}</span>
+        </button>
+      );
+    }
 
     if (h.kind === 'door') {
       const door = room.doors.find((d) => d.label === h.id);
@@ -90,7 +113,7 @@ export default function SceneView({
         style={{ transformOrigin: zoomTo ?? undefined }}
       >
         <svg className="scene-art" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-          <Art />
+          <Art pokes={pokes} />
         </svg>
         {scene.hotspots.map(hotspot)}
       </div>

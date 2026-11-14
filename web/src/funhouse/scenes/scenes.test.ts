@@ -20,6 +20,17 @@ describe.each(Object.entries(SCENES))('the %s scene', (roomId, scene) => {
     expect(of('exhibit').sort()).toEqual([...room.exhibits].sort());
   });
 
+  it('gives every prop something to say', () => {
+    for (const h of scene.hotspots) {
+      if (h.kind === 'prop') expect(h.says.length, h.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('gives every hotspot its own id', () => {
+    const ids = scene.hotspots.map((h) => h.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
   it('keeps every hotspot inside the picture and big enough to tap', () => {
     for (const h of scene.hotspots) {
       expect(h.x, h.id).toBeGreaterThanOrEqual(0);

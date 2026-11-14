@@ -172,33 +172,41 @@
 }
 
 /* ---------- Jump-out ---------- */
+/* The wrapper moves; only the image is mirrored, so the speech bubble always reads forwards. */
 .jump-out {
   position: fixed;
   z-index: 60;
   width: min(45vw, 260px);
   pointer-events: none;
 }
+.jump-out img {
+  display: block;
+  width: 100%;
+}
 .jump-left {
   left: 0;
   top: 35%;
-  animation: jump-left 1.3s ease-out forwards;
+  animation: jump-left 2.6s ease-out forwards;
 }
 .jump-right {
   right: 0;
   top: 30%;
-  animation: jump-right 1.3s ease-out forwards;
+  animation: jump-right 2.6s ease-out forwards;
+}
+.jump-right img {
+  transform: scaleX(-1);
 }
 .jump-bottom {
   left: 50%;
   bottom: 0;
-  animation: jump-bottom 1.3s ease-out forwards;
+  animation: jump-bottom 2.6s ease-out forwards;
 }
 @keyframes jump-left {
   0% {
     transform: translateX(-110%) rotate(-30deg);
   }
-  15%,
-  70% {
+  8%,
+  82% {
     transform: translateX(-10%) rotate(12deg);
   }
   100% {
@@ -207,27 +215,76 @@
 }
 @keyframes jump-right {
   0% {
-    transform: translateX(110%) rotate(30deg) scaleX(-1);
+    transform: translateX(110%) rotate(30deg);
   }
-  15%,
-  70% {
-    transform: translateX(10%) rotate(-12deg) scaleX(-1);
+  8%,
+  82% {
+    transform: translateX(10%) rotate(-12deg);
   }
   100% {
-    transform: translateX(110%) rotate(30deg) scaleX(-1);
+    transform: translateX(110%) rotate(30deg);
   }
 }
 @keyframes jump-bottom {
   0% {
     transform: translate(-50%, 110%);
   }
-  15%,
-  70% {
+  8%,
+  82% {
     transform: translate(-50%, 15%) scale(1.15);
   }
   100% {
     transform: translate(-50%, 110%);
   }
+}
+
+/* What he yells: a comic-book speech bubble above his head. */
+.jump-say {
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 30%;
+  width: max-content;
+  max-width: min(60vw, 240px);
+  margin: 0;
+  padding: 0.5em 0.75em;
+  background: #fff;
+  color: #111;
+  border: 3px solid #111;
+  border-radius: 1em;
+  font:
+    700 1rem/1.2 'Comic Sans MS',
+    'Comic Neue',
+    'Chalkboard SE',
+    cursive;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 #111;
+}
+.jump-say::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 1.2em;
+  border: 10px solid transparent;
+  border-top-color: #111;
+}
+.jump-right .jump-say {
+  left: auto;
+  right: 30%;
+}
+.jump-right .jump-say::after {
+  left: auto;
+  right: 1.2em;
+}
+.jump-bottom .jump-say {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.jump-left .jump-say {
+  transform: rotate(-12deg);
+}
+.jump-right .jump-say {
+  transform: rotate(12deg);
 }
 
 /* Bumping into a wall */
@@ -472,7 +529,7 @@
     transition: none;
   }
   .jump-out {
-    animation: jump-fade 1.3s forwards;
+    animation: jump-fade 2.6s forwards;
     transform: none;
   }
   .jump-bottom {
@@ -483,8 +540,8 @@
     100% {
       opacity: 0;
     }
-    20%,
-    75% {
+    10%,
+    85% {
       opacity: 1;
     }
   }

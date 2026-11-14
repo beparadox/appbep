@@ -61,7 +61,7 @@ const faces: CubeFace[] = [
   },
   {
     id: 'top',
-    label: 'Resume',
+    label: 'Contact',
     content: (
       <>
         <h2>Resume &amp; contact</h2>
@@ -72,7 +72,10 @@ const faces: CubeFace[] = [
             <a href={site.resumeUrl}>Resume (PDF)</a>
           )}
         </p>
-        {/* No plain email address (spam). Contact form planned: see docs/PLAN.md. */}
+        {/* No plain email address (spam): the form at /contact emails it instead. */}
+        <p>
+          <Link to="/contact">Contact form →</Link>
+        </p>
       </>
     ),
   },

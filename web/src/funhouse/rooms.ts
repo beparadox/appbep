@@ -157,7 +157,6 @@ export const ROOMS: Record<string, Room> = {
     theme: 'room-attic',
     intro:
       'Where the old house’s furniture ended up. Under a sheet: the cube that used to sit on the front page.',
-    showcase: 'bam-cube',
     exhibits: ['bam-cube', 'vocabulator'],
     doors: [
       { label: 'Climb back down the ladder', to: 'stairs' },

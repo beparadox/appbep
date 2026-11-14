@@ -282,12 +282,57 @@
   }
 }
 
+/* ---------- The attic's moving parts ---------- */
+.attic-mote {
+  animation: mote 6s ease-in-out infinite;
+}
+@keyframes mote {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(9px, -14px);
+    opacity: 0.9;
+  }
+}
+.attic-horse,
+.attic-sheet {
+  transform-box: view-box;
+  transform-origin: 515px 452px;
+  animation: rock 1.6s ease-in-out infinite alternate;
+}
+.attic-sheet {
+  animation-duration: 2.2s;
+}
+@keyframes rock {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+.attic-2016 {
+  animation: write-in 1.2s ease-out;
+}
+@keyframes write-in {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .closet-coat,
   .closet-chain,
   .closet-eyes,
   .stairs-cord,
-  .stairs-sign {
+  .stairs-sign,
+  .attic-mote,
+  .attic-horse,
+  .attic-sheet,
+  .attic-2016 {
     animation: none;
   }
   .closet-mothball-roll,

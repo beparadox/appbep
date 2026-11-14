@@ -6,6 +6,8 @@ import FloorPlan from './FloorPlan';
 import { appearChance, enteredRoom, jumpOut, newStalker, wallChance, type Context } from './apf';
 import JumpOut, { type JumpEdge } from './JumpOut';
 import { ROOM_IDS, ROOMS, START, type Door } from './rooms';
+import SceneView from './SceneView';
+import { SCENES } from './scenes';
 import { play, unlockAudio } from './sound';
 import { markFound, setSound, useFunhouse } from './state';
 import './funhouse.css';
@@ -19,6 +21,7 @@ let stalker = newStalker();
 export default function Room() {
   const { roomId = START } = useParams();
   const room = ROOMS[roomId];
+  const scene = SCENES[roomId];
   const navigate = useNavigate();
   const note = (useLocation().state as { note?: string } | null)?.note;
   const { sound, found } = useFunhouse();
@@ -114,6 +117,15 @@ export default function Room() {
         </p>
       )}
 
+      {scene && (
+        <>
+          <SceneView key={room.id} scene={scene} room={room} onDoor={open} />
+          <p className="wall-msg" role="status">
+            {wallMsg}
+          </p>
+        </>
+      )}
+
       {room.showcase && (
         <div className="showcase">
           <iframe src={`/exhibits/${room.showcase}/`} title={exhibit(room.showcase).title} />
@@ -128,17 +140,21 @@ export default function Room() {
         </section>
       )}
 
-      <section className="doors" aria-label="Doors">
-        {room.doors.map((d) => (
-          <button key={d.label} type="button" className="door" onClick={() => open(d)}>
-            <span className="door-panel" aria-hidden="true" />
-            <span className="door-label">{d.label}</span>
-          </button>
-        ))}
-      </section>
-      <p className="wall-msg" role="status">
-        {wallMsg}
-      </p>
+      {!scene && (
+        <>
+          <section className="doors" aria-label="Doors">
+            {room.doors.map((d) => (
+              <button key={d.label} type="button" className="door" onClick={() => open(d)}>
+                <span className="door-panel" aria-hidden="true" />
+                <span className="door-label">{d.label}</span>
+              </button>
+            ))}
+          </section>
+          <p className="wall-msg" role="status">
+            {wallMsg}
+          </p>
+        </>
+      )}
 
       {jump && <JumpOut edge={jump.edge} line={jump.line} onDone={() => setJump(null)} />}
       {room.id === 'mirrors' && <WarpFilter />}

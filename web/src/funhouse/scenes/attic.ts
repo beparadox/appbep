@@ -1,0 +1,81 @@
+import AtticArt from './AtticArt';
+import type { Scene } from './types';
+
+/** The Attic (drawing in AtticArt.tsx). Units: 600 × 480. */
+export const attic: Scene = {
+  width: 600,
+  height: 480,
+  Art: AtticArt,
+  hotspots: [
+    { kind: 'door', id: 'A round window', x: 254, y: 104, w: 92, h: 92, label: 'above' },
+    {
+      kind: 'door',
+      id: 'Climb back down the ladder',
+      x: 164,
+      y: 392,
+      w: 146,
+      h: 88,
+      label: 'above',
+    },
+    { kind: 'exhibit', id: 'bam-cube', x: 318, y: 290, w: 114, h: 134, label: 'below' },
+    {
+      kind: 'exhibit',
+      id: 'vocabulator',
+      x: 38,
+      y: 312,
+      w: 88,
+      h: 64,
+      label: 'above',
+      align: 'start',
+    },
+    {
+      kind: 'prop',
+      id: 'sheet',
+      name: 'Something under a sheet',
+      poke: 'sheet',
+      x: 456,
+      y: 318,
+      w: 130,
+      h: 142,
+      label: 'above',
+      align: 'end',
+      says: [
+        'You pull the sheet off. A rocking horse. It is rocking. It was rocking before you pulled the sheet.',
+        'You put the sheet back. Under it, the rocking does not stop.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'trunk',
+      name: 'A steamer trunk',
+      poke: 'trunk',
+      x: 14,
+      y: 378,
+      w: 136,
+      h: 76,
+      label: 'below',
+      align: 'start',
+      says: [
+        'Locked. Something inside knocks twice.',
+        'You knock back. Nothing. Then, much later, once.',
+        'A luggage tag: "Destination: up." The trunk is already in the attic.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'boxes',
+      name: 'Boxes',
+      poke: 'boxes',
+      x: 156,
+      y: 264,
+      w: 102,
+      h: 72,
+      label: 'above',
+      says: [
+        'A box marked TAXES 1998. It is full of AOL free-trial CDs. 500 hours each.',
+        'A box marked XMAS. Tangled lights. One bulb still blinks, unplugged.',
+        'A box marked DO NOT OPEN. You don’t. Good.',
+      ],
+    },
+  ],
+};

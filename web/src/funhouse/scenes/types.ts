@@ -26,7 +26,10 @@ export type Hotspot = Spot &
     | { kind: 'prop'; id: string; name: string; poke: string; says: string[] }
   );
 
-/** How many times each prop counter has been poked, handed to the art. */
+/**
+ * How many times each prop counter has been poked, handed to the art. Walking into a
+ * dead-end door counts too, under the door's label (e.g. pokes['Climb the stairs']).
+ */
 export type Pokes = Record<string, number>;
 
 /** A room drawn as a picture: the art, and where its doors, exhibits and props are. */

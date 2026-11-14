@@ -502,12 +502,15 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: -1;
   height: 18%;
   background: repeating-linear-gradient(90deg, #262626 0 60px, #1d1d1d 60px 120px);
   border-bottom: 4px solid #111;
 }
-.room-stairs > * {
-  position: relative;
+/* The ceiling stripe sits behind the room's content (without forcing every child to be
+   position: relative, which broke the fixed controls bar and the APF jump-out here). */
+.room-stairs {
+  isolation: isolate;
 }
 
 /* ---------- Calm mode ---------- */

@@ -224,13 +224,74 @@
   }
 }
 
+/* ---------- The staircase's moving parts ---------- */
+.stairs-cord {
+  transform-box: view-box;
+  transform-origin: 112px 90px;
+  animation: cord-sway 4s ease-in-out infinite alternate;
+}
+@keyframes cord-sway {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2deg);
+  }
+}
+.stairs-bonk {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bonk 1.3s ease-out forwards;
+}
+@keyframes bonk {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1.25) rotate(-8deg);
+  }
+  35% {
+    transform: scale(1) rotate(4deg);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.stairs-sign {
+  transform-box: view-box;
+  transform-origin: 320px 116px;
+  animation: sign-swing 2.4s ease-out;
+}
+@keyframes sign-swing {
+  0% {
+    transform: rotate(14deg);
+  }
+  30% {
+    transform: rotate(-9deg);
+  }
+  60% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .closet-coat,
   .closet-chain,
-  .closet-eyes {
+  .closet-eyes,
+  .stairs-cord,
+  .stairs-sign {
     animation: none;
   }
-  .closet-mothball-roll {
+  .closet-mothball-roll,
+  .stairs-bonk {
     animation: none;
     opacity: 0;
   }

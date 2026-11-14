@@ -234,8 +234,9 @@ records for up to 48 hours.
    records (the certificate-validation `CNAME`s), then delete the zone. Double-check the zone ID
    before you click, because both zones are named `appbep.com`.
 4. Leave `CDKToolkit` alone (shared with Mathisthenics).
-5. Later: decide about the old `appbep` (18 MB of old-site assets plus `blog/`) and `appbep.com`
-   (empty redirect) buckets.
+5. Old April buckets (settled 2026-11-13): `appbep.com` (empty redirect) is deleted. `appbep`
+   (18 MB of old-site assets plus `blog/`) stays in the management account with all public access
+   blocked. Nothing more to do.
 
 ## Done when
 

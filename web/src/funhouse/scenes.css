@@ -176,6 +176,84 @@
   }
 }
 
+/* ---------- The hallway's moving parts ---------- */
+.hallway-arcade {
+  animation: arcade 0.9s steps(1) infinite;
+}
+.hallway-arcade-late {
+  animation-delay: -0.45s;
+}
+@keyframes arcade {
+  0% {
+    fill: #ff3ad0;
+  }
+  25% {
+    fill: #3af2ff;
+  }
+  50% {
+    fill: #fff23a;
+  }
+  75% {
+    fill: #5aff4a;
+  }
+}
+.hallway-new {
+  animation: blink-on-off 1s steps(1) infinite;
+}
+@keyframes blink-on-off {
+  50% {
+    opacity: 0;
+  }
+}
+.hallway-thirteen,
+.hallway-thirteen-glow {
+  animation: exit-buzz 5.5s steps(1) infinite;
+}
+.hallway-lamp-out {
+  animation: lamp-out 1.6s ease-in-out both;
+}
+@keyframes lamp-out {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  60% {
+    opacity: 0.05;
+  }
+}
+.hallway-modem {
+  animation: modem 2.4s ease-out forwards;
+}
+@keyframes modem {
+  0% {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  15%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hallway-arcade,
+  .hallway-new,
+  .hallway-thirteen,
+  .hallway-thirteen-glow,
+  .hallway-lamp-out {
+    animation: none;
+  }
+  .hallway-modem {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* ---------- The parlor's moving parts ---------- */
 .parlor-fire {
   transform-box: fill-box;

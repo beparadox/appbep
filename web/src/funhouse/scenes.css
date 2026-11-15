@@ -103,6 +103,79 @@
   transform: none;
 }
 
+/* ---------- The foyer's moving parts ---------- */
+.foyer-chandelier {
+  transform-box: view-box;
+  transform-origin: 300px 0;
+  animation: chandelier-sway 5s ease-in-out infinite alternate;
+}
+@keyframes chandelier-sway {
+  from {
+    transform: rotate(-1.2deg);
+  }
+  to {
+    transform: rotate(1.2deg);
+  }
+}
+.foyer-chandelier-jolt {
+  animation: chandelier-jolt 1.8s ease-out;
+}
+@keyframes chandelier-jolt {
+  0% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(7deg);
+  }
+  40% {
+    transform: rotate(-5deg);
+  }
+  65% {
+    transform: rotate(2.5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+.foyer-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 0.4s ease-in-out infinite alternate;
+}
+.foyer-exit-sign {
+  animation: exit-buzz 4s steps(1) infinite;
+}
+@keyframes exit-buzz {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  71% {
+    opacity: 0.35;
+  }
+  73% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  76% {
+    opacity: 1;
+  }
+}
+.foyer-stay {
+  animation: write-in 1.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foyer-chandelier,
+  .foyer-flame,
+  .foyer-exit-sign,
+  .foyer-stay {
+    animation: none;
+  }
+}
+
 /* ---------- The parlor's moving parts ---------- */
 .parlor-fire {
   transform-box: fill-box;

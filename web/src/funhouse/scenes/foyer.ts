@@ -1,0 +1,81 @@
+import FoyerArt from './FoyerArt';
+import type { Scene } from './types';
+
+/** The Grand Foyer (drawing in FoyerArt.tsx). Units: 600 × 480. */
+export const foyer: Scene = {
+  width: 600,
+  height: 480,
+  Art: FoyerArt,
+  hotspots: [
+    {
+      kind: 'door',
+      id: 'A heavy oak door',
+      x: 22,
+      y: 184,
+      w: 124,
+      h: 240,
+      label: 'above',
+      align: 'start',
+    },
+    { kind: 'door', id: 'A door marked EXIT', x: 158, y: 258, w: 64, h: 166, label: 'above' },
+    { kind: 'door', id: 'The long hallway', x: 244, y: 198, w: 112, h: 226, label: 'above' },
+    {
+      kind: 'door',
+      id: 'A grand staircase',
+      x: 440,
+      y: 150,
+      w: 160,
+      h: 290,
+      label: 'above',
+      align: 'end',
+    },
+    {
+      kind: 'prop',
+      id: 'chandelier',
+      name: 'The chandelier',
+      poke: 'chandelier',
+      x: 244,
+      y: 30,
+      w: 112,
+      h: 90,
+      label: 'below',
+      says: [
+        'It hums. A low B-flat. It has been humming since 1891.',
+        'You hum along. It stops, offended. Then starts again, louder.',
+        'Five candles. None of them has ever burned down.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'armor',
+      name: 'A suit of armor',
+      poke: 'armor',
+      x: 360,
+      y: 274,
+      w: 52,
+      h: 168,
+      label: 'above',
+      says: [
+        'An empty suit of armor. You knock on it. Something knocks back, politely.',
+        'The visor is up now. You didn’t lift it.',
+        'Its halberd is in the other hand. Nobody saw anything.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'mat',
+      name: 'The welcome mat',
+      poke: 'mat',
+      x: 244,
+      y: 432,
+      w: 136,
+      h: 48,
+      label: 'above',
+      says: [
+        'You lift the corner. A key. It doesn’t fit anything in this house. Yet.',
+        'Someone has crossed out WELCOME and written STAY.',
+        'You put the key back. It seems happier there.',
+      ],
+    },
+  ],
+};

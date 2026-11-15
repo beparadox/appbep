@@ -1,0 +1,76 @@
+import MirrorsArt from './MirrorsArt';
+import type { Scene } from './types';
+
+/** The Hall of Mirrors (drawing in MirrorsArt.tsx). Units: 600 × 480. */
+export const mirrors: Scene = {
+  width: 600,
+  height: 480,
+  Art: MirrorsArt,
+  hotspots: [
+    {
+      kind: 'door',
+      id: 'Back to the hallway',
+      x: 18,
+      y: 182,
+      w: 96,
+      h: 228,
+      label: 'above',
+      align: 'start',
+    },
+    {
+      kind: 'door',
+      id: 'Your reflection’s door',
+      x: 410,
+      y: 108,
+      w: 176,
+      h: 300,
+      label: 'below',
+      align: 'end',
+    },
+    { kind: 'exhibit', id: 'sorting', x: 192, y: 100, w: 136, h: 306, label: 'below' },
+    {
+      kind: 'prop',
+      id: 'sign',
+      name: 'The sign',
+      poke: 'sign',
+      x: 166,
+      y: 18,
+      w: 268,
+      h: 62,
+      label: 'below',
+      says: [
+        'The sign read backwards. You nudge it. The words shuffle into place. The letters have not caught up.',
+        'There. HALL OF MIRRORS. Something in here is quietly pleased.',
+        'You nudge it again. It is already in order. It stays in order. Good.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'tall',
+      name: 'A tall mirror',
+      poke: 'tall',
+      x: 120,
+      y: 116,
+      w: 64,
+      h: 288,
+      label: 'above',
+      says: [
+        'In this one you are nine feet tall and very thin. You stand up straighter anyway.',
+        'You wave. Your reflection waves, then keeps going, up toward the ceiling.',
+        'Any taller and you would need a ladder to see your own face.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'wavy',
+      name: 'A wavy mirror',
+      poke: 'wavy',
+      x: 336,
+      y: 116,
+      w: 64,
+      h: 288,
+      label: 'above',
+      says: ['In this one you are seasick.', 'You hold very still. Your reflection does not.'],
+    },
+  ],
+};

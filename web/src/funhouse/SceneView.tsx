@@ -28,6 +28,8 @@ export default function SceneView({
 }) {
   const [zoomTo, setZoomTo] = useState<string | null>(null);
   const [pokes, setPokes] = useState<Pokes>({});
+  /** Bumped when a door leads back into this same room, to walk in again. */
+  const [entries, setEntries] = useState(0);
   const { width, height, Art } = scene;
 
   // Back from an exhibit, desktop browsers restore this page from their back/forward
@@ -78,7 +80,15 @@ export default function SceneView({
       const door = room.doors.find((d) => d.label === h.id);
       if (!door) return null;
       const click = () => {
-        if (!('wall' in door)) return through(h, () => onDoor(door));
+        if (!('wall' in door)) {
+          return through(h, () => {
+            onDoor(door);
+            // A door back into this same room (the mirrors' reflection door) doesn't
+            // change the page, so undo the zoom and come in again.
+            setZoomTo(null);
+            setEntries((n) => n + 1);
+          });
+        }
         // A dead end counts as a poke (keyed by the door's label), so the art can react.
         setPokes((p) => ({ ...p, [h.id]: (p[h.id] ?? 0) + 1 }));
         onDoor(door);
@@ -114,6 +124,7 @@ export default function SceneView({
   return (
     <div className="scene" style={{ aspectRatio: `${width} / ${height}` }}>
       <div
+        key={entries}
         className={`scene-inner${zoomTo ? ' scene-leaving' : ''}`}
         style={{ transformOrigin: zoomTo ?? undefined }}
       >

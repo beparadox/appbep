@@ -1,3 +1,4 @@
+import { arcade } from './arcade';
 import { attic } from './attic';
 import { closet } from './closet';
 import { foyer } from './foyer';
@@ -12,6 +13,7 @@ export const SCENES: Record<string, Scene> = {
   foyer,
   hallway,
   mirrors,
+  arcade,
   parlor,
   closet,
   stairs,

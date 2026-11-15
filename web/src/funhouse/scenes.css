@@ -140,7 +140,7 @@
 .foyer-flame {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  animation: flicker 0.4s ease-in-out infinite alternate;
+  animation: fire-flicker 0.4s ease-in-out infinite alternate;
 }
 .foyer-exit-sign {
   animation: exit-buzz 4s steps(1) infinite;
@@ -314,13 +314,166 @@
   }
 }
 
+/* ---------- The arcade's moving parts ---------- */
+.arcade-ship {
+  animation: ship 2.6s ease-in-out infinite alternate;
+}
+@keyframes ship {
+  from {
+    transform: translateX(-22px);
+  }
+  to {
+    transform: translateX(22px);
+  }
+}
+.arcade-shot {
+  animation: shot 0.6s linear infinite;
+}
+@keyframes shot {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-34px);
+    opacity: 0.4;
+  }
+}
+.arcade-invaders {
+  animation: invaders 1.6s steps(2) infinite alternate;
+}
+@keyframes invaders {
+  from {
+    transform: translateX(-5px);
+  }
+  to {
+    transform: translateX(5px);
+  }
+}
+.arcade-hit {
+  animation: blink-on-off 2.2s steps(1) infinite;
+}
+.arcade-fish {
+  animation: swim-right 5s linear infinite;
+}
+.arcade-fish-b {
+  animation-name: swim-left;
+  animation-duration: 6.5s;
+}
+.arcade-fish-c {
+  animation-duration: 3.8s;
+  animation-delay: -1.5s;
+}
+@keyframes swim-right {
+  to {
+    transform: translateX(92px);
+  }
+}
+@keyframes swim-left {
+  to {
+    transform: translateX(-92px);
+  }
+}
+.arcade-bubble {
+  animation: bubble 2.7s linear infinite;
+}
+@keyframes bubble {
+  to {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+}
+.arcade-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pop 3s ease-out infinite;
+}
+@keyframes pop {
+  0%,
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  66% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.arcade-coin {
+  animation: blink-on-off 1.4s steps(1) infinite;
+}
+.arcade-neon {
+  animation: exit-buzz 6s steps(1) infinite;
+}
+.arcade-new-score {
+  animation: blink-on-off 0.8s steps(1) 4;
+}
+.arcade-token {
+  animation: write-in 0.5s ease-out;
+}
+.arcade-claw-drop {
+  animation: claw-drop 2.4s ease-in-out;
+}
+@keyframes claw-drop {
+  0%,
+  100% {
+    transform: none;
+  }
+  35%,
+  55% {
+    transform: translateY(70px);
+  }
+}
+.arcade-cord {
+  transform-box: view-box;
+  transform-origin: 530px 186px;
+}
+.arcade-cord-drop {
+  animation: cord-drop 2.4s ease-in-out;
+}
+@keyframes cord-drop {
+  0%,
+  100% {
+    transform: none;
+  }
+  35%,
+  55% {
+    transform: scaleY(4.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-ship,
+  .arcade-shot,
+  .arcade-invaders,
+  .arcade-hit,
+  .arcade-fish,
+  .arcade-bubble,
+  .arcade-coin,
+  .arcade-neon,
+  .arcade-new-score,
+  .arcade-token,
+  .arcade-claw-drop,
+  .arcade-cord-drop {
+    animation: none;
+  }
+  .arcade-pop {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* ---------- The parlor's moving parts ---------- */
 .parlor-fire {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  animation: flicker 0.35s ease-in-out infinite alternate;
+  animation: fire-flicker 0.35s ease-in-out infinite alternate;
 }
-@keyframes flicker {
+@keyframes fire-flicker {
   from {
     transform: scale(0.92, 0.86) skewX(-3deg);
   }

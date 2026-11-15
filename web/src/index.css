@@ -107,13 +107,39 @@ body {
   margin: 0;
   line-height: 1.9;
 }
+/* No overflow: hidden here: on a face turned into view in 3D it breaks clicking the link. */
 .face-funhouse {
-  background: #000 repeating-linear-gradient(45deg, #000 0 14px, #1a0033 14px 28px);
+  align-items: flex-end;
+  padding: 0;
+  background: #0a0820;
   color: #0f0;
   font-family: 'Comic Sans MS', 'Comic Neue', cursive;
 }
 .cube-home .face-funhouse a {
   color: #ff0;
+}
+.funhouse-house {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Only the slow things move here; no blinking or buzzing on the home page. */
+.face-funhouse :is(.ext-neon, .ext-open, .hallway-new) {
+  animation: none;
+}
+.funhouse-band {
+  position: relative;
+  width: 100%;
+  padding: 0.6rem 1rem 0.8rem;
+  background: linear-gradient(transparent, rgb(5 3 15 / 88%) 30%);
+}
+.funhouse-band h2 {
+  margin: 0;
+  text-shadow: 0 0 6px #0f0;
+}
+.funhouse-band p {
+  margin: 0.1rem 0 0.3rem;
 }
 .avatar {
   display: block;

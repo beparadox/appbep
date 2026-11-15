@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { site } from '../site';
 import { InfoCube, SpinCube, type CubeFace } from '../cube/InfoCube';
+import ExteriorArt from '../funhouse/scenes/ExteriorArt';
+import '../funhouse/scenes.css';
 import apfHead from '../assets/cubes/apf-head-space.png';
 import uwCrest from '../assets/cubes/uw-crest.png';
 import meHead from '../assets/me-head.png';
@@ -85,9 +87,15 @@ const faces: CubeFace[] = [
     className: 'face-funhouse',
     content: (
       <>
-        <h2>THE FUNHOUSE</h2>
-        <p>enter at your own risk</p>
-        <Link to="/funhouse">go in →</Link>
+        {/* The house from the funhouse entrance, cropped square, quietly */}
+        <svg className="funhouse-house" viewBox="60 0 480 480" aria-hidden="true">
+          <ExteriorArt pokes={{}} />
+        </svg>
+        <div className="funhouse-band">
+          <h2>THE FUNHOUSE</h2>
+          <p>enter at your own risk</p>
+          <Link to="/funhouse">go in →</Link>
+        </div>
       </>
     ),
   },

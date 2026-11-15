@@ -35,29 +35,21 @@
 }
 
 /* ---------- Entrance ---------- */
-.entrance ul {
-  display: inline-block;
-  text-align: left;
-}
-.entrance-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+/* For screen readers only (the drawn sign says it for everyone else). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 .funhouse button {
   font: inherit;
   cursor: pointer;
-}
-.entrance-buttons button {
-  padding: 0.7rem 1.4rem;
-  font-size: 1.15rem;
-  color: #000;
-  background: #ff0;
-  border: 3px outset #ffef80;
-}
-.entrance-buttons button:active {
-  border-style: inset;
 }
 
 /* ---------- HUD ---------- */

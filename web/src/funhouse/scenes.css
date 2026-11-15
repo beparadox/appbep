@@ -467,6 +467,152 @@
   }
 }
 
+/* ---------- The exterior's moving parts ---------- */
+.ext-star {
+  animation: twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.2;
+  }
+}
+.ext-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: puff 3.9s ease-out infinite;
+}
+@keyframes puff {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(26px, -60px) scale(1.8);
+    opacity: 0;
+  }
+}
+.ext-cloud {
+  animation: drift 50s linear infinite;
+}
+@keyframes drift {
+  to {
+    transform: translateX(760px);
+  }
+}
+.ext-glint {
+  animation: glint 4.5s ease-in-out infinite;
+}
+@keyframes glint {
+  0%,
+  70% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  90%,
+  100% {
+    transform: translateX(36px);
+    opacity: 0;
+  }
+}
+.ext-neon {
+  animation: arcade 1.2s steps(1) infinite;
+}
+.ext-open {
+  animation: exit-buzz 5s steps(1) infinite;
+}
+.ext-lantern-out {
+  animation: lantern-out 2s steps(1);
+}
+@keyframes lantern-out {
+  0%,
+  80% {
+    opacity: 0;
+  }
+  84% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0.2;
+  }
+  92% {
+    opacity: 1;
+  }
+}
+.ext-moth {
+  transform-box: view-box;
+  transform-origin: 368px 335px;
+  animation: moth 1.3s linear infinite;
+}
+@keyframes moth {
+  from {
+    transform: rotate(0) translateX(11px);
+  }
+  to {
+    transform: rotate(360deg) translateX(11px);
+  }
+}
+.ext-flag {
+  transform-box: view-box;
+  transform-origin: 426px 437px;
+  transform: rotate(90deg);
+  transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+.ext-flag-up {
+  transform: none;
+}
+.ext-curtain-twitch {
+  animation: curtain-twitch 2.4s ease-out;
+}
+@keyframes curtain-twitch {
+  0%,
+  100% {
+    transform: none;
+  }
+  15%,
+  60% {
+    transform: translateX(-22px);
+  }
+}
+.ext-peek {
+  animation: ext-peek 2.4s ease-out forwards;
+}
+@keyframes ext-peek {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  20%,
+  60% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ext-star,
+  .ext-puff,
+  .ext-cloud,
+  .ext-glint,
+  .ext-neon,
+  .ext-open,
+  .ext-lantern-out,
+  .ext-moth,
+  .ext-curtain-twitch {
+    animation: none;
+  }
+  .ext-flag {
+    transition: none;
+  }
+  .ext-peek {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* ---------- The parlor's moving parts ---------- */
 .parlor-fire {
   transform-box: fill-box;
@@ -498,9 +644,9 @@
 .parlor-minute {
   transform-box: view-box;
   transform-origin: 498px 166px;
-  animation: spin 6s linear infinite;
+  animation: minute-spin 6s linear infinite;
 }
-@keyframes spin {
+@keyframes minute-spin {
   to {
     transform: rotate(360deg);
   }
@@ -574,9 +720,9 @@
 .closet-eyes {
   transform-box: fill-box;
   transform-origin: center;
-  animation: blink 3.2s infinite;
+  animation: eye-blink 3.2s infinite;
 }
-@keyframes blink {
+@keyframes eye-blink {
   0%,
   44%,
   50%,

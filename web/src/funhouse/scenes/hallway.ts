@@ -1,0 +1,76 @@
+import HallwayArt from './HallwayArt';
+import type { Scene } from './types';
+
+/** The Hallway That Keeps Going (drawing in HallwayArt.tsx). Units: 600 × 480. */
+export const hallway: Scene = {
+  width: 600,
+  height: 480,
+  Art: HallwayArt,
+  hotspots: [
+    {
+      kind: 'door',
+      id: 'Door 1: back to the foyer',
+      x: 20,
+      y: 100,
+      w: 82,
+      h: 364,
+      label: 'above',
+      align: 'start',
+    },
+    {
+      kind: 'door',
+      id: 'Door 2: the mirrors',
+      x: 498,
+      y: 100,
+      w: 82,
+      h: 364,
+      label: 'above',
+      align: 'end',
+    },
+    {
+      kind: 'door',
+      id: 'Door 3: noise and flashing lights',
+      x: 142,
+      y: 150,
+      w: 48,
+      h: 206,
+      label: 'below',
+      align: 'start',
+    },
+    { kind: 'door', id: 'Door 4', x: 410, y: 150, w: 48, h: 206, label: 'above' },
+    { kind: 'door', id: 'Door 7', x: 196, y: 172, w: 48, h: 130, label: 'above' },
+    { kind: 'door', id: 'Door 13', x: 272, y: 196, w: 56, h: 56, label: 'below' },
+    {
+      kind: 'prop',
+      id: 'lamp',
+      name: 'A lamp',
+      poke: 'lamp',
+      x: 268,
+      y: 28,
+      w: 64,
+      h: 70,
+      label: 'below',
+      says: [
+        'You tap the lamp. The lights go out down the hall, one by one, toward you. Then back on.',
+        'Again. This time a far one stays dark a moment longer. Something walked past it.',
+        'The bulb says 40W. It is doing a lot more than forty watts of work.',
+      ],
+    },
+    {
+      kind: 'prop',
+      id: 'runner',
+      name: 'The runner',
+      poke: 'runner',
+      x: 230,
+      y: 410,
+      w: 140,
+      h: 70,
+      label: 'above',
+      says: [
+        'You walk ten paces down the hall. The far end is farther away than when you started.',
+        'Ten more. Door 13 is getting smaller. That is not how walking works.',
+        'You stop before the hallway notices.',
+      ],
+    },
+  ],
+};

@@ -17,6 +17,8 @@ export interface Exhibit {
   lesson: string;
   /** True once the vintage copy lives in public/exhibits/<id>/ (Phase 3+). */
   live?: boolean;
+  /** An exhibit that is part of this app (not a static copy): the route it lives at. */
+  route?: string;
   /** Where the old app runs locally (~/dev/appbep-legacy). Dev builds link here. */
   legacy?: { port: number; path: string };
 }
@@ -43,6 +45,18 @@ export const EXHIBITS: Exhibit[] = [
     lesson:
       'Clicking a moving target means testing the mouse point against each fish\'s shape, called "hit testing", usually by checking the distance to its center.',
     live: true,
+  },
+  {
+    id: 'skilltester',
+    title: 'SKILL TESTER',
+    kind: 'game',
+    year: '2026',
+    tech: ['React', 'TypeScript', 'Canvas'],
+    blurb:
+      'The claw machine. Five tokens, fifteen seconds a go. Nobody has passed. (New for the funhouse, not a relic.)',
+    lesson:
+      'Real claw machines are often set to grip at full strength only once every so many plays, so the owner makes money whatever you do. This one is honest: the grip depends only on how well the claw is centred on the plush. The pile is simulated with "position-based" physics: move every plush, push apart any that overlap, repeat a few times a frame.',
+    route: '/funhouse/arcade/skill-tester',
   },
   {
     id: 'npuzzizzle',
@@ -168,6 +182,7 @@ export function exhibit(id: string): Exhibit {
  * (using the current hostname, so it also works from a phone on the LAN).
  */
 export function exhibitHref(e: Exhibit): string | null {
+  if (e.route) return e.route;
   if (e.live) return `/exhibits/${e.id}/`;
   if (import.meta.env.DEV && e.legacy) {
     return `http://${window.location.hostname}:${e.legacy.port}${e.legacy.path}`;

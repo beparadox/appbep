@@ -41,6 +41,23 @@ describe('SiteStack', () => {
     t.resourceCountIs('AWS::SES::EmailIdentity', 0);
   });
 
+  it('never indexes birthday cards', () => {
+    t.hasResourceProperties('AWS::CloudFront::ResponseHeadersPolicy', {
+      ResponseHeadersPolicyConfig: Match.objectLike({
+        CustomHeadersConfig: {
+          Items: [
+            Match.objectLike({ Header: 'X-Robots-Tag', Value: Match.stringLikeRegexp('noindex') }),
+          ],
+        },
+      }),
+    });
+    t.hasResourceProperties('AWS::CloudFront::Distribution', {
+      DistributionConfig: Match.objectLike({
+        CacheBehaviors: Match.arrayWith([Match.objectLike({ PathPattern: 'cards/*' })]),
+      }),
+    });
+  });
+
   it('refreshes the headlines every 30 minutes', () => {
     t.hasResourceProperties('AWS::Events::Rule', { ScheduleExpression: 'rate(30 minutes)' });
     t.hasResourceProperties('AWS::Lambda::Function', {

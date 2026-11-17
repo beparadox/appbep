@@ -51,7 +51,52 @@ function quizFiles(): Plugin {
   };
 }
 
+/**
+ * Birthday cards live in the site bucket under cards/<id>/, never in this repo. In dev,
+ * set CARDS_DIR to a folder of built cards (scripts/card-picker/build.py writes them to
+ * <card>/out) to serve /cards/<id>/... from it.
+ */
+const TYPES: Record<string, string> = {
+  '.json': 'application/json',
+  '.jpg': 'image/jpeg',
+  '.mp4': 'video/mp4',
+  '.m4a': 'audio/mp4',
+};
+function cardFiles(): Plugin {
+  const dir = process.env.CARDS_DIR ? path.resolve(process.env.CARDS_DIR) : null;
+  return {
+    name: 'card-files',
+    configureServer(server) {
+      if (!dir) return;
+      server.middlewares.use((req, res, next) => {
+        const m = /^\/cards\/([a-z0-9]+\/[\w.-]+)$/.exec((req.url ?? '').split('?')[0] ?? '');
+        if (!m?.[1]) return next();
+        const file = path.join(dir, m[1]);
+        if (!fs.existsSync(file)) {
+          res.statusCode = 404;
+          return res.end();
+        }
+        const size = fs.statSync(file).size;
+        res.setHeader('content-type', TYPES[path.extname(file)] ?? 'application/octet-stream');
+        res.setHeader('accept-ranges', 'bytes');
+        // Videos need byte ranges to play and seek (Safari won't play them without).
+        const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? '');
+        if (range) {
+          const start = range[1] ? Number(range[1]) : size - Number(range[2]);
+          const end = range[1] && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+          res.statusCode = 206;
+          res.setHeader('content-range', `bytes ${start}-${end}/${size}`);
+          res.setHeader('content-length', end - start + 1);
+          return fs.createReadStream(file, { start, end }).pipe(res);
+        }
+        res.setHeader('content-length', size);
+        fs.createReadStream(file).pipe(res);
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), exhibitFolders(), quizFiles()],
+  plugins: [react(), exhibitFolders(), quizFiles(), cardFiles()],
 });

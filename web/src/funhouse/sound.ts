@@ -3,7 +3,8 @@
  * so there are no audio files to download. Browsers only allow audio after
  * the visitor clicks something; the entrance's "Enter" button is that click.
  */
-export type Sfx = 'creak' | 'thud' | 'boing' | 'sting' | 'jingle' | 'step';
+export type Sfx =
+  'creak' | 'thud' | 'boing' | 'sting' | 'jingle' | 'step' | 'whirr' | 'clink' | 'sad' | 'prize';
 
 let ctx: AudioContext | null = null;
 
@@ -80,6 +81,22 @@ const SFX: Record<Sfx, () => void> = {
     );
   },
   step: () => noise(0.06, 0.15, 300),
+  // The claw's motor, going down.
+  whirr: () => {
+    tone('sawtooth', 55, 70, 0.9, 0.04);
+    noise(0.9, 0.05, 250);
+  },
+  // Fingers closing.
+  clink: () => {
+    tone('square', 900, 700, 0.06, 0.05);
+    tone('square', 1200, 900, 0.05, 0.04, 0.07);
+  },
+  // Losing it: a slide down.
+  sad: () => tone('triangle', 440, 110, 0.6, 0.15),
+  // A prize drops into the chute.
+  prize: () => {
+    [523, 659, 784, 1047].forEach((f, i) => tone('square', f, f, 0.12, 0.06, i * 0.09));
+  },
 };
 
 export function play(name: Sfx, enabled: boolean): void {

@@ -6,7 +6,10 @@ import type { Pokes } from './types';
  * two cabinets (WTF Blaster and POPFishies), each playing itself on its screen;
  * and a claw machine.
  *
- * The art reacts to pokes: the claw drops (and grabs nothing); YOU turns up on
+ * The claw machine is SKILL TESTER, playable (src/skilltester); in here it drops
+ * by itself now and then, like the cabinets playing themselves.
+ *
+ * The art reacts to pokes: YOU turns up on
  * the high score board, and every third look APF is briefly on top; the change
  * machine pays out tokens until it runs out.
  *
@@ -365,7 +368,6 @@ function ClawMachine() {
 }
 
 export default function ArcadeArt({ pokes }: { pokes: Pokes }) {
-  const claws = pokes.claw ?? 0;
   return (
     <>
       <defs>
@@ -476,10 +478,9 @@ export default function ArcadeArt({ pokes }: { pokes: Pokes }) {
       <CoinLights x={POP_X} />
 
       <g clipPath="url(#arcade-claw-glass)">
-        {/* The cord stretches as the claw drops */}
+        {/* Attract mode: now and then the claw drops by itself. The cord stretches. */}
         <line
-          key={`cord${claws}`}
-          className={claws ? 'arcade-cord arcade-cord-drop' : 'arcade-cord'}
+          className="arcade-cord arcade-cord-drop"
           x1="530"
           y1="186"
           x2="530"
@@ -487,7 +488,7 @@ export default function ArcadeArt({ pokes }: { pokes: Pokes }) {
           stroke="#cfcfcf"
           strokeWidth="1.5"
         />
-        <g key={`claw${claws}`} className={claws ? 'arcade-claw arcade-claw-drop' : 'arcade-claw'}>
+        <g className="arcade-claw arcade-claw-drop">
           <rect x="522" y="204" width="16" height="7" fill="#8a8f98" {...thin} />
           <path
             d="M524 211 L518 224 L522 228 M536 211 L542 224 L538 228"

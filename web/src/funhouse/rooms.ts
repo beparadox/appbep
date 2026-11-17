@@ -107,7 +107,7 @@ export const ROOMS: Record<string, Room> = {
     name: 'The Arcade',
     theme: 'room-arcade',
     intro: 'Cabinets glowing in the dark. INSERT COIN. (No coin needed.)',
-    exhibits: ['wtfblaster', 'popfishies'],
+    exhibits: ['wtfblaster', 'popfishies', 'skilltester'],
     doors: [{ label: 'Back to the hallway', to: 'hallway' }],
     map: [2, 1],
   },

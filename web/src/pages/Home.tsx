@@ -6,6 +6,7 @@ import '../funhouse/scenes.css';
 import apfHead from '../assets/cubes/apf-head-space.png';
 import uwCrest from '../assets/cubes/uw-crest.png';
 import meHead from '../assets/me-head.png';
+import mePsychedelic from '../assets/cubes/me-psychedelic.png';
 
 const faces: CubeFace[] = [
   {
@@ -105,7 +106,12 @@ export default function Home() {
   return (
     <main className="cube-home">
       <div className="cube-row">
-        <SpinCube images={{ front: { src: apfHead, alt: '', className: 'crop-head' } }} />
+        <SpinCube
+          images={{
+            front: { src: apfHead, alt: '', className: 'crop-head' },
+            back: { src: mePsychedelic, alt: '', className: 'crop-head' },
+          }}
+        />
         <InfoCube faces={faces} />
         <SpinCube reverse images={{ front: { src: uwCrest, alt: '', className: 'pad' } }} />
       </div>

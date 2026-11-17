@@ -259,6 +259,7 @@ export default function BirthdayCard() {
               </p>
             )}
           </article>
+          {card.musicCredit && <p className="bd-credit">{card.musicCredit}</p>}
           <div className="bd-actions">
             {card.slides.length > 0 && (
               <button type="button" className="bd-pill" onClick={() => goTo('show')}>

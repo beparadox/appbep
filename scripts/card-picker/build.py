@@ -18,6 +18,7 @@ changed. card.config.json (private, never committed):
     "message": "Paragraphs, separated by blank lines.",
     "bonusLink": "Text of the link to the bonus gallery",
     "music": "/path/to/song",     # or null
+    "musicCredit": "Music: ...",  # shown small on the card, for songs that ask to be credited
     "localOnly": true             # true while the card has anything that mustn't be uploaded
   }
 
@@ -161,6 +162,7 @@ def main() -> None:
         "message": paragraphs(config.get("message", "")),
         "photoSeconds": picks.get("photoSeconds", 2),
         "music": music_name,
+        "musicCredit": config.get("musicCredit") if music_name else None,
         "slides": slides,
         "bonus": {"link": config.get("bonusLink", "Bonus"), "slides": bonus} if bonus else None,
     }

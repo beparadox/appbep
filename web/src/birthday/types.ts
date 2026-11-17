@@ -32,6 +32,8 @@ export interface CardData {
   message: string[];
   photoSeconds: number;
   music: string | null;
+  /** Credit for the song, shown small at the bottom of the message. */
+  musicCredit?: string | null;
   slides: Slide[];
   /** An extra gallery behind a link. */
   bonus: { link: string; slides: PhotoSlide[] } | null;

@@ -52,21 +52,14 @@ export const arcade: Scene = {
       ],
     },
     {
-      kind: 'prop',
-      id: 'claw',
-      name: 'The claw machine',
-      poke: 'claw',
+      kind: 'exhibit',
+      id: 'skilltester',
       x: 466,
       y: 146,
       w: 128,
       h: 278,
       label: 'below',
       align: 'end',
-      says: [
-        'The claw drops without a coin. It grabs nothing, and looks pleased with itself anyway.',
-        'Again. It almost gets the purple one. Almost is the whole business model.',
-        'A sticker inside the glass: SKILL TESTER. Nobody has passed.',
-      ],
     },
   ],
 };

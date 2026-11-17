@@ -416,15 +416,18 @@
   animation: write-in 0.5s ease-out;
 }
 .arcade-claw-drop {
-  animation: claw-drop 2.4s ease-in-out;
+  animation: claw-drop 7s ease-in-out 2s infinite;
 }
 @keyframes claw-drop {
   0%,
   100% {
     transform: none;
   }
-  35%,
-  55% {
+  25% {
+    transform: none;
+  }
+  40%,
+  50% {
     transform: translateY(70px);
   }
 }
@@ -433,15 +436,18 @@
   transform-origin: 530px 186px;
 }
 .arcade-cord-drop {
-  animation: cord-drop 2.4s ease-in-out;
+  animation: cord-drop 7s ease-in-out 2s infinite;
 }
 @keyframes cord-drop {
   0%,
   100% {
     transform: none;
   }
-  35%,
-  55% {
+  25% {
+    transform: none;
+  }
+  40%,
+  50% {
     transform: scaleY(4.5);
   }
 }

@@ -6,6 +6,7 @@ import FunhouseEntrance from './funhouse/Entrance';
 import FunhouseRoom from './funhouse/Room';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import SkillTester from './skilltester/SkillTester';
 
 // Loaded only when someone opens a card.
 const BirthdayCard = lazy(() => import('./birthday/BirthdayCard'));
@@ -18,6 +19,7 @@ export default function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/funhouse" element={<FunhouseEntrance />} />
       <Route path="/funhouse/:roomId" element={<FunhouseRoom />} />
+      <Route path="/funhouse/arcade/skill-tester" element={<SkillTester />} />
       <Route
         path="/birthday/:id"
         element={

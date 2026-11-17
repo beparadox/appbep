@@ -11,9 +11,28 @@
  *    when the phone rotates.
  *  - A speed picker stretches the pauses between frames. "Original" uses the 2016 timings
  *    (20-100 ms per frame); the default is twice as slow so you can follow along.
+ *  - Restyled (2026): each sorting method has its own colour, and every bar is a shade of
+ *    it, from white for the smallest to the full colour for the largest. Sorted, the bars
+ *    fade smoothly from light to dark.
  * The algorithms themselves are untouched.
  */
 (function () {
+    // Each sorting method's colour (red, green, blue). Bars shade from white to this.
+    var COLORS = {
+        quick: [20, 20, 20],      // black
+        bubble: [214, 40, 40],    // red
+        merge: [30, 90, 210],     // blue
+        selection: [30, 140, 60], // green
+        insertion: [235, 180, 0]  // yellow (a deep one, so the tallest bars stand out on white)
+    };
+
+    // A shade of rgb: t = 0 is white, t = 1 is the full colour.
+    function shade(rgb, t) {
+        return 'rgb(' + rgb.map(function (c) {
+            return Math.round(255 + (c - 255) * t);
+        }).join(',') + ')';
+    }
+
     // primary aspects of our model
     var model,
         view,
@@ -285,7 +304,6 @@
             var that = this;
             // the canvas which we'll be drawing the animations on
             this.canvas = document.getElementById('animations_canvas');
-            this.canvas.style.border = "1px solid black";
             this.sizeCanvas();
             this.ctx = this.canvas.getContext('2d');
 
@@ -296,12 +314,14 @@
 
             var setAlgo = function (el) {
                 controller.algo = this.value;
+                view.showColor();
                 controller.getNewPoints();
                 view.draw();
 
             };
             this.select.addEventListener('change', setAlgo);
-            controller.algo = "quick";
+            controller.algo = this.select.value;
+            this.showColor();
                 
             this.sort_button.addEventListener('click', function() {
                 controller.sort();
@@ -359,11 +379,24 @@
 
             ctx.fillStyle = "#FFFFFF";
             ctx.fillRect(0, 0, cw, ch);
-            ctx.fillStyle = "#000000";
+            var rgb = COLORS[controller.algo] || COLORS.quick;
+            ctx.lineWidth = 1;
             for (var i = 0; i < cw; i += this.point_dist) {
-                var h = i / this.point_dist;
+                var h = i / this.point_dist,
+                    t = points[h] / ch;
+                if (!points[h]) continue;
+                ctx.fillStyle = shade(rgb, t);
                 ctx.fillRect(i, ch - points[h], 6, points[h]);
+                // A thin edge, so the palest (shortest) bars still show against the white.
+                ctx.strokeStyle = shade(rgb, Math.max(t, 0.4));
+                ctx.strokeRect(i + 0.5, ch - points[h] + 0.5, 5, points[h] - 1);
             }
+        },
+
+        // The little white-to-colour strip next to the method picker.
+        showColor: function() {
+            var rgb = COLORS[controller.algo] || COLORS.quick;
+            document.documentElement.style.setProperty('--algo', shade(rgb, 1));
         },
 
         setBusy: function(busy) {

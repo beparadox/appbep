@@ -153,13 +153,40 @@ export class SiteStack extends Stack {
       });
     }
 
+    const siteOrigin = origins.S3BucketOrigin.withOriginAccessControl(bucket);
+
+    // Birthday cards (cards/<id>/): uploaded by hand from a private folder, reached only by
+    // their unguessable link. Search engines are told never to index them, and a site deploy
+    // never deletes them (see the BucketDeployment's exclude).
+    const cardHeaders = new cloudfront.ResponseHeadersPolicy(this, 'CardHeaders', {
+      comment: 'Birthday cards: private links, never indexed',
+      customHeadersBehavior: {
+        customHeaders: [
+          { header: 'X-Robots-Tag', value: 'noindex, nofollow, noimageindex', override: true },
+        ],
+      },
+      securityHeadersBehavior: {
+        contentTypeOptions: { override: true },
+        frameOptions: { frameOption: cloudfront.HeadersFrameOption.DENY, override: true },
+        referrerPolicy: {
+          referrerPolicy: cloudfront.HeadersReferrerPolicy.NO_REFERRER,
+          override: true,
+        },
+        strictTransportSecurity: {
+          accessControlMaxAge: Duration.days(365),
+          includeSubdomains: true,
+          override: true,
+        },
+      },
+    });
+
     const distribution = new cloudfront.Distribution(this, 'Cdn', {
       defaultRootObject: 'index.html',
       domainNames: names.length ? names : undefined,
       certificate,
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       defaultBehavior: {
-        origin: origins.S3BucketOrigin.withOriginAccessControl(bucket),
+        origin: siteOrigin,
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
         functionAssociations: [
@@ -167,6 +194,12 @@ export class SiteStack extends Stack {
         ],
       },
       additionalBehaviors: {
+        'cards/*': {
+          origin: siteOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+          responseHeadersPolicy: cardHeaders,
+        },
         'api/*': {
           origin: new origins.HttpOrigin(
             `${api.apiId}.execute-api.${this.region}.${this.urlSuffix}`,
@@ -208,8 +241,9 @@ export class SiteStack extends Stack {
         destinationBucket: bucket,
         distribution,
         distributionPaths: ['/*'],
-        // The feed reader writes these; a deploy must not delete them.
-        exclude: ['feeds/*'],
+        // The feed reader writes feeds/; birthday cards are uploaded by hand. A deploy must
+        // not delete either.
+        exclude: ['feeds/*', 'cards/*'],
       });
     }
 
@@ -245,5 +279,6 @@ export class SiteStack extends Stack {
     });
     new CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
     new CfnOutput(this, 'TableName', { value: table.tableName });
+    new CfnOutput(this, 'BucketName', { value: bucket.bucketName });
   }
 }

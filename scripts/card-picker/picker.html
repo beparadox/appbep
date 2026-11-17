@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Card picker</title>
+    <link rel="stylesheet" href="picker.css" />
+    <script type="module" src="picker.js"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <h1>Card picker</h1>
+      <span id="summary" class="summary"></span>
+      <label class="seconds">
+        Each photo shows for
+        <input id="photo-seconds" type="number" min="0.5" max="6" step="0.5" value="2" />
+        s
+      </label>
+      <button id="sort-picks" type="button" title="Put the list on the right back to oldest first">
+        Sort by date
+      </button>
+      <span id="save-status" class="save" aria-live="polite"></span>
+    </header>
+
+    <main class="layout">
+      <section class="library" aria-label="All photos and videos">
+        <div class="filters" role="group" aria-label="Show">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="photo" aria-pressed="false">Photos</button>
+          <button type="button" data-filter="video" aria-pressed="false">Videos</button>
+          <button type="button" data-filter="picked" aria-pressed="false">On the card</button>
+          <button type="button" data-filter="bonus" aria-pressed="false">In the bonus</button>
+          <button type="button" data-filter="unpicked" aria-pressed="false">Not yet</button>
+        </div>
+        <p class="hint">
+          Tick <b>card</b> to put a photo or video in the slideshow, or <b>bonus</b> for the extra
+          gallery. Click a picture to see it big, turn it, or choose which parts of a video to use.
+        </p>
+        <div id="grid"></div>
+      </section>
+
+      <aside class="sequence" aria-label="The card, in order">
+        <div class="tabs" role="group" aria-label="Show the list for">
+          <button type="button" data-list="items" aria-pressed="true">
+            The card <span></span>
+          </button>
+          <button type="button" data-list="bonus" aria-pressed="false">
+            Bonus gallery <span></span>
+          </button>
+        </div>
+        <p class="hint">Drag to reorder, or use ↑ ↓.</p>
+        <ol id="seq"></ol>
+      </aside>
+    </main>
+
+    <dialog id="viewer">
+      <div class="viewer-top">
+        <span id="viewer-title"></span>
+        <span class="viewer-nav">
+          <button type="button" id="prev" aria-label="Previous">◀</button>
+          <button type="button" id="next" aria-label="Next">▶</button>
+          <button type="button" id="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="viewer-body">
+        <div id="stage" class="stage"></div>
+        <div id="panel" class="panel"></div>
+      </div>
+    </dialog>
+  </body>
+</html>

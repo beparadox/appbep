@@ -58,6 +58,20 @@ describe('SiteStack', () => {
     });
   });
 
+  it('serves the card page with the never-index header, as the app', () => {
+    const dist = Object.values(t.findResources('AWS::CloudFront::Distribution'))[0];
+    const behaviors = dist?.Properties.DistributionConfig.CacheBehaviors as {
+      PathPattern: string;
+      ResponseHeadersPolicyId: unknown;
+      FunctionAssociations?: unknown[];
+    }[];
+    const page = behaviors.find((b) => b.PathPattern === 'birthday/*');
+    const files = behaviors.find((b) => b.PathPattern === 'cards/*');
+    expect(page?.ResponseHeadersPolicyId).toEqual(files?.ResponseHeadersPolicyId);
+    // /birthday/<id> has no file of its own: the SPA rewrite must serve index.html.
+    expect(page?.FunctionAssociations).toHaveLength(1);
+  });
+
   it('refreshes the headlines every 30 minutes', () => {
     t.hasResourceProperties('AWS::Events::Rule', { ScheduleExpression: 'rate(30 minutes)' });
     t.hasResourceProperties('AWS::Lambda::Function', {

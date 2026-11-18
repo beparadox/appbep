@@ -155,8 +155,9 @@ export class SiteStack extends Stack {
 
     const siteOrigin = origins.S3BucketOrigin.withOriginAccessControl(bucket);
 
-    // Birthday cards (cards/<id>/): uploaded by hand from a private folder, reached only by
-    // their unguessable link. Search engines are told never to index them, and a site deploy
+    // Birthday cards (cards/<id>/, shown at /birthday/<id>): uploaded by hand from a private
+    // folder, reached only by their unguessable link. Search engines are told never to index
+    // them (the files or the page), and a site deploy
     // never deletes them (see the BucketDeployment's exclude).
     const cardHeaders = new cloudfront.ResponseHeadersPolicy(this, 'CardHeaders', {
       comment: 'Birthday cards: private links, never indexed',
@@ -194,6 +195,17 @@ export class SiteStack extends Stack {
         ],
       },
       additionalBehaviors: {
+        // The card page itself (the app, at /birthday/<id>): the same never-index header, so
+        // crawlers that don't run JavaScript (and so never see the page's own noindex) are
+        // told too.
+        'birthday/*': {
+          origin: siteOrigin,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          responseHeadersPolicy: cardHeaders,
+          functionAssociations: [
+            { function: spaRewrite, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST },
+          ],
+        },
         'cards/*': {
           origin: siteOrigin,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,

@@ -35,6 +35,12 @@ export class Music {
     } catch {
       /* not supported: fine */
     }
+    // Opened from a file (the offline keepsake), browsers silence Web Audio from a media
+    // element as "cross-origin", so play it plainly: cuts instead of fades.
+    if (location.protocol === 'file:') {
+      void this.el.play().catch(() => {});
+      return;
+    }
     try {
       this.ctx = new AudioContext();
       this.gain = this.ctx.createGain();

@@ -20,6 +20,13 @@ type Stage = 'envelope' | 'opening' | 'hello' | 'show' | 'message' | 'bonus' | '
 /** After the show, the countdown to the selfies starts here. */
 const COUNT_FROM = 5;
 
+interface Props {
+  /** The card itself, for the offline keepsake (keepsake.tsx); otherwise it's fetched by id. */
+  data?: CardData;
+  /** Where the card's photos and clips are, when data is given. */
+  files?: string;
+}
+
 /**
  * A birthday card at /birthday/<id>. The card's words, photos and clips come from
  * /cards/<id>/ (made by scripts/card-picker), so nothing personal is in this code.
@@ -29,10 +36,10 @@ const COUNT_FROM = 5;
  * to pop. Closing the slideshow early goes straight to "Happy Birthday". The bonus photos
  * are also a gallery behind a link.
  */
-export default function BirthdayCard() {
+export default function BirthdayCard({ data, files }: Props = {}) {
   const { id = '' } = useParams();
-  const base = cardBase(id);
-  const [card, setCard] = useState<CardData | null>(null);
+  const base = data ? (files ?? '') : cardBase(id);
+  const [card, setCard] = useState<CardData | null>(data ?? null);
   const [missing, setMissing] = useState(false);
   const [stage, setStage] = useState<Stage>('envelope');
   const [muted, setMuted] = useState(false);
@@ -46,6 +53,7 @@ export default function BirthdayCard() {
   const confetti = useRef<Confetti | null>(null);
 
   useEffect(() => {
+    if (data) return;
     if (!validId(id)) {
       setMissing(true);
       return;
@@ -58,7 +66,7 @@ export default function BirthdayCard() {
     return () => {
       live = false;
     };
-  }, [id, base]);
+  }, [id, base, data]);
 
   useEffect(() => {
     if (canvas.current) confetti.current = makeConfetti(canvas.current);

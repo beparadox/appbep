@@ -31,9 +31,9 @@ write next to it. Nothing here should ever be committed with a real name or phot
 Two keepsakes, both made from the built card in `<card>/out/<id>/` (so run `build.py` first).
 Both go in `<card>/keep/`, and neither is uploaded anywhere.
 
-| | What it is | Lasts |
-|---|---|---|
-| `birthday-card.mp4` | The card played start to finish as a video (1080p, H.264 + AAC) | Plays on any phone, computer or TV, now and for a long time to come |
+|                     | What it is                                                                                          | Lasts                                                                                    |
+| ------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `birthday-card.mp4` | The card played start to finish as a video (1080p, H.264 + AAC)                                     | Plays on any phone, computer or TV, now and for a long time to come                      |
 | `birthday-card.zip` | The interactive card: tap the envelope, pop the balloons… Opens in a browser from disk, no internet | As long as browsers run today's web pages, which is very likely years but not guaranteed |
 
 Keep both, and keep copies somewhere other than this computer (cloud storage, a USB stick).

@@ -9,6 +9,11 @@ Plays the card the way it plays on the site, start to finish, with nobody tappin
   dropping and the countdown -> the bonus photos as a flipbook -> "Happy Birthday",
   with balloons floating up -> fade to black.
 
+With the "bonusRound" ending it goes: the slideshow -> "Happy Birthday <name>!" with
+balloons dropping -> "Get ready for the bonus round!" -> the bonus round (photos and
+clips) -> the message, with balloons floating up -> fade to black. A "blue" theme
+recolours it all, as on the site.
+
 Reads <card>/out/<id>/ (made by build.py), so build the card first. Writes
 <card>/keep/birthday-card.mp4: H.264 + AAC, which plays on any phone, computer or TV.
 Nothing is uploaded and nothing is written into the repo.
@@ -49,6 +54,9 @@ FLIP = 0.33  # Gallery FLIP_MS
 REEL_INTRO = 5.0  # SelfieReel INTRO_MS
 REEL_HOLD = 1.2  # SelfieReel HOLD_MS
 COUNT_FROM = 5  # BirthdayCard COUNT_FROM
+CHEER = 3.0  # BirthdayCard CHEER_MS
+GET_READY = 3.0  # BirthdayCard GET_READY_MS
+LAST_LOOK = 6.0  # video only: the message stays this long after it's read, when it ends the film
 ENVELOPE_WAIT = 2.4  # video only: one "bob" of the envelope before it opens
 FINALE = 10.0  # video only: how long "Happy Birthday" stays up
 END_FADE = 2.0  # video only: fade to black at the very end
@@ -62,6 +70,26 @@ TEAL = (79, 209, 197)
 VIOLET = (155, 123, 255)
 PAPER = (255, 250, 243)
 BALLOON_COLORS = [PINK, GOLD, TEAL, VIOLET, (255, 138, 91), (126, 224, 129)]
+
+# The card's colours, per theme (birthday.css; blue is .bd-theme-blue).
+THEMES = {
+    "pink": {
+        "ink": INK, "soft": SOFT, "accent": PINK, "violet": VIOLET,
+        "bg": [(0x1B, 0x10, 0x35), (0x3A, 0x1C, 0x5C), (0x5A, 0x24, 0x66)], "glow": (PINK, 0.35),
+        "env_back": (0xE8, 0x48, 0x7F), "env_front": [(0xFF, 0x7D, 0xB6), (0xFF, 0x5F, 0xA2), (0xF0, 0x50, 0x8F)],
+        "flap": (0xFF, 0x8A, 0xC0), "letter_ink": (0x6A, 0x2A, 0x6E), "to_shadow": (0x6A, 0x2A, 0x6E, 0.6),
+        "name_drop": (0x6A, 0x2A, 0x6E, 0.6), "paper_head": (0xC2, 0x18, 0x5B), "paper_ink": (0x3B, 0x23, 0x46),
+        "sign": (0x6A, 0x2A, 0x6E),
+    },
+    "blue": {
+        "ink": (0xF5, 0xFA, 0xFF), "soft": (0xD6, 0xE6, 0xFB), "accent": (0x4D, 0xA3, 0xFF), "violet": (0x7B, 0x8C, 0xFF),
+        "bg": [(0x0B, 0x18, 0x38), (0x13, 0x3A, 0x6E), (0x1D, 0x57, 0x94)], "glow": ((0x4D, 0xA3, 0xFF), 0.4),
+        "env_back": (0x2A, 0x74, 0xD6), "env_front": [(0x78, 0xBC, 0xFF), (0x4D, 0xA3, 0xFF), (0x3B, 0x8E, 0xF0)],
+        "flap": (0x95, 0xCB, 0xFF), "letter_ink": (0x1D, 0x3F, 0x7A), "to_shadow": (0x10, 0x30, 0x6E, 0.6),
+        "name_drop": (0x10, 0x30, 0x6E, 0.6), "paper_head": (0x1E, 0x5F, 0xB8), "paper_ink": (0x1F, 0x2C, 0x46),
+        "sign": (0x1D, 0x3F, 0x7A),
+    },
+}
 
 
 # ---------- Small helpers ----------
@@ -151,10 +179,11 @@ class Look:
     """Sizes, fonts and backgrounds for one output size. U turns the card's CSS px into
     video px: the card is laid out as if on a 720 px tall screen."""
 
-    def __init__(self, height: int):
+    def __init__(self, height: int, theme: str = "pink"):
         self.H = height
         self.W = round(height * 16 / 9 / 2) * 2
         self.U = height / 720
+        self.c = THEMES.get(theme or "pink", THEMES["pink"])
         self.bg = self._background()
 
     def px(self, css: float) -> int:
@@ -172,15 +201,15 @@ class Look:
         return f
 
     def _background(self) -> Image.Image:
-        """The card's background: a purple gradient with a pink glow top-left and a teal one
-        bottom-right (.bd in birthday.css)."""
+        """The card's background: a purple (or navy) gradient with a pink (blue) glow top-left
+        and a teal one bottom-right (.bd in birthday.css)."""
         W, H = self.W, self.H
         y, x = np.mgrid[0:H, 0:W].astype(np.float32)
         a = math.radians(160)
         dx, dy = math.sin(a), -math.cos(a)
         length = abs(W * dx) + abs(H * dy)
         p = np.clip(((x - W / 2) * dx + (y - H / 2) * dy) / length + 0.5, 0, 1)
-        stops = [(0.0, (0x1B, 0x10, 0x35)), (0.55, (0x3A, 0x1C, 0x5C)), (1.0, (0x5A, 0x24, 0x66))]
+        stops = list(zip((0.0, 0.55, 1.0), self.c["bg"]))
         img = np.zeros((H, W, 3), np.float32)
         for c in range(3):
             img[..., c] = np.interp(p, [s[0] for s in stops], [s[1][c] for s in stops])
@@ -192,7 +221,7 @@ class Look:
             k = (alpha * np.clip(1 - d / reach, 0, 1))[..., None]
             return img * (1 - k) + np.array(color, np.float32) * k
 
-        img = glow(0.2 * W, 0, PINK, 0.35, 0.55)
+        img = glow(0.2 * W, 0, self.c["glow"][0], self.c["glow"][1], 0.55)
         img = glow(0.9 * W, H, TEAL, 0.25, 0.5)
         return Image.fromarray(img.clip(0, 255).astype(np.uint8), "RGB")
 
@@ -415,8 +444,8 @@ class Clip(Scene):
 
     fade = SLIDE_FADE
 
-    def __init__(self, look: Look, path: Path, poster: Path, w: int, h: int, sound: bool):
-        self.look, self.path, self.poster = look, path, poster
+    def __init__(self, look: Look, path: Path, poster: Path, w: int, h: int, sound: bool, fade: float = SLIDE_FADE):
+        self.look, self.path, self.poster, self.fade = look, path, poster, fade
         self.dur = duration_of(path)
         self.sound = path if sound and has_audio(path) else None
         self.box = contain(w, h, look.W, look.H)
@@ -479,13 +508,14 @@ class Envelope(Scene):
             draw_fn(ImageDraw.Draw(img), ss)
             return img.resize((ew, eh), Image.Resampling.LANCZOS)
 
-        self.back = layer(lambda d, s: d.rounded_rectangle([0, 0, ew * s, eh * s], r * s, fill=(0xE8, 0x48, 0x7F)))
+        c = look.c
+        self.back = layer(lambda d, s: d.rounded_rectangle([0, 0, ew * s, eh * s], r * s, fill=c["env_back"]))
 
         # The letter, with "Happy Birthday!" near its top.
         lw, lh = round(ew * 0.88), round(eh * 0.84)
         letter = Image.new("RGBA", (lw, lh), (0, 0, 0, 0))
         ImageDraw.Draw(letter).rounded_rectangle([0, 0, lw - 1, lh - 1], round(6 * U * k), fill=PAPER)
-        words = text_sprite("Happy Birthday!", look.font("pacifico", 28.8 * k), (0x6A, 0x2A, 0x6E))
+        words = text_sprite("Happy Birthday!", look.font("pacifico", 28.8 * k), c["letter_ink"])
         paste(letter, words, (lw - words.width) / 2, lh * 0.06 - look.px(4 * k))
         self.letter, self.letter_at = letter, (round(ew * 0.06), round(eh * 0.08))
 
@@ -495,8 +525,8 @@ class Envelope(Scene):
         a = math.radians(160)
         p = np.clip(((xx - ew / 2) * math.sin(a) - (yy - eh / 2) * math.cos(a))
                     / (abs(ew * math.sin(a)) + abs(eh * math.cos(a))) + 0.5, 0, 1)
-        for c, vals in enumerate(zip((0xFF, 0x7D, 0xB6), (0xFF, 0x5F, 0xA2), (0xF0, 0x50, 0x8F))):
-            grad[..., c] = np.interp(p, [0, 0.6, 1], vals)
+        for ch, vals in enumerate(zip(*c["env_front"])):
+            grad[..., ch] = np.interp(p, [0, 0.6, 1], vals)
         front = Image.fromarray(grad.astype(np.uint8)).convert("RGBA")
         cut = Image.new("L", (ew * ss, eh * ss), 0)
         ImageDraw.Draw(cut).polygon([(0, 0), (ew * ss / 2, eh * ss * 0.58), (ew * ss, 0), (ew * ss, eh * ss),
@@ -506,12 +536,12 @@ class Envelope(Scene):
         cut = Image.fromarray(np.minimum(np.asarray(cut), np.asarray(rounded))).resize((ew, eh), Image.Resampling.LANCZOS)
         front.putalpha(cut)
         to = text_sprite(f"For {name}" if name else "For you", look.font("pacifico", 32 * k), (255, 255, 255),
-                         drop=(0x6A, 0x2A, 0x6E, 0.6), drop_px=look.px(2 * k))
+                         drop=c["to_shadow"], drop_px=look.px(2 * k))
         paste(front, to, (ew - to.width) / 2, eh * 0.93 - to.height)
         self.front = front
 
         self.flap = layer(lambda d, s: d.polygon([(0, 0), (ew * s, 0), (ew * s / 2, eh * s * 0.58)],
-                                                 fill=(0xFF, 0x8A, 0xC0)))
+                                                 fill=c["flap"]))
         self.flap = self.flap.crop((0, 0, ew, round(eh * 0.58)))
 
         # The gold seal, with the age on it.
@@ -527,7 +557,7 @@ class Envelope(Scene):
         seal.paste(g, (0, 0), m)
         seal = seal.resize((sd, sd), Image.Resampling.LANCZOS)
         label = text_sprite(str(age) if age is not None else "♥", look.font("outfit", 20.8 * k, 800),
-                            (0x6A, 0x2A, 0x6E))
+                            c["letter_ink"])
         paste(seal, label, (sd - label.width) / 2, (sd - label.height) / 2 + look.px(1))
         self.seal = seal
 
@@ -607,16 +637,19 @@ def balloon_float(look: Look, n: int, t: float) -> tuple[float, float]:
 
 class Message(Scene):
     """The message on its paper, rising in, with a ceiling of balloons dropping past it;
-    then the countdown to the selfies."""
+    then the countdown to the selfies. When it ends the film (the "bonusRound" ending),
+    balloons float up behind it too, and it stays a while."""
 
     fade = SLIDE_FADE
 
-    def __init__(self, look: Look, card: dict, countdown: bool):
+    def __init__(self, look: Look, card: dict, countdown: bool, last: bool = False):
         self.look = look
         self.countdown = countdown
+        self.floats = last
+        c = look.c
         words = sum(len(p.split()) for p in card["message"])
         self.read = min(max(words / 3 + 4, 8.0), 40.0)
-        self.dur = self.read + (COUNT_FROM if countdown else 2.0)
+        self.dur = self.read + (COUNT_FROM if countdown else LAST_LOOK if last else 2.0)
         U = look.U
         k = 1.6  # bigger than on a phone, so it reads on a TV
         width = round(560 * U * k)
@@ -627,12 +660,12 @@ class Message(Scene):
         line_h = round(body.size * 1.6)
 
         # (sprite, gap above, how far its drawing pads it on the left)
-        parts = [(text_sprite(f"Dear {card['name']}," if card["name"] else "Dear you,", head, (0xC2, 0x18, 0x5B)),
+        parts = [(text_sprite(f"Dear {card['name']}," if card["name"] else "Dear you,", head, c["paper_head"]),
                   0, round(head.size * 0.3))]
         for n, p in enumerate(card["message"]):
             for m, line in enumerate(wrap(p, body, width - pad_x * 2)):
                 s = text_mask(line, body)
-                sprite = Image.new("RGBA", (s.width, line_h), (0x3B, 0x23, 0x46, 0))
+                sprite = Image.new("RGBA", (s.width, line_h), c["paper_ink"] + (0,))
                 tmp = Image.new("L", (s.width, line_h), 0)
                 tmp.paste(s, (0, (line_h - s.height) // 2))
                 sprite.putalpha(tmp)
@@ -641,7 +674,7 @@ class Message(Scene):
         if card.get("from"):
             gap = round(1.4 * 16 * U * k)
             for m, line in enumerate(["Love,", card["from"]]):
-                s = text_sprite(line, sign, (0x6A, 0x2A, 0x6E))
+                s = text_sprite(line, sign, c["sign"])
                 parts.append((s, gap if m == 0 else -round(sign.size * 0.35), round(sign.size * 0.3)))
         height = pad_top + sum(s.height + g for s, g, _ in parts) + pad_bottom
         paper = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -675,6 +708,8 @@ class Message(Scene):
     def frame(self, u):
         look = self.look
         img = look.sky(u)
+        if self.floats:
+            floating_balloons(img, look, u)
         count_h = look.px(96 * 1.2) if self.countdown else 0
         cy = look.H / 2 - count_h / 2 - look.px(10)
         alpha, dy, s = rise_in(u, 0, 0.7, PAPER_RISE)
@@ -738,7 +773,7 @@ def ink_rows(img: Image.Image) -> tuple[int, int]:
 def credit_sprite(look: Look, text: str) -> Image.Image:
     font = look.font("outfit", 0.85 * 16 * 1.3, 400)
     lines = wrap(text, font, look.W * 0.8)
-    sprites = [text_sprite(line, font, SOFT) for line in lines]
+    sprites = [text_sprite(line, font, look.c["soft"]) for line in lines]
     w = max(s.width for s in sprites)
     h = sum(s.height for s in sprites)
     out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
@@ -750,16 +785,17 @@ def credit_sprite(look: Look, text: str) -> Image.Image:
 
 
 class ReelIntro(Scene):
-    """The title card before the selfies: 🤳 and the bonus link's words."""
+    """The title card before the bonus round: an emoji (🤳, or 🎉) and its title."""
 
     fade = SLIDE_FADE
 
-    def __init__(self, look: Look, title: str):
+    def __init__(self, look: Look, title: str, emoji: str = "🤳"):
         self.look = look
         self.dur = REEL_INTRO
         font = look.font("pacifico", 2.8 * 16 * 1.4)
         lines = wrap(title, font, look.W * 0.72)
-        sprites = [text_sprite(line, font, (255, 255, 255), glow=PINK + (0.7,), glow_px=look.px(18)) for line in lines]
+        glow = look.c["accent"] + (0.7,)
+        sprites = [text_sprite(line, font, (255, 255, 255), glow=glow, glow_px=look.px(18)) for line in lines]
         step = round(font.size * 1.35)
         w = max(s.width for s in sprites)
         h = step * (len(sprites) - 1) + sprites[-1].height
@@ -767,7 +803,7 @@ class ReelIntro(Scene):
         for n, s in enumerate(sprites):
             block.alpha_composite(s, ((w - s.width) // 2, n * step))
         self.title = block
-        self.emoji = emoji_sprite("🤳", look.px(64 * 1.4))
+        self.emoji = emoji_sprite(emoji, look.px(64 * 1.4))
 
     def frame(self, u):
         look = self.look
@@ -799,34 +835,49 @@ def emoji_sprite(char: str, size: int) -> Image.Image | None:
         return None
 
 
+def floating_balloons(img: Image.Image, look: Look, u: float) -> None:
+    """bd-balloons: nine balloons drifting up the screen."""
+    for n in range(9):
+        dx, dy = balloon_float(look, n, u)
+        x = look.W * (((n * 37) % 90) + 3) / 100
+        sprite = look.balloon(BALLOON_COLORS[n % len(BALLOON_COLORS)])
+        paste(img, sprite, x + dx, look.H + look.px(160) - look.px(80) + dy)
+
+
 class Finale(Scene):
-    """"Happy 15th Birthday <name>" with the shimmering letters, and balloons floating up."""
+    """"Happy 15th Birthday <name>" with the shimmering letters, and balloons floating up.
+    cheer: the "bonusRound" ending's short version instead, "Happy Birthday <name>!" for
+    3 s with balloons dropping."""
 
     fade = SLIDE_FADE
 
-    def __init__(self, look: Look, card: dict):
+    def __init__(self, look: Look, card: dict, cheer: bool = False):
         self.look = look
-        self.dur = FINALE
+        self.cheer = cheer
+        self.dur = CHEER if cheer else FINALE
+        c = look.c
         k = 1.4
         big = look.font("outfit", 88 * k, 800)
         self.lines = []  # (kind, sprite or mask, delay)
         self.lines.append(("shine", text_mask("HAPPY", big, -0.02 * big.size), 0.0))
-        if card.get("age") is not None:
+        if card.get("age") is not None and not cheer:
             age = look.font("outfit", 44.8 * k, 300)
-            self.lines.append(("plain", text_sprite(ordinal(card["age"]), age, SOFT, spacing=0.3 * age.size), 0.15))
+            self.lines.append(("plain", text_sprite(ordinal(card["age"]), age, c["soft"], spacing=0.3 * age.size),
+                               0.15))
         self.lines.append(("shine", text_mask("BIRTHDAY", big, -0.02 * big.size), 0.3))
         if card.get("name"):
             nf = look.font("pacifico", 96 * k)
-            self.lines.append(("plain", text_sprite(card["name"], nf, (255, 255, 255), glow=PINK + (0.8,),
-                                                    glow_px=look.px(18), drop=(0x6A, 0x2A, 0x6E, 0.6),
+            name = card["name"] + ("!" if cheer else "")
+            self.lines.append(("plain", text_sprite(name, nf, (255, 255, 255), glow=c["accent"] + (0.8,),
+                                                    glow_px=look.px(18), drop=c["name_drop"],
                                                     drop_px=look.px(4)), 0.5))
         self.ink = [ink_rows(thing) for _, thing, _ in self.lines]
-        self.credit = credit_sprite(look, card["musicCredit"]) if card.get("musicCredit") else None
+        self.credit = credit_sprite(look, card["musicCredit"]) if card.get("musicCredit") and not cheer else None
         # The rainbow behind the big words: gold, pink, violet, teal, gold, 3x as wide as the
         # words, sliding along (bd-shimmer, 6 s a lap).
         self.strip_w = max(m.width for kind, m, _ in self.lines if kind == "shine") * 3
         xs = np.linspace(0, 1, self.strip_w, dtype=np.float32)
-        stops = [GOLD, PINK, VIOLET, TEAL, GOLD]
+        stops = [GOLD, c["accent"], c["violet"], TEAL, GOLD]
         strip = np.stack([np.interp(xs, np.linspace(0, 1, 5), [s[c] for s in stops]) for c in range(3)], -1)
         self.strip = np.concatenate([strip, strip], 0).astype(np.uint8)  # twice, to slide around
 
@@ -846,11 +897,8 @@ class Finale(Scene):
     def frame(self, u):
         look = self.look
         img = look.sky(u)
-        for n in range(9):  # bd-balloons: nine, drifting up, behind the words
-            dx, dy = balloon_float(look, n, u)
-            x = look.W * (((n * 37) % 90) + 3) / 100
-            sprite = look.balloon(BALLOON_COLORS[n % len(BALLOON_COLORS)])
-            paste(img, sprite, x + dx, look.H + look.px(160) - look.px(80) + dy)
+        if not self.cheer:
+            floating_balloons(img, look, u)  # behind the words
         sprites = []
         for kind, thing, delay in self.lines:
             sprites.append((self._shine(thing, u) if kind == "shine" else thing, delay))
@@ -864,6 +912,37 @@ class Finale(Scene):
             y += (b - t) + gap
         if self.credit:
             paste(img, self.credit, (look.W - self.credit.width) / 2, look.H - self.credit.height - look.px(14), 0.7)
+        if self.cheer:
+            balloon_drop(img, look, u)
+        return img
+
+
+class GetReady(Scene):
+    """"Get ready for the bonus round!", rising in, then throbbing (.bd-getready)."""
+
+    fade = SLIDE_FADE
+
+    def __init__(self, look: Look):
+        self.look = look
+        self.dur = GET_READY
+        font = look.font("pacifico", 3.6 * 16 * 1.4)
+        lines = wrap("Get ready for the bonus round!", font, font.size * 12)
+        sprites = [text_sprite(line, font, (255, 255, 255), glow=GOLD + (0.8,), glow_px=look.px(18),
+                               drop=(0, 0, 0, 0.25), drop_px=look.px(4)) for line in lines]
+        step = round(font.size * 1.3)
+        w = max(s.width for s in sprites)
+        block = Image.new("RGBA", (w, step * (len(sprites) - 1) + sprites[-1].height), (0, 0, 0, 0))
+        for n, s in enumerate(sprites):
+            block.alpha_composite(s, ((w - s.width) // 2, n * step))
+        self.words = block
+
+    def frame(self, u):
+        look = self.look
+        img = look.sky(u)
+        a, dy, s = rise_in(u, 0, 0.8)
+        if u > 0.8:  # bd-throb: up to 1.06 and back, every second
+            s = 1 + 0.06 * EASE_IN_OUT(1 - abs(((u - 0.8) % 1) * 2 - 1))
+        paste_centered(img, self.words, look.W / 2, look.H / 2 + look.px(dy), a, s)
         return img
 
 
@@ -883,14 +962,34 @@ def scenes_for(look: Look, card: dict, files: Path) -> list[Scene]:
         else:
             scenes.append(Clip(look, files / s["src"], files / s["poster"], s["w"], s["h"], s["sound"]))
     bonus = card.get("bonus")
+    if card.get("ending") == "bonusRound":
+        # Cheer -> get ready -> the bonus round -> the message, which ends it.
+        scenes.append(Finale(look, card, cheer=True))
+        if bonus:
+            scenes.append(GetReady(look))
+            scenes += bonus_round(look, bonus, files, "🎉")
+        if card["message"]:
+            scenes.append(Message(look, card, countdown=False, last=True))
+        return scenes
     if card["message"]:
         scenes.append(Message(look, card, countdown=bool(bonus)))
     if bonus:
-        scenes.append(ReelIntro(look, bonus["link"]))
-        for n, s in enumerate(bonus["slides"]):
-            last = n == len(bonus["slides"]) - 1
-            scenes.append(Photo(look, files / s["src"], REEL_HOLD if last else (bonus.get("seconds") or FLIP), zoom=False, fade=0))
+        scenes += bonus_round(look, bonus, files, "🤳")
     scenes.append(Finale(look, card))
+    return scenes
+
+
+def bonus_round(look: Look, bonus: dict, files: Path, emoji: str) -> list[Scene]:
+    """The bonus round (SelfieReel): its title card, then the photos flipbook-fast, the
+    last one held a moment; clips play through, cut in with no fade."""
+    scenes: list[Scene] = [ReelIntro(look, bonus.get("title") or bonus["link"], emoji)]
+    for n, s in enumerate(bonus["slides"]):
+        if s.get("type") == "video":
+            scenes.append(Clip(look, files / s["src"], files / s["poster"], s["w"], s["h"], s["sound"], fade=0))
+        else:
+            last = n == len(bonus["slides"]) - 1
+            secs = REEL_HOLD if last else (bonus.get("seconds") or FLIP)
+            scenes.append(Photo(look, files / s["src"], secs, zoom=False, fade=0))
     return scenes
 
 
@@ -998,7 +1097,7 @@ def main() -> None:
         card_dir / "keep" / ("birthday-card-preview.mp4" if args.preview else "birthday-card.mp4"))
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    look = Look(height)
+    look = Look(height, card.get("theme") or "pink")
     scenes = scenes_for(look, card, files)
     starts = frame_starts(scenes)
     total = starts[-1]

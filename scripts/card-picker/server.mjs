@@ -8,8 +8,12 @@
  * Then open http://localhost:5288. Your picks are saved as you go, to <card>/picks.json
  * (the previous save is kept as picks.prev.json). It listens on this computer only and
  * never changes anything in <card>/originals.
+ *
+ * Its "Rebuild the card" button runs build.py on the card. That needs the cards venv's
+ * Python: <card>/../.venv/bin/python, or set CARD_PYTHON.
  */
-import { createReadStream } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { createReadStream, existsSync } from 'node:fs';
 import { copyFile, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, resolve, sep } from 'node:path';
@@ -25,6 +29,46 @@ const card = resolve(cardArg.replace(/^~/, process.env.HOME ?? '~'));
 const portAt = args.indexOf('--port');
 const port = portAt >= 0 ? Number(args[portAt + 1]) : 5288;
 const here = fileURLToPath(new URL('.', import.meta.url));
+const python =
+  process.env.CARD_PYTHON ??
+  (existsSync(join(card, '..', '.venv', 'bin', 'python'))
+    ? join(card, '..', '.venv', 'bin', 'python')
+    : 'python3');
+
+let building = false;
+/**
+ * Runs one of the card scripts on the card (build.py, or prepare.py to take in new
+ * photos); answers with how it went and its last lines of output.
+ */
+function runScript(res, script, extra = []) {
+  if (building) {
+    res.writeHead(409, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ ok: false, log: 'Busy with the last one: try again in a moment.' }));
+    return;
+  }
+  building = true;
+  let log = '';
+  const child = spawn(python, ['-I', join(here, script), card, ...extra]);
+  const keep = (chunk) => {
+    // The progress counter rewrites one line with \r: keep only the last of it.
+    log = (log + chunk.toString())
+      .split('\n')
+      .map((l) => l.split('\r').pop())
+      .join('\n');
+  };
+  child.stdout.on('data', keep);
+  child.stderr.on('data', keep);
+  const done = (ok) => {
+    building = false;
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ ok, log: log.trim().split('\n').slice(-12).join('\n') }));
+  };
+  child.on('error', (err) => {
+    log += String(err);
+    done(false);
+  });
+  child.on('close', (code) => done(code === 0));
+}
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -119,6 +163,22 @@ const server = createServer(async (req, res) => {
       const saved = await readFile(join(card, 'picks.json'), 'utf8').catch(() => null);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       return res.end(saved ?? '{"items":[]}');
+    }
+    if (path === '/build' && req.method === 'POST') return runScript(res, 'build.py');
+    if (path === '/take-new' && req.method === 'POST') {
+      return runScript(res, 'prepare.py', ['--take-new']);
+    }
+    if (path === '/crops.json') {
+      // Crops are set in card.config.json (build.py makes them); the page only shows them.
+      const config = await readFile(join(card, 'card.config.json'), 'utf8').catch(() => '{}');
+      let crop = {};
+      try {
+        crop = JSON.parse(config).crop ?? {};
+      } catch {
+        /* a half-written config: no crops */
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(crop));
     }
     if (path === '/manifest.json')
       return await sendFile(req, res, join(card, 'picker', 'manifest.json'));

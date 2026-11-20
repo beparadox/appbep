@@ -8,7 +8,12 @@ needs to show them. Reads <card>/originals/ (never changes it) and writes:
   <card>/picker/view/<id>.mp4   videos the browser can't play as they are (e.g. HEVC)
 
 Usage (needs Pillow + pillow-heif, and ffmpeg/ffprobe on the PATH):
-  python prepare.py ~/dev/appbep-cards/<card>
+  python prepare.py ~/dev/appbep-cards/<card> [--take-new]
+
+--take-new first copies any photos and videos sitting loose in <card>/ (not in a folder)
+into <card>/originals/, read-only, leaving the loose ones where they are. That's for
+adding to a card by dropping files in its folder; the picker's "Look for new photos"
+button runs it. Re-running only does the files it hasn't done before.
 
 Card folders hold private photos: keep them outside the repo.
 """
@@ -16,6 +21,7 @@ Card folders hold private photos: keep them outside the repo.
 import hashlib
 import json
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -146,9 +152,27 @@ def do_video(src: Path, id_: str, out: Path) -> dict:
     }
 
 
+def take_new(card: Path, originals: Path) -> None:
+    """Copy photos and videos loose in the card folder into originals/, read-only."""
+    originals.mkdir(exist_ok=True)
+    new = [p for p in sorted(card.iterdir())
+           if p.is_file() and kind_of(p) and not (originals / p.name).exists()]
+    if not new:
+        print("No new files in the card folder.")
+        return
+    originals.chmod(originals.stat().st_mode | 0o200)  # writable while copying in
+    for p in new:
+        target = originals / p.name
+        shutil.copy2(p, target)
+        target.chmod(0o444)
+    print(f"Copied {len(new)} new file{'s' if len(new) != 1 else ''} into originals/.")
+
+
 def main() -> None:
     card = Path(sys.argv[1]).expanduser().resolve()
     originals = card / "originals"
+    if "--take-new" in sys.argv[2:]:
+        take_new(card, originals)
     out = card / "picker"
     for d in ("thumbs", "view"):
         (out / d).mkdir(parents=True, exist_ok=True)

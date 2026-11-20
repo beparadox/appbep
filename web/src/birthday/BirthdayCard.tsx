@@ -15,10 +15,22 @@ import Slideshow from './Slideshow';
 import { cardBase, ordinal, validId, type CardData } from './types';
 import './birthday.css';
 
-type Stage = 'envelope' | 'opening' | 'hello' | 'show' | 'message' | 'bonus' | 'selfies';
+type Stage =
+  | 'envelope'
+  | 'opening'
+  | 'hello'
+  | 'show'
+  | 'message'
+  | 'bonus'
+  | 'selfies'
+  | 'cheer'
+  | 'getready';
 
 /** After the show, the countdown to the selfies starts here. */
 const COUNT_FROM = 5;
+/** The 'bonusRound' ending: how long "Happy Birthday" and "Get ready…" each show. */
+const CHEER_MS = 3000;
+const GET_READY_MS = 3000;
 
 interface Props {
   /** The card itself, for the offline keepsake (keepsake.tsx); otherwise it's fetched by id. */
@@ -35,6 +47,9 @@ interface Props {
  * dropping → the bonus photos as a flipbook → "Happy Birthday" with confetti and balloons
  * to pop. Closing the slideshow early goes straight to "Happy Birthday". The bonus photos
  * are also a gallery behind a link.
+ *
+ * With card.ending 'bonusRound', the show is followed instead by "Happy Birthday <name>!"
+ * with balloons dropping → "Get ready for the bonus round!" → the bonus round → the message.
  */
 export default function BirthdayCard({ data, files }: Props = {}) {
   const { id = '' } = useParams();
@@ -96,7 +111,7 @@ export default function BirthdayCard({ data, files }: Props = {}) {
     v.playsInline = true;
     v.setAttribute('playsinline', '');
     v.preload = 'auto';
-    const first = card.slides.find((s) => s.type === 'video');
+    const first = [...card.slides, ...(card.bonus?.slides ?? [])].find((s) => s.type === 'video');
     if (first) {
       v.src = base + first.src;
       v.play().catch(() => {});
@@ -128,12 +143,37 @@ export default function BirthdayCard({ data, files }: Props = {}) {
     window.scrollTo(0, 0);
   }
 
+  const bonusRound = card?.ending === 'bonusRound';
   const finished = useCallback(() => {
+    if (bonusRound) {
+      goTo('cheer');
+      setDrop((d) => d + 1);
+      return;
+    }
     goTo('message');
     setDrop((d) => d + 1);
     setEnding(true);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [bonusRound]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // The 'bonusRound' ending moves along by itself: cheer → get ready → the bonus round.
+  useEffect(() => {
+    if (stage === 'cheer') {
+      const t = setTimeout(() => {
+        if (card?.bonus) setStage('getready');
+        else goTo('message');
+      }, CHEER_MS);
+      return () => clearTimeout(t);
+    }
+    if (stage === 'getready') {
+      const t = setTimeout(() => setStage('selfies'), GET_READY_MS);
+      return () => clearTimeout(t);
+    }
+  }, [stage, card]); // eslint-disable-line react-hooks/exhaustive-deps
   const closeShow = useCallback(() => goTo('hello'), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const afterBonusRound = useCallback(() => {
+    goTo('message');
+    setDrop((d) => d + 1);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** The end of the show: after the message and a countdown, the selfies. */
   const startSelfies = useCallback(() => {
@@ -158,7 +198,7 @@ export default function BirthdayCard({ data, files }: Props = {}) {
     <>
       <title>A birthday card for you 🎂</title>
       <meta name="robots" content="noindex, nofollow" />
-      <meta name="theme-color" content="#1b1035" />
+      <meta name="theme-color" content={card?.theme === 'blue' ? '#0b1838' : '#1b1035'} />
     </>
   );
 
@@ -173,7 +213,7 @@ export default function BirthdayCard({ data, files }: Props = {}) {
 
   const name = card?.name ?? '';
   return (
-    <main className={`bd bd-stage-${stage}`}>
+    <main className={`bd bd-stage-${stage}${card?.theme === 'blue' ? ' bd-theme-blue' : ''}`}>
       {head}
       <div className="bd-sky" aria-hidden="true">
         {Array.from({ length: 14 }, (_, n) => (
@@ -251,6 +291,8 @@ export default function BirthdayCard({ data, files }: Props = {}) {
       {stage === 'message' && card && (
         <section className="bd-center bd-message-stage">
           {muteButton && <div className="bd-corner">{muteButton}</div>}
+          {/* The 'bonusRound' ending stops here: balloons float up around the message, to pop. */}
+          {bonusRound && <Balloons onPop={(x, y) => confetti.current?.burst(x, y, 35, 2)} />}
           {drop > 0 && (
             <BalloonDrop key={drop} onPop={(x, y) => confetti.current?.burst(x, y, 35, 2)} />
           )}
@@ -287,12 +329,37 @@ export default function BirthdayCard({ data, files }: Props = {}) {
         </section>
       )}
 
+      {stage === 'cheer' && card && (
+        <section className="bd-center bd-cheer">
+          {muteButton && <div className="bd-corner">{muteButton}</div>}
+          {drop > 0 && (
+            <BalloonDrop key={drop} onPop={(x, y) => confetti.current?.burst(x, y, 35, 2)} />
+          )}
+          <h1 className="bd-title">
+            <span className="bd-happy">Happy</span>
+            <span className="bd-birthday">Birthday</span>
+            <span className="bd-name">{name}!</span>
+          </h1>
+        </section>
+      )}
+
+      {stage === 'getready' && card && (
+        <section className="bd-center bd-cheer">
+          {muteButton && <div className="bd-corner">{muteButton}</div>}
+          <h1 className="bd-getready">Get ready for the bonus round!</h1>
+        </section>
+      )}
+
       {stage === 'selfies' && card?.bonus && (
         <SelfieReel
-          title={card.bonus.link}
+          title={card.bonus.title || card.bonus.link}
+          emoji={bonusRound ? '🎉' : undefined}
           slides={card.bonus.slides}
           base={base}
-          onDone={closeShow}
+          video={video.current}
+          music={music.current}
+          flipMs={card.bonus.seconds ? card.bonus.seconds * 1000 : undefined}
+          onDone={bonusRound ? afterBonusRound : closeShow}
         />
       )}
 
@@ -300,9 +367,11 @@ export default function BirthdayCard({ data, files }: Props = {}) {
         <>
           {muteButton && <div className="bd-corner">{muteButton}</div>}
           <Gallery
-            title={card.bonus.link}
+            title={card.bonus.title || card.bonus.link}
             slides={card.bonus.slides}
             base={base}
+            music={music.current}
+            flipMs={card.bonus.seconds ? card.bonus.seconds * 1000 : undefined}
             onBack={() => goTo('hello')}
           />
         </>

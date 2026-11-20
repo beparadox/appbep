@@ -35,8 +35,25 @@ export interface CardData {
   /** Credit for the song, shown small at the bottom of the message. */
   musicCredit?: string | null;
   slides: Slide[];
-  /** An extra gallery behind a link. */
-  bonus: { link: string; slides: PhotoSlide[] } | null;
+  /**
+   * The bonus round: played fast after the show, and a gallery behind a link. title is the
+   * words on its opening card (the link's words if not given).
+   */
+  bonus: {
+    link: string;
+    title?: string | null;
+    /** How long each photo shows when the bonus round flips through (a third of a second if not given). */
+    seconds?: number | null;
+    slides: Slide[];
+  } | null;
+  /** The colours: pink (the default) or blue. */
+  theme?: 'pink' | 'blue' | null;
+  /**
+   * What follows the show. 'message' (the default): the message with balloons dropping,
+   * a countdown, then the bonus round. 'bonusRound': "Happy Birthday <name>!" with
+   * balloons dropping, "Get ready for the bonus round!", the bonus round, then the message.
+   */
+  ending?: 'message' | 'bonusRound' | null;
 }
 
 /** Card ids are random letters and digits (see build.py). */

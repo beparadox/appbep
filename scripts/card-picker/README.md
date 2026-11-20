@@ -149,14 +149,16 @@ It plays the card the way the site does, with nobody tapping:
    cross-fades; clips play in full with their own sound while the music fades out and
    pauses, then picks up where it left off.
 3. The message on its paper, with the balloon drop, then the 5…1 countdown.
-4. The bonus photos: their title card, then the flipbook.
+4. The bonus round: its title card, then the flipbook.
 5. "Happy *n*th Birthday", with balloons floating up; the music fades out and the picture
    fades to black.
 
-The music credit is shown on the message and at the end, as the licence asks.
+With the `"bonusRound"` ending, steps 3–5 are instead: "Happy Birthday _name_!" with the
+balloon drop (3 s), "Get ready for the bonus round!" (3 s), the bonus round (photos at
+`bonusSeconds`, clips played in full), then the message with balloons floating up, and
+the fade to black. A `"blue"` theme recolours the video as it does the card.
 
-**Not yet supported by the video:** the `"bonusRound"` ending (it plays the default
-ending instead), the blue theme, and clips in the bonus round (it expects photos only).
+The music credit is shown on the message and at the end, as the licence asks.
 
 What the video can't do: the balloons can't be popped, the confetti is left out, and the bonus
 gallery appears only as the flipbook.

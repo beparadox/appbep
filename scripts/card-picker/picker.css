@@ -261,6 +261,18 @@ button[aria-pressed='true'] {
 #seq .moves button {
   padding: 0.1rem 0.4rem;
 }
+#seq .moves .join[aria-pressed='true'] {
+  border-color: var(--pick);
+  color: var(--pick);
+}
+/* A clip joined to the next: no line between them, a bar down the side. */
+#seq li.joined {
+  box-shadow: inset 3px 0 0 var(--pick);
+}
+#seq li.joined + li {
+  border-top-color: transparent;
+  box-shadow: inset 3px 0 0 var(--pick);
+}
 .empty {
   color: var(--muted);
 }

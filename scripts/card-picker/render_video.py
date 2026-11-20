@@ -889,7 +889,7 @@ def scenes_for(look: Look, card: dict, files: Path) -> list[Scene]:
         scenes.append(ReelIntro(look, bonus["link"]))
         for n, s in enumerate(bonus["slides"]):
             last = n == len(bonus["slides"]) - 1
-            scenes.append(Photo(look, files / s["src"], REEL_HOLD if last else FLIP, zoom=False, fade=0))
+            scenes.append(Photo(look, files / s["src"], REEL_HOLD if last else (bonus.get("seconds") or FLIP), zoom=False, fade=0))
     scenes.append(Finale(look, card))
     return scenes
 

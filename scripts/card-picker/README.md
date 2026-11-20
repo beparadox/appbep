@@ -19,12 +19,106 @@ write next to it. Nothing here should ever be committed with a real name or phot
 
 ## Making a card
 
-1. `python prepare.py <card>`: makes previews of everything in `<card>/originals`.
-2. `node server.mjs <card>`, then open http://localhost:5288: the picker page. Tick photos, put them in order, trim clips,
-   choose sound on/off. It saves `<card>/picks.json`.
-3. Write `<card>/card.config.json` (name, age, message, music…; `build.py` describes it),
-   then `python build.py <card>`: writes the finished card to `<card>/out/<id>/`.
-4. `scripts/card-picker/upload.sh <card>`: puts it online at `appbep.com/birthday/<id>`.
+### 1. Start the card folder
+
+Make `~/dev/appbep-cards/<card>/` and put the photos and videos in it, either loose in the
+folder or in `<card>/originals/`. Then:
+
+```sh
+python scripts/card-picker/prepare.py ~/dev/appbep-cards/<card> --take-new
+```
+
+`--take-new` copies the loose files into `<card>/originals/`, read-only, and leaves the loose
+ones where they are. Nothing in `originals/` is ever changed. Without `--take-new`, it
+only looks in `originals/`. Either way it makes the previews the picker shows, and on a
+re-run it only does files it hasn't seen.
+
+### 2. Pick in the picker
+
+```sh
+node scripts/card-picker/server.mjs ~/dev/appbep-cards/<card>
+```
+
+Open http://localhost:5288. Everything you do is saved as you go to `<card>/picks.json`, and
+the save before that is kept as `picks.prev.json`.
+
+- **card** / **bonus** on a tile: put it in the slideshow or the bonus round. Photos and
+  videos can go in either.
+- **The list on the right** (tabs: The card / Bonus round): drag, or ↑ ↓, to reorder; ✕ to
+  take out; **Sort by date** puts it back oldest-first.
+- **Click a picture** to see it big: turn it, and for a video set where each section
+  starts and ends, turn its sound on or off (off means the music keeps playing under it),
+  or use more than one part of it.
+- **⛓** on a clip followed by another clip: join them into one video. A silent part gets
+  silence, and the music stays off for the whole joined clip if any part has sound.
+- **Each photo shows for** sets the slideshow's speed.
+- **Look for new photos**: after dropping more files in `<card>/`, takes them in (step 1's
+  `--take-new`) and reloads the page. New ones still need ticking.
+- **Rebuild the card**: saves, then runs step 4. Hover over a failure to see why.
+
+Keep only one picker page open per card: a page saves its own copy of the picks over the
+file, so don't edit `picks.json` by hand while one is open.
+
+### 3. Write `<card>/card.config.json`
+
+```json
+{
+  "name": "…",
+  "age": 1,
+  "from": "…",
+  "message": "Paragraphs, separated by blank lines.",
+  "bonusLink": "Bonus round for …!!!",
+  "music": "/path/to/song.mp3",
+  "musicCredit": "Music: \"Song\" by Band",
+  "localOnly": false
+}
+```
+
+| Setting        | What it does                                                                                                                                                                                                                                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`           | The link, `appbep.com/birthday/<id>`. Leave it out: the first build makes one up and writes it here.                                                                                                                                                                                                                   |
+| `name`, `age`  | On the envelope, the greeting and the message. `age` can be `null`.                                                                                                                                                                                                                                                    |
+| `from`         | Signs the message: "Love, …".                                                                                                                                                                                                                                                                                          |
+| `message`      | Yours, in your words. Blank lines split paragraphs.                                                                                                                                                                                                                                                                    |
+| `bonusLink`    | The words on the link to the bonus gallery, and on the bonus round's opening card.                                                                                                                                                                                                                                     |
+| `bonusTitle`   | Optional: different words for the bonus round's opening card.                                                                                                                                                                                                                                                          |
+| `bonusSeconds` | Optional: how long each bonus photo shows (a third of a second if left out). Clips play at their own length.                                                                                                                                                                                                           |
+| `theme`        | Optional: `"blue"`. Pink if left out.                                                                                                                                                                                                                                                                                  |
+| `ending`       | What follows the slideshow. Left out: the message with balloons dropping, a 5…1 countdown, the bonus round, then the "Happy Birthday" balloons. `"bonusRound"`: "Happy Birthday <name>!" with balloons dropping (3 s), "Get ready for the bonus round!" (3 s), the bonus round, then the message with balloons to pop. |
+| `music`        | A song file, or `null`. It's evened out and stripped of tags. It loops if the card runs longer.                                                                                                                                                                                                                        |
+| `musicCredit`  | Shown small on the message (and in the keepsake video), for songs that ask to be credited.                                                                                                                                                                                                                             |
+| `crop`         | Optional: keep only part of a photo, e.g. `{"PXL_….jpg": [0.16, 0.37, 0.48, 0.245]}`: left, top, width, height as fractions of the upright photo. Cut from the original at build time; the picker shows it cropped too.                                                                                                |
+| `localOnly`    | `true` while the card has anything that mustn't go online (e.g. stand-in music). `upload.sh` refuses until it's `false`.                                                                                                                                                                                               |
+
+### 4. Build it
+
+```sh
+python scripts/card-picker/build.py ~/dev/appbep-cards/<card>
+```
+
+(or **Rebuild the card** in the picker). It writes the card to `<card>/out/<id>/`: photos
+upright, at most 1600 px, clips cut and sized for phones, everything stripped of
+metadata (no GPS, camera or dates) and given hashed names. Re-running only redoes what
+changed: seconds for a reorder, a minute or two for new clips.
+
+### 5. Look at it locally
+
+```sh
+cd web && CARDS_DIR=~/dev/appbep-cards/<card>/out npx vite --port 5174
+```
+
+Open http://localhost:5174/birthday/<id>. Add `--host` to try it on a phone on the same
+Wi-Fi (at this computer's address). After a rebuild, reload the page.
+
+### 6. Put it online
+
+```sh
+scripts/card-picker/upload.sh ~/dev/appbep-cards/<card>
+```
+
+It goes to `appbep.com/birthday/<id>`. The live site has to be deployed with the
+card code the card needs first (a new `theme` or `ending`, say), so merge and deploy before
+uploading. To change a live card: rebuild, then upload again.
 
 ## Keeping a card after it's offline
 
@@ -59,8 +153,12 @@ It plays the card the way the site does, with nobody tapping:
 5. "Happy *n*th Birthday", with balloons floating up; the music fades out and the picture
    fades to black.
 
-The music credit is shown on the message and at the end, as the licence asks. What the
-video can't do: the balloons can't be popped, the confetti is left out, and the bonus
+The music credit is shown on the message and at the end, as the licence asks.
+
+**Not yet supported by the video:** the `"bonusRound"` ending (it plays the default
+ending instead), the blue theme, and clips in the bonus round (it expects photos only).
+
+What the video can't do: the balloons can't be popped, the confetti is left out, and the bonus
 gallery appears only as the flipbook.
 
 For the video only, clips are brought closer to the music's loudness (by up to 8 dB) and

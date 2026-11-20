@@ -1,30 +1,53 @@
 import { useEffect, useState } from 'react';
-import type { PhotoSlide } from './types';
+import type { Music } from './music';
+import type { Slide } from './types';
 
-/** How long each photo shows in the flipbook. */
+/** How long each photo shows in the flipbook, unless the card says otherwise. */
 export const FLIP_MS = 330;
 
 interface Props {
   title: string;
-  slides: PhotoSlide[];
+  slides: Slide[];
   base: string;
+  /** Steps aside while a clip with sound plays. */
+  music?: Music | null;
+  /** How long each photo shows in the flipbook. */
+  flipMs?: number;
   onBack: () => void;
 }
 
-/** The bonus gallery: a grid of photos; tap one to see it big. "Flipbook" runs through them fast. */
-export default function Gallery({ title, slides, base, onBack }: Props) {
+/**
+ * The bonus gallery: a grid of photos and clips; tap one to see it big (a clip plays).
+ * "Flipbook" runs through them fast, waiting for each clip to finish.
+ */
+export default function Gallery({ title, slides, base, music, flipMs = FLIP_MS, onBack }: Props) {
   const [open, setOpen] = useState<number | null>(null);
   const [flipping, setFlipping] = useState(false);
+  const shown = open == null ? null : slides[open];
+
+  // The music steps aside while a clip with sound is open.
+  const loud = shown?.type === 'video' && shown.sound;
+  useEffect(() => {
+    if (!loud) return;
+    music?.duck(true);
+    return () => music?.duck(false);
+  }, [loud, music]);
+
+  function clipEnded() {
+    if (!flipping || open == null) return;
+    if (open + 1 < slides.length) setOpen(open + 1);
+    else setFlipping(false);
+  }
 
   // Flipbook: a third of a second each, once through.
   useEffect(() => {
-    if (!flipping || open == null) return;
+    if (!flipping || open == null || slides[open]?.type === 'video') return;
     const t = setTimeout(() => {
       if (open + 1 < slides.length) setOpen(open + 1);
       else setFlipping(false);
-    }, FLIP_MS);
+    }, flipMs);
     return () => clearTimeout(t);
-  }, [flipping, open, slides.length]);
+  }, [flipping, open, slides, flipMs]);
 
   useEffect(() => {
     if (open == null) return;
@@ -57,16 +80,35 @@ export default function Gallery({ title, slides, base, onBack }: Props) {
       <ul className="bd-grid">
         {slides.map((s, n) => (
           <li key={s.src}>
-            <button type="button" onClick={() => setOpen(n)} aria-label={`Photo ${n + 1}`}>
-              <img src={base + s.src} alt="" loading="lazy" />
+            <button
+              type="button"
+              className={s.type === 'video' ? 'bd-grid-video' : undefined}
+              onClick={() => setOpen(n)}
+              aria-label={`${s.type === 'video' ? 'Video' : 'Photo'} ${n + 1}`}
+            >
+              <img src={base + (s.type === 'photo' ? s.src : s.poster)} alt="" loading="lazy" />
             </button>
           </li>
         ))}
       </ul>
 
-      {open != null && slides[open] && (
+      {open != null && shown && (
         <div className="bd-lightbox" onClick={() => setOpen(null)}>
-          <img src={base + slides[open].src} alt="" />
+          {shown.type === 'photo' ? (
+            <img src={base + shown.src} alt="" />
+          ) : (
+            <video
+              key={shown.src}
+              src={base + shown.src}
+              poster={base + shown.poster}
+              muted={!shown.sound}
+              autoPlay
+              playsInline
+              controls
+              onClick={(e) => e.stopPropagation()}
+              onEnded={clipEnded}
+            />
+          )}
           <div className="bd-bar" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"

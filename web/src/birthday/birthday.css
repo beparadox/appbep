@@ -779,3 +779,124 @@
     animation-duration: calc(var(--dur) * 2) !important;
   }
 }
+
+/* ---------- The "bonus round" ending (card.ending = 'bonusRound') ---------- */
+.bd-cheer {
+  position: relative;
+}
+.bd-cheer .bd-title {
+  margin: 0;
+}
+.bd-getready {
+  position: relative;
+  z-index: 2;
+  max-width: 12em;
+  margin: 0;
+  font-family: 'Pacifico', cursive;
+  font-weight: 400;
+  font-size: clamp(2rem, 9vw, 3.6rem);
+  line-height: 1.3;
+  color: #fff;
+  text-shadow:
+    0 0 18px rgba(255, 209, 102, 0.8),
+    0 4px 0 rgba(0, 0, 0, 0.25);
+  animation:
+    bd-rise-in 0.8s cubic-bezier(0.2, 1.3, 0.4, 1) both,
+    bd-throb 1s ease-in-out 0.8s infinite;
+}
+@keyframes bd-throb {
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* A clip in the bonus round, and in its gallery. */
+.bd-reel .bd-video-host,
+.bd-reel .bd-video {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+}
+.bd-grid .bd-grid-video {
+  position: relative;
+  display: block;
+}
+.bd-grid .bd-grid-video::after {
+  content: '▶';
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.8rem;
+}
+.bd-lightbox video {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* ---------- Blue (card.theme = 'blue') ---------- */
+.bd.bd-theme-blue {
+  --ink: #f5faff;
+  --soft: #d6e6fb;
+  --pink: #4da3ff; /* the accent colour; pink by name only here */
+  --violet: #7b8cff;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(77, 163, 255, 0.4), transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(79, 209, 197, 0.25), transparent 50%),
+    linear-gradient(160deg, #0b1838 0%, #133a6e 55%, #1d5794 100%);
+}
+.bd-theme-blue .bd-env-back {
+  background: #2a74d6;
+}
+.bd-theme-blue .bd-env-front {
+  background: linear-gradient(160deg, #78bcff, #4da3ff 60%, #3b8ef0);
+}
+.bd-theme-blue .bd-flap {
+  background: #95cbff;
+}
+.bd-theme-blue .bd-to {
+  text-shadow: 0 2px 6px rgba(16, 48, 110, 0.6);
+}
+.bd-theme-blue .bd-letter,
+.bd-theme-blue .bd-seal {
+  color: #1d3f7a;
+}
+.bd-theme-blue .bd-name {
+  text-shadow:
+    0 0 18px rgba(77, 163, 255, 0.85),
+    0 4px 0 rgba(16, 48, 110, 0.6);
+}
+.bd-theme-blue .bd-primary {
+  box-shadow: 0 8px 24px rgba(77, 163, 255, 0.45);
+}
+.bd-theme-blue .bd-reel {
+  background: #0b1838;
+}
+.bd-theme-blue .bd-reel-intro {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(77, 163, 255, 0.4), transparent 60%),
+    linear-gradient(160deg, #0b1838 0%, #133a6e 55%, #1d5794 100%);
+}
+.bd-theme-blue .bd-reel-intro h2 {
+  text-shadow: 0 0 18px rgba(77, 163, 255, 0.8);
+}
+.bd-theme-blue .bd-paper h2 {
+  color: #1e5fb8;
+}
+.bd-theme-blue .bd-paper {
+  color: #1f2c46;
+}
+.bd-theme-blue .bd-sign {
+  color: #1d3f7a;
+}
+.bd-theme-blue .bd-primary {
+  animation-name: bd-pulse-blue;
+}
+@keyframes bd-pulse-blue {
+  50% {
+    box-shadow: 0 8px 34px rgba(77, 163, 255, 0.8);
+  }
+}

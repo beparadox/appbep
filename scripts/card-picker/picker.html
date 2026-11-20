@@ -20,6 +20,17 @@
         Sort by date
       </button>
       <span id="save-status" class="save" aria-live="polite"></span>
+      <button
+        id="take-new"
+        type="button"
+        title="Take in photos and videos you've added to the card folder"
+      >
+        Look for new photos
+      </button>
+      <button id="rebuild" type="button" title="Make the card from these picks (build.py)">
+        Rebuild the card
+      </button>
+      <span id="build-status" class="save" aria-live="polite"></span>
     </header>
 
     <main class="layout">
@@ -33,8 +44,8 @@
           <button type="button" data-filter="unpicked" aria-pressed="false">Not yet</button>
         </div>
         <p class="hint">
-          Tick <b>card</b> to put a photo or video in the slideshow, or <b>bonus</b> for the extra
-          gallery. Click a picture to see it big, turn it, or choose which parts of a video to use.
+          Tick <b>card</b> to put a photo or video in the slideshow, or <b>bonus</b> for the bonus
+          round. Click a picture to see it big, turn it, or choose which parts of a video to use.
         </p>
         <div id="grid"></div>
       </section>
@@ -45,7 +56,7 @@
             The card <span></span>
           </button>
           <button type="button" data-list="bonus" aria-pressed="false">
-            Bonus gallery <span></span>
+            Bonus round <span></span>
           </button>
         </div>
         <p class="hint">Drag to reorder, or use ↑ ↓.</p>
